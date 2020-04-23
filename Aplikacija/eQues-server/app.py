@@ -7,7 +7,7 @@ app = Flask(__name__)
 CORS(app)
 
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://root:root@localhost/eQues_db_2"
+app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://root:root@localhost/eQues_db"
 
 @app.route("/")
 def hello_world():
