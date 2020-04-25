@@ -4,14 +4,14 @@
 
 <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
 
-    <div>
-        <label for="name"> Name </label>
-        <input id="name" type="text" formControlName="name">
+    <mat-form-field appearance="outline">
+        <mat-label for="name"> Name </mat-label>
+        <input matInput id="name" type="text" formControlName="name">
 
         <div *ngIf="submitted && f.name.errors">
             <div *ngIf="f.name.errors.required">First name is required</div>
         </div>
-    </div>
+    </mat-form-field>
 
     <div>
         <label for="lastname"> Last name </label>

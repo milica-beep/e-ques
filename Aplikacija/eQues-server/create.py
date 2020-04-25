@@ -1,6 +1,7 @@
 from flask_sqlalchemy import sqlalchemy
 from app import app
 from models.shared import db
+from data import create_data
 
 from models import *
 
@@ -24,6 +25,7 @@ if __name__ == "__main__":
         db.init_app(app)
         with app.app_context():
             db.create_all()
+            create_data()
         print(f"Database {database_name} created successfully!")
     except Exception as e:
         print("Database creation failed!")
