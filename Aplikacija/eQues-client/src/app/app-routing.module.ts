@@ -7,16 +7,15 @@ import { LoginComponent } from './components/login/login.component';
 
 const routes: Routes = [{
   path: '',
-  component: DefaultComponent,
-  children: [{
+  component: DefaultComponent
+ }, {
     path: 'register',
     component: RegisterComponent
   }, {
     path: 'login',
     component: LoginComponent
   }
-]
-}];
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

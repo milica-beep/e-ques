@@ -5,7 +5,7 @@ class User(db.Model):
     name = db.Column(db.String(30), nullable=False)
     lastname = db.Column(db.String(30), nullable=False)
     email = db.Column(db.String(50), nullable=False, unique=True)
-    password = db.Column(db.String(256), nullable=False)
+    hashed_password = db.Column(db.String(256), nullable=False)
     year = db.Column(db.String(5))
     module = db.Column(db.String(50))
 

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { User } from '../models/User';
 
 
 @Injectable({
@@ -18,8 +19,12 @@ export class AuthService {
     return !!this.getToken();
   }
 
-  login(username:string, password:string):Observable<{}> {
-    return this.http.post<any>(this.serverUrl+'login', {username: username,password: password})
+  register(user:User):Observable<{}> {
+    return this.http.post<User>(this.serverUrl + 'auth/register', user);
+  }
+
+  login(email:string, password:string):Observable<{}> {
+    return this.http.post<any>(this.serverUrl+'/auth/login', {email: email,password: password})
     .pipe(map(response => {
 
       localStorage.setItem('accessToken', response.access_token);
@@ -37,4 +42,6 @@ export class AuthService {
   test() {
     return this.http.get<any>(this.serverUrl+'test');
   }
+
+
 }

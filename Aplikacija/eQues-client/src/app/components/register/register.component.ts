@@ -3,6 +3,7 @@ import { Router } from '@angular/router'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { UserService } from '../../services/user.service'
 import { User } from '../../models/User'
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -19,7 +20,8 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private userService: UserService
+    private userService: UserService,
+    private authService: AuthService
     ) { }
 
   ngOnInit(): void {
@@ -37,28 +39,31 @@ export class RegisterComponent implements OnInit {
   get f() { return this.registerForm.controls; }
 
   onSubmit() {
-    //this.user = new User();
-
-    //this.submitted = true;
-
-    //if(this.registerForm.invalid) {
-   //   return;
-    //}
-
-    //this.user = this.registerForm.value;
-    
     this.user = new User();
+
+    this.submitted = true;
+
+    if(this.registerForm.invalid) {
+      return;
+    }
+
+    this.user = this.registerForm.value;
+    
+    /*this.user = new User();
     this.user.name = 'Milica';
     this.user.lastname = 'Nikolic';
     this.user.email = 'nekotamo@elfak.rs';
     this.user.password = '123456';
     this.user.year = 'III';
-    this.user.module = 'Computer Science';
+    this.user.module = 'Computer Science'; */
 
-    this.userService.addUser(this.user).subscribe(user => {
-      console.log(user);
-      
-    });
+    this.authService.register(this.user).subscribe(
+      data => {
+        console.log(data['message']);
+      },
+      error => {
+        console.log('ne ok');
+      });
   }
 
 }
