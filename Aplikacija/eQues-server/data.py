@@ -2,6 +2,8 @@ from models import *
 from models.constants import *
 from models.shared import db
 
+# TODO postavi konstruktore u db.sesssion.add
+
 def create_student_years(commit=False):
     y1 = StudentYear(STUDENT_YEAR1, 'I')
     y2 = StudentYear(STUDENT_YEAR2, 'II')
@@ -42,9 +44,24 @@ def create_user_statuses(commit=False):
     if commit:
         db.session.commit()
 
+def create_modules(commit=False):
+    mod1 = Module('Opšti')
+    mod2 = Module('Računarstvo i informatika')
+    mod3 = Module('Upravljanje sistemima')
+    mod4 = Module('Elektronika')
+
+    db.session.add(mod1)  
+    db.session.add(mod2) 
+    db.session.add(mod3) 
+    db.session.add(mod4) 
+
+    if commit:
+        db.session.commit()
+
 def create_data():
     create_student_years()
     create_user_statuses()
     create_roles()
+    create_modules()
 
     db.session.commit()

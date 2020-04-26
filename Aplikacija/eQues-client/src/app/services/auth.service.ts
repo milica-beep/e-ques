@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { User } from '../models/User';
+import { RegistrationModel } from '../models/registrationModel';
+
 
 
 @Injectable({
@@ -12,18 +14,27 @@ export class AuthService {
   serverUrl:string = ' http://127.0.0.1:5000/';
   constructor(private http: HttpClient) { }
 
+  private handleError(error: any) {
+    return Observable.throw(error);
+  }
+
   public getToken(): string {
     return localStorage.getItem('accessToken');
   }
+
   public isAuthenticated(): boolean {
     return !!this.getToken();
   }
 
-  register(user:User):Observable<{}> {
-    return this.http.post<User>(this.serverUrl + 'auth/register', user);
+  getRegistrationData():Observable<RegistrationModel> {
+    return this.http.get<RegistrationModel>(this.serverUrl + 'auth/get-registration-data');
   }
 
-  login(email:string, password:string):Observable<{}> {
+  register(user:User) {
+    return this.http.post(this.serverUrl + 'auth/register', user);
+  }
+
+  login(email:string, password:string) {
     return this.http.post<any>(this.serverUrl+'/auth/login', {email: email, password: password})
     .pipe(map(response => {
 

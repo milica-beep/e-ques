@@ -15,8 +15,5 @@ export class UserService {
   //  return this.http.get<User[]>(this.userUrl+'users/test-server');
  // }
 
-  getYears():Observable<{}> {
-    return this.http.get<any>(this.serverUrl+'data/student-years');
-  }
 
 }

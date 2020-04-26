@@ -11,3 +11,6 @@ class StudentYear(db.Model):
     description = db.Column(db.String(10))
     
     user = db.relationship('User', back_populates='student_year', uselist=False)
+
+    def serialize(self):
+        return {'id': self.id, 'description': self.description}

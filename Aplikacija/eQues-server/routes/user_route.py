@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from models import User
+from models import *
 from models.shared import db
 from passlib.hash import sha256_crypt
 

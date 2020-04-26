@@ -18,3 +18,6 @@ class User(db.Model):
     user_status_id = db.Column(db.Integer, db.ForeignKey('user_statuses.id'))
     user_status = db.relationship('UserStatus', uselist=False, back_populates='user')
 
+    module_id = db.Column(db.Integer, db.ForeignKey('modules.id'))
+    module = db.relationship('Module', uselist=False, back_populates='user')
+

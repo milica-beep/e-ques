@@ -11,3 +11,6 @@ class UserStatus(db.Model):
     description = db.Column(db.String(50))
 
     user = db.relationship('User', back_populates='user_status', uselist=False)
+
+    def serialize(self):
+        return {'id': self.id, 'description': self.description}

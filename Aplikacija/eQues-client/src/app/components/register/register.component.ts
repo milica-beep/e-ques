@@ -4,6 +4,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { UserService } from '../../services/user.service'
 import { User } from '../../models/User'
 import { AuthService } from 'src/app/services/auth.service';
+import { StudentYear } from 'src/app/models/studentYear';
+import { Module } from 'src/app/models/module';
+import { Role } from 'src/app/models/role';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-register',
@@ -16,10 +20,11 @@ export class RegisterComponent implements OnInit {
   error: string;
   submitted = false;
 
-  years: string[] = ['I','II','III','IV']
-  defaultYear: string = this.years[0];
+  years: StudentYear[];
+  //defaultYear: string = this.years[0];
 
-  modules: string[] = ['Računarstvo i informatika', 'Energetika', 'Upravljanje sistemima', 'Elektronika'];
+  modules: Module[];
+  roles: Role[];
 
   hide : boolean = true;
 
@@ -29,22 +34,27 @@ export class RegisterComponent implements OnInit {
     private authService: AuthService
     ) { }
 
-  getStudentYears() {
-    this.userService.getYears().subscribe(years => {
-      
+  getRegistrationData() {
+    this.authService.getRegistrationData().subscribe(data => {
+      this.years = data.studentYears;
+      this.modules = data.modules;
+      this.roles = data.roles;
     })
   }
 
+
   ngOnInit(): void {
+    this.getRegistrationData();
+
     this.registerForm = this.formBuilder.group({
       name: ['', Validators.required],
       lastname: ['', Validators.required],
       email: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]],
       module: ['', Validators.required],
-      year: this.defaultYear
+      year: ['', Validators.required]
     })
-    
+
   }
 
   get f() { return this.registerForm.controls; }
@@ -60,25 +70,32 @@ export class RegisterComponent implements OnInit {
 
     this.user = this.registerForm.value;
 
-    console.log(this.user.year);
-    console.log(this.user.module);
-    
-    /*this.user = new User();
-    this.user.name = 'Milica';
-    this.user.lastname = 'Nikolic';
-    this.user.email = 'nekotamo@elfak.rs';
-    this.user.password = '123456';
-    this.user.year = 'III';
-    this.user.module = 'Computer Science'; */
 
     this.authService.register(this.user).subscribe(
       data => {
-        console.log(data['message']);
+
       },
-      error => {
-        console.log('ne ok');
-        // this.error = error['message'];
-      });
+      err => {
+        console.log(err);
+        if (err.status == 422) {
+          const validationErrors = err.error;
+          console.log(validationErrors);
+          Object.keys(validationErrors).forEach(prop => {
+            const formControl = this.registerForm.get(prop);
+            console.log(prop + ' ' + validationErrors[prop]);
+            if (formControl) {
+              // activate the error message
+              formControl.setErrors({
+                serverError: validationErrors[prop]
+              });
+            }
+          });
+        }
+        else {
+          // HANDLE UNEXPECTED SERVER ERROR
+        }
+      }
+    );
   }
 
 }

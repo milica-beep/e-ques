@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from models import User
+from models import User, StudentYear, Module, UserStatus, Role
 from models.shared import db
 from passlib.hash import sha256_crypt
 from flask_jwt_extended import create_access_token
@@ -31,6 +31,8 @@ def login():
 def register():
     req = request.get_json()
 
+    return jsonify({'name': 'Ovo neje dobro!'}), 422
+
     user = User()
 
     user.name = req['name']
@@ -49,3 +51,13 @@ def register():
         return jsonify({'message': 'Uspešna registracija.'}), 200
     else:
         return jsonify({'error': 'Korisnik sa ovom email adresom već postoji.'}), 400
+
+@auth_route.route('/auth/get-registration-data', methods=['GET'])
+def get_data():
+    student_years = StudentYear.query.all()
+    roles = Role.query.all()
+    modules = Module.query.all()
+
+    return jsonify({'studentYears': [x.serialize() for x in student_years],\
+                    'roles': [x.serialize() for x in roles],\
+                    'modules': [x.serialize() for x in modules]})
