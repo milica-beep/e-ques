@@ -1,39 +1,40 @@
-<h2>Log in</h2>
-<div class="example-container">
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-        <mat-form-field appearance="outline">
-            <mat-label for="email">Email</mat-label>
-            <input matInput formControlName="email" class="form-control" 
-                    [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="loginForm">
+    <h2>Log in</h2>
 
-            <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-                <div *ngIf="f.email.errors.required">Email is required</div>
-            </div>
-        </mat-form-field>
-        <br>
-        <mat-form-field appearance="outline">
-            <mat-label for="password">Enter your password</mat-label>
-            <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" class="form-control" 
-                    [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+    <mat-form-field appearance="outline" class="logInput" required >
+        <mat-label for="email">E-mail</mat-label>
+        <input matInput formControlName="email" class="form-control" 
+                [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
 
-            <button mat-icon-button matSuffix (click)="hide = !hide" 
-                    [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-            </button>
-
-            <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-                <div *ngIf="f.password.errors.required">Password is required</div>
-            </div>
-        </mat-form-field>
-
-        <div class="form-group">
-            <button mat-raised-button color="primary">      
-                Login
-            </button>
+        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+            <div *ngIf="f.email.errors.required">Email is required</div>
         </div>
-        <br>
-        <button mat-raised-button color="accent" type='button' (click)="testJWTProtected()">
-            Test
+    </mat-form-field>
+
+    <br>
+
+    <mat-form-field appearance="outline" class="logInput">
+        <mat-label for="password">Lozinka</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" class="form-control" 
+                [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+
+        <button mat-icon-button matSuffix (click)="hide = !hide" 
+                [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
-    </form>
-</div>
+
+        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+            <div *ngIf="f.password.errors.required">Password is required</div>
+        </div>
+    </mat-form-field>
+
+    <br>
+
+    <button mat-raised-button color="primary">      
+        Login
+    </button>
+
+    <button mat-raised-button color="accent" type='button' (click)="testJWTProtected()">
+        Test
+    </button>
+</form>

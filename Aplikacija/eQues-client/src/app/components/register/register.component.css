@@ -1,0 +1,11 @@
+.formRegister {
+    padding-left: 20px;
+}
+
+.regInput {
+    width: 300px;
+}
+
+.mat-radio-button ~ .mat-radio-button {
+    margin-left: 16px;
+  }

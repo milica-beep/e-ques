@@ -18,6 +18,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule  } from '@angular/material/button';
 import { MatTabsModule  } from '@angular/material/tabs';
+import { MatSelectModule } from '@angular/material/select';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { TokenInterceptor } from './services/token.interceptor';
 
@@ -42,7 +45,10 @@ import { TokenInterceptor } from './services/token.interceptor';
     MatInputModule,
     MatIconModule,
     MatButtonModule,
-    MatTabsModule 
+    MatTabsModule,
+    MatSelectModule,
+    MatRadioModule,
+    MatToolbarModule
   ],
   providers: [
     {

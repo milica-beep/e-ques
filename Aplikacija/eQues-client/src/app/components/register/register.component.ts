@@ -15,14 +15,25 @@ export class RegisterComponent implements OnInit {
   user: User;
   error: string;
   submitted = false;
-  years=['I','II','III','IV']
-  selectedValue=1;
+
+  years: string[] = ['I','II','III','IV']
+  defaultYear: string = this.years[0];
+
+  modules: string[] = ['Računarstvo i informatika', 'Energetika', 'Upravljanje sistemima', 'Elektronika'];
+
+  hide : boolean = true;
 
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
     private authService: AuthService
     ) { }
+
+  getStudentYears() {
+    this.userService.getYears().subscribe(years => {
+      
+    })
+  }
 
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
@@ -31,9 +42,9 @@ export class RegisterComponent implements OnInit {
       email: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]],
       module: ['', Validators.required],
-      year: '1'
-      
+      year: this.defaultYear
     })
+    
   }
 
   get f() { return this.registerForm.controls; }
@@ -48,6 +59,9 @@ export class RegisterComponent implements OnInit {
     }
 
     this.user = this.registerForm.value;
+
+    console.log(this.user.year);
+    console.log(this.user.module);
     
     /*this.user = new User();
     this.user.name = 'Milica';
@@ -63,6 +77,7 @@ export class RegisterComponent implements OnInit {
       },
       error => {
         console.log('ne ok');
+        // this.error = error['message'];
       });
   }
 

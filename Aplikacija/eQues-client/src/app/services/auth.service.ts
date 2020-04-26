@@ -24,7 +24,7 @@ export class AuthService {
   }
 
   login(email:string, password:string):Observable<{}> {
-    return this.http.post<any>(this.serverUrl+'/auth/login', {email: email,password: password})
+    return this.http.post<any>(this.serverUrl+'/auth/login', {email: email, password: password})
     .pipe(map(response => {
 
       localStorage.setItem('accessToken', response.access_token);

@@ -10,7 +10,7 @@ import { first } from 'rxjs/operators';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  hide = true;
+  hide : boolean = true;
   loginForm: FormGroup;
   submitted: boolean = false;
   

@@ -15,3 +15,10 @@ example-container .mat-form-field + .mat-form-field {
     -moz-appearance: textfield;
   }
   
+.loginForm {
+  padding-left: 20px;
+}
+
+.logInput {
+  width: 300px;
+}

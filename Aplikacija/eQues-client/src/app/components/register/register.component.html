@@ -1,61 +1,99 @@
 <div *ngIf="error">{{ error }}</div>
 
-<h3>Register</h3>
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="formRegister">
 
-<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <h2>Registracija</h2>
 
-    <mat-form-field appearance="outline">
-        <mat-label for="name"> Name </mat-label>
-        <input matInput id="name" type="text" formControlName="name">
+    <mat-form-field appearance="outline" class="regInput">
+        <mat-label for="name"> Ime </mat-label>
+        <input matInput id="name" type="text" formControlName="name" > 
 
         <div *ngIf="submitted && f.name.errors">
             <div *ngIf="f.name.errors.required">First name is required</div>
         </div>
     </mat-form-field>
 
-    <div>
-        <label for="lastname"> Last name </label>
-        <input id="lastname" type="text" formControlName="lastname">
+    <br>
+
+    <mat-form-field appearance="outline" class="regInput">
+        <mat-label for="lastname"> Prezime </mat-label>
+        <input matInput id="lastname" type="text" formControlName="lastname" >
 
         <div *ngIf="submitted && f.lastname.errors">
             <div *ngIf="f.lastname.errors.required">Last name is required</div>
         </div>
-    </div>
+    </mat-form-field>
 
-    <div>
-        <label for="email"> E-mail </label>
-        <input id="email" type="text" formControlName="email">
+    <br>
+
+    <mat-form-field appearance="outline" class="regInput">
+        <mat-label for="email"> E-mail </mat-label>
+        <input matInput id="email" type="text" formControlName="email" >
 
         <div *ngIf="submitted && f.email.errors">
             <div *ngIf="f.email.errors.required">Email is required</div>
         </div>
-    </div>
+    </mat-form-field>
 
-    <div>
-        <label for="password"> Password </label>
-        <input id="password" type="password" formControlName="password">
+    <br>
+
+    <mat-form-field appearance="outline" class="regInput" >
+        <mat-label for="password"> Lozinka </mat-label>
+
+        <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" 
+                    [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+
+            <button mat-icon-button matSuffix (click)="hide = !hide" 
+                    [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
 
         <div *ngIf="submitted && f.password.errors">
             <div *ngIf="f.password.errors.required">Password is required</div>
             <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters long</div>
         </div>
-    </div>
+    </mat-form-field>
 
-    <div>
-        <label for="module"> Module </label>  <!-- Radio buttons -->
-        <input id="module" type="text" formControlName="module">
-    </div>
+    <br>
 
-    <div>
-        <label for="year"> 
-          Year
-        </label>
-        <select  id="year" formControlName="year" >
-            <option *ngFor="let y of years">
+    <!-- <mat-form-field appearance="outline" class="regInput">
+        <mat-label for="module"> Module </mat-label>  
+        <input matInput id="module" type="text" formControlName="module" >
+    </mat-form-field> --> 
+
+    <!-- <mat-radio-group formControlName="module" aria-label="Select your module">
+        <mat-radio-button *ngFor="let module of modules" [value]="module">
+            {{ module }}
+        </mat-radio-button>
+    </mat-radio-group> -->
+
+    <mat-form-field appearance="outline" class="regInput">
+        <mat-label for="module"> 
+          Modul
+        </mat-label>
+
+        <mat-select id="module" formControlName="module" >
+            <mat-option *ngFor="let module of modules" [value]="module">
+                {{ module }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <br>
+
+    <mat-form-field appearance="outline" class="regInput">
+        <mat-label for="year"> 
+          Godina
+        </mat-label>
+
+        <mat-select id="year" formControlName="year" >
+            <mat-option *ngFor="let y of years" [value]="y">
                 {{ y }}
-            </option>
-        </select>
-    </div>
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
 
-    <button type="submit">Register</button>
+    <br>
+
+    <button type="submit" mat-raised-button color="primary">Register</button>
 </form>
