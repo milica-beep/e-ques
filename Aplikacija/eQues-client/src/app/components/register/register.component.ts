@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router'
-import { FormBuilder, FormGroup, Validators } from '@angular/forms'
-import { UserService } from '../../services/user.service'
-import { User } from '../../models/User'
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { User } from '../../models/User';
 import { AuthService } from 'src/app/services/auth.service';
 import { StudentYear } from 'src/app/models/studentYear';
 import { Module } from 'src/app/models/module';
 import { Role } from 'src/app/models/role';
-import { HttpErrorResponse } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-register',
@@ -15,22 +13,23 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
+  isLoaded: boolean = false;
   registerForm: FormGroup;
   user: User;
-  error: string;
   submitted = false;
-
+  passwordsMatch: boolean = true;
   years: StudentYear[];
-  //defaultYear: string = this.years[0];
+  isProffessor: boolean = false;
 
   modules: Module[];
-  roles: Role[];
+  studentRole: Role;
+  proffessorRole: Role;
 
-  hide : boolean = true;
+  hidePass : boolean = true;
+  hideConfirmPass : boolean = true;
 
   constructor(
     private formBuilder: FormBuilder,
-    private userService: UserService,
     private authService: AuthService
     ) { }
 
@@ -38,21 +37,30 @@ export class RegisterComponent implements OnInit {
     this.authService.getRegistrationData().subscribe(data => {
       this.years = data.studentYears;
       this.modules = data.modules;
-      this.roles = data.roles;
+      this.studentRole = data.studentRole;
+      this.proffessorRole = data.proffessorRole;
+
+      this.isLoaded = true;
     })
   }
 
+  userRoleChanged($event) {
+    this.isProffessor = !this.isProffessor;
+  }
 
   ngOnInit(): void {
     this.getRegistrationData();
 
     this.registerForm = this.formBuilder.group({
+      role: ['', Validators.required],
       name: ['', Validators.required],
       lastname: ['', Validators.required],
-      email: ['', Validators.required],
+      studentId: [''],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      module: ['', Validators.required],
-      year: ['', Validators.required]
+      confirmPassword: ['', Validators.required],
+      email: ['', Validators.required],
+      module: [''],
+      year: ['']
     })
 
   }
@@ -70,10 +78,9 @@ export class RegisterComponent implements OnInit {
 
     this.user = this.registerForm.value;
 
-
     this.authService.register(this.user).subscribe(
       data => {
-
+        window.location.reload();
       },
       err => {
         console.log(err);

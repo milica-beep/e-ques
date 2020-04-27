@@ -4,6 +4,7 @@ import { Role } from './role';
 
 export class RegistrationModel {
   studentYears: StudentYear[];
-  roles: Role[];
   modules: Module[];
+  studentRole: Role;
+  proffessorRole: Role;
 }

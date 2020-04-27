@@ -7,15 +7,16 @@ class User(db.Model):
     name = db.Column(db.String(30), nullable=False)
     lastname = db.Column(db.String(30), nullable=False)
     email = db.Column(db.String(50), nullable=False, unique=True)
+    student_id = db.Column(db.String(30), unique=True)
     hashed_password = db.Column(db.String(256), nullable=False)
 
     student_year_id = db.Column(db.Integer, db.ForeignKey('student_years.id'))
     student_year = db.relationship('StudentYear', uselist=False, back_populates='user')
 
-    role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
+    role_id = db.Column(db.Integer, db.ForeignKey('roles.id'), nullable=False)
     role = db.relationship('Role', uselist=False, back_populates='user')
 
-    user_status_id = db.Column(db.Integer, db.ForeignKey('user_statuses.id'))
+    user_status_id = db.Column(db.Integer, db.ForeignKey('user_statuses.id'), nullable=False)
     user_status = db.relationship('UserStatus', uselist=False, back_populates='user')
 
     module_id = db.Column(db.Integer, db.ForeignKey('modules.id'))

@@ -1,124 +1,164 @@
-<div *ngIf="error">{{ error }}</div>
+<div *ngIf="isLoaded">
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="formRegister">
 
-<form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="formRegister">
+      <h2>Registracija</h2>
 
-    <h2>Registracija</h2>
+      <mat-radio-group id="role" formControlName="role" class="radioRole" (change)="userRoleChanged($event)">
+        <mat-radio-button [value]="studentRole.id" checked="True">
+          {{ studentRole.description }}
+        </mat-radio-button>
 
-    <mat-form-field appearance="outline" class="regInput">
-        <mat-label for="name"> Ime </mat-label>
-        <input matInput id="name" type="text" formControlName="name" >
+        <mat-radio-button [value]="proffessorRole.id">
+          {{ proffessorRole.description }}
+        </mat-radio-button>
+      </mat-radio-group>
 
-        <!-- <div *ngIf="submitted && f.name.errors">
-            <div *ngIf="f.name.errors.required">First name is required</div>
-        </div> -->
+      <br>
+      <br>
 
-        <mat-error *ngIf="f.name.errors?.required">Name is required</mat-error>
+      <mat-form-field appearance="outline" class="regInput">
+          <mat-label for="name"> Ime </mat-label>
+          <input matInput id="name" type="text" formControlName="name" >
 
-        <mat-error *ngIf="f.name.errors?.serverError">
-          {{ f.name.errors?.serverError }}
-        </mat-error>
+          <!-- <div *ngIf="submitted && f.name.errors">
+              <div *ngIf="f.name.errors.required">First name is required</div>
+          </div> -->
 
-    </mat-form-field>
+          <mat-error *ngIf="f.name.errors?.required">Name is required</mat-error>
+
+          <mat-error *ngIf="f.name.errors?.serverError">
+            {{ f.name.errors?.serverError }}
+          </mat-error>
+
+      </mat-form-field>
 
 
-    <br>
+      <br>
 
-    <mat-form-field appearance="outline" class="regInput">
-        <mat-label for="lastname"> Prezime </mat-label>
-        <input matInput id="lastname" type="text" formControlName="lastname" >
+      <mat-form-field appearance="outline" class="regInput">
+          <mat-label for="lastname"> Prezime </mat-label>
+          <input matInput id="lastname" type="text" formControlName="lastname" >
 
-        <!-- <div *ngIf="submitted && f.lastname.errors">
-            <div *ngIf="f.lastname.errors.required">Last name is required</div>
-        </div> -->
+          <!-- <div *ngIf="submitted && f.lastname.errors">
+              <div *ngIf="f.lastname.errors.required">Last name is required</div>
+          </div> -->
 
-        <mat-error *ngIf="f.lastname.errors?.required">Last name is required</mat-error>
-        <mat-error *ngIf="f.lastname.errors?.serverError">
-          {{ f.lastname.errors?.serverError }}
-        </mat-error>
-    </mat-form-field>
+          <mat-error *ngIf="f.lastname.errors?.required">Last name is required</mat-error>
+          <mat-error *ngIf="f.lastname.errors?.serverError">
+            {{ f.lastname.errors?.serverError }}
+          </mat-error>
+      </mat-form-field>
 
-    <br>
+      <br *ngIf="!isProffessor">
 
-    <mat-form-field appearance="outline" class="regInput">
-        <mat-label for="email"> E-mail </mat-label>
-        <input matInput id="email" type="text" formControlName="email" >
+      <mat-form-field appearance="outline" class="regInput" *ngIf="!isProffessor">
+          <mat-label for="studentId"> Broj indeksa </mat-label>
+          <input matInput id="studentId" type="text" formControlName="studentId" >
 
-        <!-- <div *ngIf="submitted && f.email.errors">
-            <div *ngIf="f.email.errors.required">Email is required</div>
-        </div> -->
+          <mat-error *ngIf="f.studentId.errors?.required">Polje 'broj indeksa' je obavezno!</mat-error>
+          <mat-error *ngIf="f.studentId.errors?.serverError">
+            {{ f.studentId.errors?.serverError }}
+          </mat-error>
+      </mat-form-field>
 
-        <mat-error *ngIf="f.email.errors?.required">Email is required</mat-error>
-        <mat-error *ngIf="f.email.errors?.serverError">
-          {{ f.email.errors?.serverError }}
-        </mat-error>
-    </mat-form-field>
+      <br>
 
-    <br>
+      <mat-form-field appearance="outline" class="regInput">
+          <mat-label for="email"> E-mail </mat-label>
+          <input matInput id="email" type="text" formControlName="email" >
 
-    <mat-form-field appearance="outline" class="regInput" >
-        <mat-label for="password"> Lozinka </mat-label>
+          <!-- <div *ngIf="submitted && f.email.errors">
+              <div *ngIf="f.email.errors.required">Email is required</div>
+          </div> -->
 
-        <input matInput [type]="hide ? 'password' : 'text'" formControlName="password"
-                    [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+          <mat-error *ngIf="f.email.errors?.required">Email is required</mat-error>
+          <mat-error *ngIf="f.email.errors?.serverError">
+            {{ f.email.errors?.serverError }}
+          </mat-error>
+      </mat-form-field>
 
-            <button mat-icon-button matSuffix (click)="hide = !hide"
-                    [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-            </button>
+      <br>
 
-        <!-- <div *ngIf="submitted && f.password.errors">
-            <div *ngIf="f.password.errors.required">Password is required</div>
-            <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters long</div>
-        </div> -->
+      <mat-form-field appearance="outline" class="regInput">
+          <mat-label for="password"> Lozinka </mat-label>
+          <input matInput [type]="hidePass ? 'password' : 'text'" formControlName="password"
+                      [ngClass]="{ 'is-invalid': submitted && f.errors }">
 
-        <mat-error *ngIf="f.password.errors?.required">Password is required</mat-error>
-        <mat-error *ngIf="f.password.errors?.minlength">Password must be at least 6 characters long</mat-error>
+              <button type="button" mat-icon-button matSuffix (click)="hidePass = !hidePass"
+                      [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePass">
+                  <mat-icon>{{hidePass ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
 
-        <mat-error *ngIf="f.password.errors?.serverError">
-          {{ f.password.errors?.serverError }}
-        </mat-error>
+          <mat-error *ngIf="f.password.errors?.required">Password is required</mat-error>
+          <mat-error *ngIf="f.password.errors?.minlength">Password must be at least 6 characters long</mat-error>
 
-    </mat-form-field>
+          <mat-error *ngIf="f.password.errors?.serverError">
+            {{ f.password.errors?.serverError }}
+          </mat-error>
 
-    <br>
+      </mat-form-field>
 
-    <mat-form-field appearance="outline" class="regInput">
-        <mat-label for="module">
-          Modul
-        </mat-label>
+      <br>
 
-        <mat-select id="module" formControlName="module" >
-            <mat-option *ngFor="let module of modules" [value]="module.id">
-                {{ module.name }}
-            </mat-option>
-        </mat-select>
+      <mat-form-field appearance="outline" class="regInput">
+          <mat-label for="confirmPassword"> Potvrdi lozinku </mat-label>
 
-        <mat-error *ngIf="f.module.errors?.serverError">
-          {{ f.module.errors?.serverError }}
-        </mat-error>
+          <input matInput [type]="hideConfirmPass ? 'password' : 'text'" formControlName="confirmPassword"
+                      [ngClass]="{ 'is-invalid': submitted && f.errors }">
 
-    </mat-form-field>
+          <button type="button" mat-icon-button matSuffix (click)="hideConfirmPass = !hideConfirmPass"
+                  [attr.aria-label]="'Hide confirmPassword'" [attr.aria-pressed]="hideConfirmPass">
+              <mat-icon>{{hideConfirmPass ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
 
-    <br>
+          <mat-error *ngIf="f.confirmPassword.errors?.required">Password confirmation is required</mat-error>
 
-    <mat-form-field appearance="outline" class="regInput">
-        <mat-label for="year">
-          Godina
-        </mat-label>
+          <mat-error *ngIf="f.confirmPassword.errors?.serverError">
+            {{ f.confirmPassword.errors?.serverError }}
+          </mat-error>
 
-        <mat-select id="year" formControlName="year" >
-            <mat-option *ngFor="let y of years" [value]="y.id">
-                {{ y.description }}
-            </mat-option>
-        </mat-select>
+        </mat-form-field>
 
-        <mat-error *ngIf="f.module.errors?.serverError">
-          {{ f.module.errors?.serverError }}
-        </mat-error>
+      <br>
 
-    </mat-form-field>
+      <mat-form-field appearance="outline" class="regInput" *ngIf="!isProffessor">
+          <mat-label for="module">
+            Modul
+          </mat-label>
 
-    <br>
+          <mat-select id="module" formControlName="module" >
+              <mat-option *ngFor="let module of modules" [value]="module.id">
+                  {{ module.name }}
+              </mat-option>
+          </mat-select>
 
-    <button type="submit" mat-raised-button color="primary">Register</button>
-</form>
+          <mat-error *ngIf="f.module.errors?.serverError">
+            {{ f.module.errors?.serverError }}
+          </mat-error>
+
+      </mat-form-field>
+
+      <br *ngIf="!isProffessor">
+
+      <mat-form-field appearance="outline" class="regInput" *ngIf="!isProffessor">
+          <mat-label for="year">
+            Godina
+          </mat-label>
+
+          <mat-select id="year" formControlName="year" >
+              <mat-option *ngFor="let y of years" [value]="y.id">
+                  {{ y.description }}
+              </mat-option>
+          </mat-select>
+
+          <mat-error *ngIf="f.module.errors?.serverError">
+            {{ f.module.errors?.serverError }}
+          </mat-error>
+
+      </mat-form-field>
+
+      <br>
+
+      <button type="submit" mat-raised-button color="primary">Register</button>
+  </form>
+</div>
