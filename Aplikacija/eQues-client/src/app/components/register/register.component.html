@@ -32,7 +32,6 @@
 
       </mat-form-field>
 
-
       <br>
 
       <mat-form-field appearance="outline" class="regInput">
@@ -66,10 +65,6 @@
       <mat-form-field appearance="outline" class="regInput">
           <mat-label for="email"> E-mail </mat-label>
           <input matInput id="email" type="text" formControlName="email" >
-
-          <!-- <div *ngIf="submitted && f.email.errors">
-              <div *ngIf="f.email.errors.required">Email is required</div>
-          </div> -->
 
           <mat-error *ngIf="f.email.errors?.required">Email is required</mat-error>
           <mat-error *ngIf="f.email.errors?.serverError">

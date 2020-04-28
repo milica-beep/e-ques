@@ -5,6 +5,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import { StudentYear } from 'src/app/models/studentYear';
 import { Module } from 'src/app/models/module';
 import { Role } from 'src/app/models/role';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -30,7 +32,9 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private snackBar: MatSnackBar,
+    private router: Router
     ) { }
 
   getRegistrationData() {
@@ -62,7 +66,7 @@ export class RegisterComponent implements OnInit {
       module: [''],
       year: ['']
     })
-
+    this.setUserCategoryValidators();
   }
 
   get f() { return this.registerForm.controls; }
@@ -80,6 +84,9 @@ export class RegisterComponent implements OnInit {
 
     this.authService.register(this.user).subscribe(
       data => {
+        this.snackBar.open('Hi ' + this.user.name, 'OK', {
+          duration: 2000,
+        });
         window.location.reload();
       },
       err => {
@@ -103,6 +110,42 @@ export class RegisterComponent implements OnInit {
         }
       }
     );
+  }
+
+  setUserCategoryValidators() {
+    const studentId = this.registerForm.get('studentId');
+    const module = this.registerForm.get('module');
+    const year = this.registerForm.get('year');
+
+    if(!this.isProffessor) {
+      studentId.setValidators([Validators.required]);
+      module.setValidators([Validators.required]);
+      year.setValidators([Validators.required]);
+    }
+
+    studentId.updateValueAndValidity();
+    module.updateValueAndValidity();
+    year.updateValueAndValidity();
+
+    this.registerForm.get('role').valueChanges.subscribe(role => {
+      console.log(role);
+      if (role == this.proffessorRole.id) {
+        studentId.setValidators(null);
+        module.setValidators(null);
+        year.setValidators(null);
+      }
+      else if(role == this.studentRole.id) {
+        studentId.setValidators([Validators.required]);
+        module.setValidators([Validators.required]);
+        year.setValidators([Validators.required]);
+      }
+
+      studentId.updateValueAndValidity();
+      module.updateValueAndValidity();
+      year.updateValueAndValidity();
+    })
+
+
   }
 
 }

@@ -3,7 +3,7 @@ from models import User, StudentYear, Module, UserStatus, Role
 from models.constants import *
 from models.shared import db
 from passlib.hash import sha256_crypt
-from flask_jwt_extended import create_access_token
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 
 # routes
 auth_route = Blueprint('auth', __name__)
@@ -12,21 +12,27 @@ auth_route = Blueprint('auth', __name__)
 def login():
     req = request.get_json()
 
+    errors = {}
+
     email = req['email']
     password_candidate = req['password']
 
     existing_user = User.query.filter(User.email == email).first()
 
     if(existing_user is None):
-        return jsonify({'error': 'Ne postoji korisnik.'}), 401
+        errors['email'] = 'Ne postoji korisnik sa navedenom email adresom'
     else:
         if(not sha256_crypt.verify(password_candidate, existing_user.hashed_password)):
-            return jsonify({'error': 'Nevalidni podaci.'}), 401
+            errors['message'] = 'Nevalidni podaci!'
+            return jsonify(errors), 401
         else: 
             # TODO add expiration
             access_token = create_access_token(identity=existing_user.id)
             resp = jsonify({'message': 'Uspešno prijavljivanje', 'access_token' : access_token})
             return resp, 200
+
+    if len(errors) != 0:
+        return jsonify(errors), 422
         
 @auth_route.route('/auth/register', methods=['POST'])
 def register():
@@ -110,3 +116,9 @@ def get_data():
                     'modules': [x.serialize() for x in modules],\
                     'studentRole': student_role.serialize(),\
                     'proffessorRole': proffessor_role.serialize()})
+
+@auth_route.route('/auth/current-user', methods=['GET'])
+@jwt_required
+def current_user():
+    user_id = get_jwt_identity()
+    return jsonify({'hello': 'from {}'.format(user_id)}), 200

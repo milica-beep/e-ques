@@ -21,9 +21,17 @@ import { MatTabsModule  } from '@angular/material/tabs';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatListModule } from '@angular/material/list';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { FlexLayoutModule } from '@angular/flex-layout';
+
 
 import { TokenInterceptor } from './services/token.interceptor';
-import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
+import { MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarModule } from '@angular/material/snack-bar';
+
+import { HomeComponent } from './layouts/home/home.component';
+import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +40,9 @@ import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
     RegisterComponent,
     DefaultComponent,
     LoginComponent,
-    HeaderComponent
+    HeaderComponent,
+    HomeComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +59,12 @@ import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
     MatTabsModule,
     MatSelectModule,
     MatRadioModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatSnackBarModule,
+    MatMenuModule,
+    MatListModule,
+    MatSidenavModule,
+    FlexLayoutModule
   ],
   providers: [
     {

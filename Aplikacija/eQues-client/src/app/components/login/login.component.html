@@ -3,34 +3,45 @@
 
     <mat-form-field appearance="outline" class="logInput" required >
         <mat-label for="email">E-mail</mat-label>
-        <input matInput formControlName="email" class="form-control" 
+        <input matInput formControlName="email" class="form-control"
                 [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
 
-        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+        <!-- <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
             <div *ngIf="f.email.errors.required">Email is required</div>
-        </div>
+        </div> -->
+
+        <mat-error *ngIf="f.email.errors?.required">Email is required</mat-error>
+          <mat-error *ngIf="f.email.errors?.serverError">
+            {{ f.email.errors?.serverError }}
+          </mat-error>
     </mat-form-field>
 
     <br>
 
     <mat-form-field appearance="outline" class="logInput">
         <mat-label for="password">Lozinka</mat-label>
-        <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" class="form-control" 
+        <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" class="form-control"
                 [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
 
-        <button mat-icon-button matSuffix (click)="hide = !hide" 
+        <button type="button" mat-icon-button matSuffix (click)="hide = !hide"
                 [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
 
-        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+        <!-- <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
             <div *ngIf="f.password.errors.required">Password is required</div>
-        </div>
+        </div> -->
+
+        <mat-error *ngIf="f.password.errors?.required">Password is required</mat-error>
+
+        <mat-error *ngIf="f.password.errors?.serverError">
+          {{ f.password.errors?.serverError }}
+        </mat-error>
     </mat-form-field>
 
     <br>
 
-    <button mat-raised-button color="primary">      
+    <button mat-raised-button color="primary">
         Login
     </button>
 
@@ -38,3 +49,5 @@
         Test
     </button>
 </form>
+
+<!-- <app-snackbar *ngIf="showSnackBar" [message]="message" [action]="action"></app-snackbar> -->

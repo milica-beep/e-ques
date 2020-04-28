@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { User } from '../models/User';
@@ -54,5 +54,18 @@ export class AuthService {
     return this.http.get<any>(this.serverUrl+'test');
   }
 
+  currentUser() {
+    return this.http.get<any>(this.serverUrl + 'auth/current-user');
+  }
+
+  // sharing data between app component and login component
+
+  private emitChangeSource = new Subject<any>();
+
+  changeEmitted$ = this.emitChangeSource.asObservable();
+
+  emitChange(change: any) {
+    this.emitChangeSource.next(change);
+  }
 
 }
