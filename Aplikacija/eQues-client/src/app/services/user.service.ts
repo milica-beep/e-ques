@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs'
+import { Observable, Subject } from 'rxjs'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { User } from '../models/User'
 
@@ -15,5 +15,10 @@ export class UserService {
   //  return this.http.get<User[]>(this.userUrl+'users/test-server');
  // }
 
+  private userLoggedIn = new Subject<any>();
+  userLogged = this.userLoggedIn.asObservable();
+  emitUserData(user: User) {
+    this.userLoggedIn.next(user);
+  }
 
 }

@@ -9,6 +9,7 @@ class User(db.Model):
     email = db.Column(db.String(50), nullable=False, unique=True)
     student_id = db.Column(db.String(30), unique=True)
     hashed_password = db.Column(db.String(256), nullable=False)
+    # gender = db.Column(db.String(1), nullable=False)
 
     student_year_id = db.Column(db.Integer, db.ForeignKey('student_years.id'))
     student_year = db.relationship('StudentYear', uselist=False, back_populates='user')
@@ -21,4 +22,9 @@ class User(db.Model):
 
     module_id = db.Column(db.Integer, db.ForeignKey('modules.id'))
     module = db.relationship('Module', uselist=False, back_populates='user')
+
+    def serialize(self):
+        return {'id': self.id, 'name': self.name, 'lastname': self.lastname, 'email': self.email,\
+                'studentId': self.student_id, 'role_id': self.role_id, 'studentYearId': self.student_year_id,\
+                'userStatusId': self.user_status_id, 'moduleId': self.module_id}
 

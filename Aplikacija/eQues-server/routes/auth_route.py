@@ -121,4 +121,5 @@ def get_data():
 @jwt_required
 def current_user():
     user_id = get_jwt_identity()
-    return jsonify({'hello': 'from {}'.format(user_id)}), 200
+    user = User.query.filter(User.id == user_id).first()
+    return jsonify(user.serialize()), 200

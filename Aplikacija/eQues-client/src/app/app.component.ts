@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { UserService } from './services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -13,9 +14,11 @@ export class AppComponent {
   isLoggedIn: boolean = false;
   sideBarOpen = false;
 
+
   constructor(private authService: AuthService,
               private router: Router,
-              private snackBar: MatSnackBar
+              private snackBar: MatSnackBar,
+              private userService: UserService
               ) {
 
     authService.changeEmitted$.subscribe( text => {
@@ -28,6 +31,7 @@ export class AppComponent {
 
     this.authService.currentUser().subscribe(
       response => {
+        this.userService.emitUserData(response);
         this.router.navigate(['/home']);
         this.isLoggedIn = true;
         console.log(this.isLoggedIn);
@@ -41,6 +45,7 @@ export class AppComponent {
   checkUser() {
     this.authService.currentUser().subscribe(
       response => {
+        this.userService.emitUserData(response);
         this.isLoggedIn = true;
         this.snackBar.open('Hi', 'OK', {
           duration: 2000,
