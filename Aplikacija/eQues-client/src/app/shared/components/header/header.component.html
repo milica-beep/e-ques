@@ -8,19 +8,24 @@
         <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
             <ul fxLayout="row" fxLayoutGap="20px">
                 <li>
-                    <button mat-button [matMenuTriggerFor]="menu">
-                        <mat-icon>person_outline</mat-icon>
-                    </button>
-                    <mat-menu #menu="matMenu">
-                        <button mat-menu-item *ngIf="user" [routerLink]="['/user', user.id]">
-                          Profile
-                        </button>
+                  <button mat-button [routerLink]="['/home']">
+                    <mat-icon>home</mat-icon>
+                  </button>
 
-                        <button mat-menu-item (click)="logOut()">
-                            <mat-icon>exit_to_app</mat-icon>
-                            Log out
-                        </button>
-                    </mat-menu>
+                  <button mat-button [matMenuTriggerFor]="menu">
+                      <mat-icon>person_outline</mat-icon>
+                  </button>
+
+                  <mat-menu #menu="matMenu">
+                      <button mat-menu-item *ngIf="user" [routerLink]="['/user', user.id]">
+                        Profile
+                      </button>
+
+                      <button mat-menu-item (click)="logOut()">
+                          <mat-icon>exit_to_app</mat-icon>
+                          Log out
+                      </button>
+                  </mat-menu>
                 </li>
             </ul>
         </div>

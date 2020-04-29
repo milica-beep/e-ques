@@ -33,20 +33,18 @@ export class AppComponent {
       response => {
         this.currentUser = response;
         this.userService.emitUserData(response);
-        //this.router.navigate(['/home']);
-        // window.location.reload();
-        console.log(response)
-
+        this.router.events.subscribe(event => {
+          this.sideBarOpen = false; // da ne bi ostala otvorena kad kliknes na predmet iz liste
+        })
         if(window.location.pathname == '/') { // ako je user ulogovan a pokusa da se vrati na pocetnu stranu
           this.router.navigate(['/home']);
         }
-
         this.isLoggedIn = true;
-        console.log(this.isLoggedIn);
       },
       error =>{
         this.isLoggedIn = false;
         this.sideBarOpen = false;
+        this.router.navigate(['/']);
       })
   }
 

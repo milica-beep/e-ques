@@ -1,4 +1,4 @@
-<div>
+<!-- <div>
   <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="MN">
   <h2>
     {{ currentUser?.name }}
@@ -10,5 +10,12 @@
     {{ currentUser?.moduleId }}
     {{ currentUser?.studentYearId }}
   </h1>
-</div>
+</div> -->
+
+<mat-grid-list cols="2" rowHeight="2:2" fxFlex fxLayout="collumn">
+  <mat-grid-tile>User photo</mat-grid-tile>
+  <mat-grid-tile>User data</mat-grid-tile>
+  <mat-grid-tile>graphs/consultations</mat-grid-tile>
+  <mat-grid-tile>graphs/consultations</mat-grid-tile>
+</mat-grid-list>
 

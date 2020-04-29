@@ -9,6 +9,7 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.css']
 })
+// TODO viewing other users' profile
 export class UserProfileComponent implements OnInit {
   userId: string;
   currentUser: User;
@@ -29,6 +30,7 @@ export class UserProfileComponent implements OnInit {
 
     this.authService.currentUser().subscribe(user => {
       this.currentUser = user;
+      this.userService.emitUserData(this.currentUser); // header ne dobija informacije bez ovoga/;>?
     })
 
   }
