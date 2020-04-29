@@ -14,7 +14,6 @@ export class AppComponent {
   isLoggedIn: boolean = false;
   sideBarOpen = false;
 
-
   constructor(private authService: AuthService,
               private router: Router,
               private snackBar: MatSnackBar,
@@ -47,7 +46,7 @@ export class AppComponent {
       response => {
         this.userService.emitUserData(response);
         this.isLoggedIn = true;
-        this.snackBar.open('Hi', 'OK', {
+        this.snackBar.open('Hi '+ response.name, 'OK', {
           duration: 2000,
         });
       },
@@ -63,5 +62,12 @@ export class AppComponent {
 
   sideBarToggler($event) {
     this.sideBarOpen = !this.sideBarOpen;
+  }
+
+  logUserOut($event) {
+    this.isLoggedIn = false;
+    this.sideBarOpen = false;
+    this.router.navigate(['']);
+    localStorage.clear();
   }
 }

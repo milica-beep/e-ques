@@ -1,13 +1,14 @@
-<app-header *ngIf="isLoggedIn" (toggleSideBarForMe)="sideBarToggler($event)"></app-header>
+<app-header *ngIf="isLoggedIn" (toggleSideBarForMe)="sideBarToggler($event)"
+                               (userLoggedOut)="logUserOut($event)"></app-header>
 
 <mat-drawer-container>
   <mat-drawer *ngIf="isLoggedIn" mode="side" [opened]="sideBarOpen">
       <app-sidebar></app-sidebar>
   </mat-drawer>
 
-  <mat-drawer-content *ngIf="!isLoggedIn">
+  <!-- <mat-drawer-content *ngIf="!isLoggedIn">
     <app-default></app-default>
-  </mat-drawer-content>
+  </mat-drawer-content> -->
 
   <mat-drawer-content>
       <router-outlet></router-outlet>
