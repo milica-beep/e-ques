@@ -32,6 +32,7 @@ import { MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarModule } from '@angular/mater
 
 import { HomeComponent } from './layouts/home/home.component';
 import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { SidebarComponent } from './shared/components/sidebar/sidebar.component'
     LoginComponent,
     HeaderComponent,
     HomeComponent,
-    SidebarComponent
+    SidebarComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,
