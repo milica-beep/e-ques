@@ -7,7 +7,7 @@ export class User {
     email: string;
     password: string;
     confirmPassword: string;
-    year: string;
-    module: string;
+    studentYearId: number;
+    moduleId: number;
     accessToken: string;
 }

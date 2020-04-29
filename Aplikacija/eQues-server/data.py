@@ -2,7 +2,7 @@ from models import *
 from models.constants import *
 from models.shared import db
 
-# TODO postavi konstruktore u db.sesssion.add
+# TODO postavi konstruktore u db.sesssion.add umesto promenljivih
 
 def create_student_years(commit=False):
     y1 = StudentYear(STUDENT_YEAR1, 'I')
@@ -58,10 +58,66 @@ def create_modules(commit=False):
     if commit:
         db.session.commit()
 
+def create_subjects(commit=False):
+    subj1 = Subject('Softversko inženjerstvo', 'Blablabla', STUDENT_YEAR3, 2)
+    subj2 = Subject('Mikroračunarski sistemi', 'Blablabla', STUDENT_YEAR3, 2)
+    subj3 = Subject('Sistemi baza podataka', 'Blablabla', STUDENT_YEAR3, 2)
+    subj4 = Subject('Baze podataka', 'Blablabla', STUDENT_YEAR2, 2)
+    subj5 = Subject('Elektronika', 'Blablabla', STUDENT_YEAR3, 3)
+
+    db.session.add(subj1)  
+    db.session.add(subj2) 
+    db.session.add(subj3) 
+    db.session.add(subj4) 
+    db.session.add(subj5) 
+
+    if commit:
+        db.session.commit()
+
+def create_topics(commit=False):
+    top1 = Topic('Oblast 1', 'Ovo je jako vazna oblast', 1)
+    top2 = Topic('Oblast 2', 'Ovo je jako vazna oblast', 1)
+    top3 = Topic('Oblast 3', 'Ovo je jako vazna oblast', 1)
+    top4 = Topic('Oblast 4', 'Ovo je jako vazna oblast', 1)
+
+    top5 = Topic('Oblast 1', 'Ovo je jako vazna oblast', 2)
+    top6 = Topic('Oblast 2', 'Ovo je jako vazna oblast', 2)
+    top7 = Topic('Oblast 3', 'Ovo je jako vazna oblast', 2)
+    top8 = Topic('Oblast 4', 'Ovo je jako vazna oblast', 2)
+
+    top9 = Topic('Oblast 1', 'Ovo je jako vazna oblast', 3)
+    top10 = Topic('Oblast 2', 'Ovo je jako vazna oblast', 3)
+    top11 = Topic('Oblast 3', 'Ovo je jako vazna oblast', 3)
+    top12 = Topic('Oblast 4', 'Ovo je jako vazna oblast', 3)
+
+    top13 = Topic('Ovo je jedina oblast', 'I nije nesto vazn', 4)
+
+    top14 = Topic('Jeste', 'Oblastoblastoblast', 5)
+
+    db.session.add(top1)  
+    db.session.add(top2) 
+    db.session.add(top3) 
+    db.session.add(top4) 
+    db.session.add(top5) 
+    db.session.add(top6)  
+    db.session.add(top7) 
+    db.session.add(top8) 
+    db.session.add(top9) 
+    db.session.add(top10) 
+    db.session.add(top11)  
+    db.session.add(top12) 
+    db.session.add(top13) 
+    db.session.add(top14) 
+
+    if commit:
+        db.session.commit()
+
 def create_data():
     create_student_years()
     create_user_statuses()
     create_roles()
     create_modules()
+    create_subjects()
+    create_topics()
 
     db.session.commit()

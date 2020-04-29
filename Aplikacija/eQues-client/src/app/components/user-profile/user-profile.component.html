@@ -1,3 +1,14 @@
-<h2 *ngIf="userId"> HELLO
-  {{ userId }}
-</h2>
+<div>
+  <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="MN">
+  <h2>
+    {{ currentUser?.name }}
+    {{ currentUser?.lastname }}
+  </h2>
+  <mat-divider></mat-divider>
+  <h1>
+    {{ currentUser?.email }}
+    {{ currentUser?.moduleId }}
+    {{ currentUser?.studentYearId }}
+  </h1>
+</div>
+

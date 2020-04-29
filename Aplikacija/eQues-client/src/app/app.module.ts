@@ -25,6 +25,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 
 import { TokenInterceptor } from './services/token.interceptor';
@@ -66,7 +67,8 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
     MatMenuModule,
     MatListModule,
     MatSidenavModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatGridListModule
   ],
   providers: [
     {

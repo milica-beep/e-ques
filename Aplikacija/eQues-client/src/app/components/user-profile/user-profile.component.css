@@ -1,0 +1,12 @@
+mat-grid-tile {
+  background: rgba(190, 174, 207, 0.507);
+}
+
+img {
+  padding-left: 10px;
+  padding-top: 10px;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+}

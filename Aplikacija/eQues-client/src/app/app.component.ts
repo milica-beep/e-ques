@@ -3,6 +3,7 @@ import { AuthService } from './services/auth.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserService } from './services/user.service';
+import { User } from './models/User';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +14,7 @@ export class AppComponent {
   title = 'eQues';
   isLoggedIn: boolean = false;
   sideBarOpen = false;
+  currentUser: User;
 
   constructor(private authService: AuthService,
               private router: Router,
@@ -27,11 +29,18 @@ export class AppComponent {
 
   ngOnInit(): void {
     // loading
-
     this.authService.currentUser().subscribe(
       response => {
+        this.currentUser = response;
         this.userService.emitUserData(response);
-        this.router.navigate(['/home']);
+        //this.router.navigate(['/home']);
+        // window.location.reload();
+        console.log(response)
+
+        if(window.location.pathname == '/') { // ako je user ulogovan a pokusa da se vrati na pocetnu stranu
+          this.router.navigate(['/home']);
+        }
+
         this.isLoggedIn = true;
         console.log(this.isLoggedIn);
       },

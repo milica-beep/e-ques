@@ -12,5 +12,7 @@ class StudentYear(db.Model):
     
     user = db.relationship('User', back_populates='student_year', uselist=False)
 
+    subject = db.relationship('Subject', back_populates='student_year', uselist=False)
+
     def serialize(self):
         return {'id': self.id, 'description': self.description}

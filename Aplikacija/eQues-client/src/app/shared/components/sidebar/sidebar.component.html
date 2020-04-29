@@ -1,20 +1,21 @@
-<mat-nav-list>
-  <!-- <div class="profile-card">
-      <div class="header">
-          <h2>Milica Nikolic</h2>
-          <h4>example@email.com</h4>
-      </div>
-      <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="MN">
-  </div> -->
+<div class="cont">
+  <mat-nav-list>
+    <!-- <div class="profile-card">
+        <div class="header">
+            <h2>Milica Nikolic</h2>
+            <h4>example@email.com</h4>
+        </div>
+        <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="MN">
+    </div> -->
 
-  <div *ngIf="user">
-    {{ user.name }}
-    <mat-divider></mat-divider>
-    {{ user.lastname }}
-  </div>
+    <div *ngIf="user">
+      <mat-list >
+        <mat-list-item *ngFor="let subject of userSubjects">
+          <mat-icon mat-list-icon>arrow_forward</mat-icon>
+          <div mat-line> {{ subject.name }} </div>
+        </mat-list-item>
+      </mat-list>
+    </div>
 
-  <mat-divider></mat-divider>
-
-
-
-</mat-nav-list>
+  </mat-nav-list>
+</div>

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs'
-import { HttpClient, HttpHeaders } from '@angular/common/http'
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http'
 import { User } from '../models/User'
 
 @Injectable({
@@ -19,6 +19,11 @@ export class UserService {
   userLogged = this.userLoggedIn.asObservable();
   emitUserData(user: User) {
     this.userLoggedIn.next(user);
+  }
+
+  getSubjects(userId:number) {
+    let params = new HttpParams().set("id", userId.toString());
+    return this.http.get<any>(this.serverUrl + '/users/get-subjects', {params: params});
   }
 
 }

@@ -11,5 +11,7 @@ class Module(db.Model):
 
     user = db.relationship('User', back_populates='module', uselist=False)
 
+    subject = db.relationship('Subject', back_populates='module', uselist=False)
+
     def serialize(self):
         return {'id': self.id, 'name': self.name}
