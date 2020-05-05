@@ -19,19 +19,25 @@ export class UserProfileComponent implements OnInit {
               private authService: AuthService) { }
 
   ngOnInit(): void {
-    // this.userService.userLogged.subscribe(user => {
-    //   this.currentUser = user;
-    //   console.log(this.currentUser.name)
-    // })
+    this.authService.emitChange('');
+
+    this.userService.userLogged.subscribe(user => {
+      this.currentUser = user;
+      console.log(this.currentUser.name)
+    })
 
     this.activatedRoute.paramMap.subscribe(params => {
       this.userId = params.get('id');
     })
 
-    this.authService.currentUser().subscribe(user => {
-      this.currentUser = user;
-      this.userService.emitUserData(this.currentUser); // header ne dobija informacije bez ovoga/;>?
-    })
+    // this.authService.currentUser().subscribe(user => {
+    //   this.currentUser = user;
+    //   this.userService.emitUserData(this.currentUser); // header ne dobija informacije bez ovoga/;>?
+    // })
+
+  }
+
+  getUserData(id:number) {
 
   }
 

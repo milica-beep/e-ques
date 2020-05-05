@@ -23,6 +23,8 @@ class User(db.Model):
     module_id = db.Column(db.Integer, db.ForeignKey('modules.id'))
     module = db.relationship('Module', uselist=False, back_populates='user')
 
+    question = db.relationship('Question', back_populates='user', uselist=False)
+
     def serialize(self):
         return {'id': self.id, 'name': self.name, 'lastname': self.lastname, 'email': self.email,\
                 'studentId': self.student_id, 'roleId': self.role_id, 'studentYearId': self.student_year_id,\

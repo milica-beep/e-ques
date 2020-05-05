@@ -3,7 +3,8 @@ from models.shared import db
 class Module(db.Model):
     __tablename__ = 'modules'
     
-    def __init__(self, name):
+    def __init__(self, id, name):
+        self.id = id
         self.name = name
 
     id = db.Column(db.Integer, primary_key=True)

@@ -26,9 +26,6 @@ export class UserService {
     return this.http.get<any>(this.serverUrl + '/users/get-subjects', {params: params});
   }
 
-  getSubject(subjectId:number) {
-    let params = new HttpParams().set("id", subjectId.toString());
-    return this.http.get<any>(this.serverUrl + '/users/get-subject', {params: params});
-  }
+
 
 }

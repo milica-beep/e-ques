@@ -20,6 +20,8 @@ export class HeaderComponent implements OnInit {
               { }
 
   ngOnInit(): void {
+    this.authService.emitChange('');
+
     this.userService.userLogged.subscribe(user => {
       this.user = user;
     })

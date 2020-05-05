@@ -1,6 +1,10 @@
 <div *ngIf="subject">
   <h2> {{ subject.name }} </h2>
 </div>
+
+<div *ngFor="let topic of topics">
+  {{ topic.name }}
+</div>
 <br>
 <br>
 <br>

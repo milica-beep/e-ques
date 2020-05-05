@@ -22,17 +22,17 @@ def get_subjects():
             subjects = Subject.query.filter(Subject.module_id == user.module_id and Subject.student_year_id == user.student_year_id).all()
             return jsonify({'subjects': [x.serialize() for x in subjects]})
 
-@user_route.route('/users/get-subject', methods=['GET'])
-def get_subject():
-    subject_id = request.args.get('id')
+# @user_route.route('/users/get-subject', methods=['GET'])
+# def get_subject():
+#     subject_id = request.args.get('id')
 
-    if subject_id:
-        subject = Subject.query.filter(Subject.id == subject_id).first()
+#     if subject_id:
+#         subject = Subject.query.filter(Subject.id == subject_id).first()
 
-        if subject:
-            return jsonify(subject.serialize())
-        else: # postavi neki normalan kod za gresku
-            return {'error': 'Predmet ne postoji u bazi.'}, 400
+#         if subject:
+#             return jsonify(subject.serialize())
+#         else: # postavi neki normalan kod za gresku
+#             return {'error': 'Predmet ne postoji u bazi.'}, 400
 
 # drugi nacin [bez dekoratora na funkcijama]
 #memr.route("/member-report", methods=["GET"])(report_on_members)

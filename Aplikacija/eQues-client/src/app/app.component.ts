@@ -31,8 +31,11 @@ export class AppComponent {
     // loading
     this.authService.currentUser().subscribe(
       response => {
+        console.log('Pozvana je ngOnInit');
         this.currentUser = response;
-        this.userService.emitUserData(response);
+
+        this.userService.emitUserData(response); // proveri da li radi bez ovoga
+
         this.router.events.subscribe(event => {
           this.sideBarOpen = false; // da ne bi ostala otvorena kad kliknes na predmet iz liste
         })
@@ -49,13 +52,17 @@ export class AppComponent {
   }
 
   checkUser() {
+    console.log('Pozvana je checkUser');
     this.authService.currentUser().subscribe(
       response => {
+        this.router.events.subscribe(event => {
+          this.sideBarOpen = false; // da ne bi ostala otvorena kad kliknes na predmet iz liste
+        })
         this.userService.emitUserData(response);
         this.isLoggedIn = true;
-        this.snackBar.open('Hi '+ response.name, 'OK', {
-          duration: 2000,
-        });
+        // this.snackBar.open('Hi '+ response.name, 'OK', {
+        //   duration: 2000,
+        // });
       },
       error =>{
         this.isLoggedIn = false;

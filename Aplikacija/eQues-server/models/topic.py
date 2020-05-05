@@ -3,7 +3,8 @@ from models.shared import db
 class Topic(db.Model):
     __tablename__='topics'
 
-    def __init__(self, name, description, subject_id):
+    def __init__(self, id, name, description, subject_id):
+        self.id = id
         self.name = name
         self.description = description
         self.subject_id = subject_id
@@ -14,6 +15,8 @@ class Topic(db.Model):
 
     subject_id = db.Column(db.Integer, db.ForeignKey('subjects.id'))
     subject = db.relationship('Subject', uselist=False, back_populates='topic')
+
+    question = db.relationship('Question', back_populates='topic', uselist=False)
 
     def serialize(self):
         return {'id': self.id, 'name': self.name, 'description': self.description, \

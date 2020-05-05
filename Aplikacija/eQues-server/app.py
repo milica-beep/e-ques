@@ -5,6 +5,7 @@ from flask_jwt_extended import JWTManager
 
 from routes.user_route import user_route
 from routes.auth_route import auth_route
+from routes.subject_route import subject_route
 
 
 app = Flask(__name__)
@@ -26,5 +27,6 @@ if __name__ == "__main__":
 
     app.register_blueprint(user_route)
     app.register_blueprint(auth_route)
+    app.register_blueprint(subject_route)
 
     app.run()
