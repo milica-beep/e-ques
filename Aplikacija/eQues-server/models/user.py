@@ -1,4 +1,5 @@
 from models.shared import db
+from .answer import Answer
 
 class User(db.Model):
     __tablename__ = 'users'
@@ -24,6 +25,10 @@ class User(db.Model):
     module = db.relationship('Module', uselist=False, back_populates='user')
 
     question = db.relationship('Question', back_populates='user', uselist=False)
+    answers = db.relationship('Answer', order_by=Answer.id)
+    comment = db.relationship('Comment', back_populates='user', uselist=False)
+    consultation_prof = db.relationship('Consultation', back_populates='proffessor', uselist=False)
+    consultation_stud = db.relationship('ConsultationStudent', back_populates='student', uselist=False)
 
     def serialize(self):
         return {'id': self.id, 'name': self.name, 'lastname': self.lastname, 'email': self.email,\

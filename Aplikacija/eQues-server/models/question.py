@@ -4,8 +4,7 @@ from sqlalchemy.sql import func
 class Question(db.Model):
     __tablename__ = 'questions'
 
-    def __init__(self, id, title, text):
-        self.id = id
+    def __init__(self, title, text):
         self.title = title
         self.text = text
 
@@ -20,5 +19,8 @@ class Question(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     user = db.relationship('User', uselist=False, back_populates='question')
 
+    answer = db.relationship('Answer', back_populates='question', uselist=False)
+
     def serialize(self):
-        return {'id': self.id, 'description': self.description}
+        return {'id': self.id, 'title': self.title, 'text': self.text, \
+            'timestampStr': self.timestamp.strftime('%d/%m/%Y, %H:%M:%S')}

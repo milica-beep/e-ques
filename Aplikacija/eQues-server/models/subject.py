@@ -3,8 +3,7 @@ from models.shared import db
 class Subject(db.Model):
     __tablename__ = 'subjects'
 
-    def __init__(self, id, name, description, student_year_id, module_id):
-        self.id = id
+    def __init__(self, name, description, student_year_id, module_id):
         self.name = name
         self.description = description
         self.student_year_id = student_year_id

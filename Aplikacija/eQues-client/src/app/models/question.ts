@@ -4,5 +4,5 @@ export class Question {
   text: string;
   topicId: number;
   userId: number;
-  timePosted: Date;
+  timestampStr: string;
 }

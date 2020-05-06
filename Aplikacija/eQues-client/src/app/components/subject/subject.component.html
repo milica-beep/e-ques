@@ -1,19 +1,35 @@
-<div *ngIf="subject">
-  <h2> {{ subject.name }} </h2>
+<div class="main">
+  <div *ngIf="subject">
+    <h1> {{ subject.name }} </h1>
+    <h2> {{ subject.description }}</h2>
+
+    <h4>Profesor 1 email1</h4>
+    <h4>Profesor 2 email2</h4>
+
+  </div>
+
+  <!-- <div *ngFor="let topic of topics">
+    <h3> {{ topic.name }} </h3>
+  </div> -->
+
+  <div>
+    <mat-accordion>
+      <mat-expansion-panel *ngFor="let topic of topics" class="main">
+        <mat-expansion-panel-header (click)="getQuestions(topic.id)">
+          <mat-panel-title>
+            {{ topic?.name }}
+          </mat-panel-title>
+          <mat-panel-description>
+            {{ topic?.description }}
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div *ngFor="let question of questions">
+          {{ question?.title }}
+        </div>
+        <button mat-button>Dodaj novo pitanje</button>
+      </mat-expansion-panel>
+    </mat-accordion>
 </div>
 
-<div *ngFor="let topic of topics">
-  {{ topic.name }}
+
 </div>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>

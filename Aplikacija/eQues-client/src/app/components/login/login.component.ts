@@ -69,15 +69,15 @@ export class LoginComponent implements OnInit {
         });
   }
 
-  testJWTProtected() {
-    this.authService.test().subscribe(
-      data => {
-        console.log(data.hello);
-      },
-      error => {
-      console.log('ne ok');
-      });
-  }
+  // testJWTProtected() {
+  //   this.authService.test().subscribe(
+  //     data => {
+  //       console.log(data.hello);
+  //     },
+  //     error => {
+  //     console.log('ne ok');
+  //     });
+  // }
 
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, {

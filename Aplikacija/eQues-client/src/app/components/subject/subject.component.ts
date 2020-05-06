@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SubjectService } from 'src/app/services/subject.service';
 import { Topic } from 'src/app/models/topic';
 import { AuthService } from 'src/app/services/auth.service';
+import { Question } from 'src/app/models/question';
 
 @Component({
   selector: 'app-subject',
@@ -17,6 +18,7 @@ export class SubjectComponent implements OnInit {
   subjectId: number;
   subject: Subject;
   topics: Topic[];
+  questions: Question[];
 
   constructor(private userService: UserService,
               private authService: AuthService,
@@ -36,17 +38,13 @@ export class SubjectComponent implements OnInit {
 
       this.getSubject();
     })
-
-    //this.getTopics();
-
-    this.router.events.subscribe(event => {
-      this.getTopics();
-    })
   }
 
   getSubject() {
-    this.subjectService.getSubject(this.subjectId).subscribe(subject => {
-      this.subject = subject;
+    this.subjectService.getSubject(this.subjectId).subscribe(resp => {
+      this.subject = resp.subject;
+      this.topics = resp.topics;
+      console.log('blablabla');
     })
   }
 
@@ -56,4 +54,12 @@ export class SubjectComponent implements OnInit {
     })
   }
 
+  getQuestions(topicId) {
+    this.subjectService.getQuestions(topicId).subscribe(resp => {
+      this.questions = resp.questions;
+    },
+    err => {
+      this.questions = null;
+    })
+  }
 }

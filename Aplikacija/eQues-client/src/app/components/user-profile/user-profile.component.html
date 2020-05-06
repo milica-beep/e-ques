@@ -14,7 +14,24 @@
 
 <mat-grid-list cols="2" rowHeight="2:2" fxFlex fxLayout="collumn">
   <mat-grid-tile>User photo</mat-grid-tile>
-  <mat-grid-tile>User data</mat-grid-tile>
+  <mat-grid-tile>
+    <div *ngIf="userId == currentUser?.id">
+      {{ currentUser?.name }}
+      {{ currentUser?.lastname }}
+      {{ currentUser?.email }}
+      {{ currentUser?.moduleId }}
+      {{ currentUser?.studentYearId }}
+      <p>ovo sam ja</p>
+    </div>
+    <div *ngIf="userId != currentUser?.id">
+      {{ user?.name }}
+      {{ user?.lastname }}
+      {{ user?.email }}
+      {{ user?.moduleId }}
+      {{ user?.studentYearId }}
+      <p>ovo nisam ja brrrrrrrrrre</p>
+    </div>
+  </mat-grid-tile>
   <mat-grid-tile>graphs/consultations</mat-grid-tile>
   <mat-grid-tile>graphs/consultations</mat-grid-tile>
 </mat-grid-list>

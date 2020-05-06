@@ -4,11 +4,11 @@
       <h2>Registracija</h2>
 
       <mat-radio-group id="role" formControlName="role" class="radioRole" (change)="userRoleChanged($event)">
-        <mat-radio-button [value]="studentRole.id" checked="True">
+        <mat-radio-button [value]="studentRole?.id" checked="True">
           {{ studentRole.description }}
         </mat-radio-button>
 
-        <mat-radio-button [value]="proffessorRole.id">
+        <mat-radio-button [value]="proffessorRole?.id">
           {{ proffessorRole.description }}
         </mat-radio-button>
       </mat-radio-group>

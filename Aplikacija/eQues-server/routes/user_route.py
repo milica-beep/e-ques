@@ -22,6 +22,27 @@ def get_subjects():
             subjects = Subject.query.filter(Subject.module_id == user.module_id and Subject.student_year_id == user.student_year_id).all()
             return jsonify({'subjects': [x.serialize() for x in subjects]})
 
+@user_route.route('/users/get-user', methods=['GET'])
+def get_user():
+    user_id = request.args.get('id')
+
+    if user_id:
+        user = User.query.filter(User.id == user_id).first()
+
+        if user:
+            return jsonify(user.serialize()), 200
+        else:
+            return jsonify({'error': 'Ne postoji korisnik u bazi'})
+
+
+
+
+
+
+
+
+
+
 # @user_route.route('/users/get-subject', methods=['GET'])
 # def get_subject():
 #     subject_id = request.args.get('id')

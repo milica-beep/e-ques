@@ -2,6 +2,7 @@ from models import *
 from models.constants import *
 from models.shared import db
 from passlib.hash import sha256_crypt
+from datetime import datetime
 
 # TODO postavi konstruktore u db.sesssion.add umesto promenljivih
 
@@ -46,10 +47,10 @@ def create_user_statuses(commit=False):
         db.session.commit()
 
 def create_modules(commit=False):
-    mod1 = Module(1, 'Opšti')
-    mod2 = Module(2, 'Računarstvo i informatika')
-    mod3 = Module(3, 'Upravljanje sistemima')
-    mod4 = Module(4, 'Elektronika')
+    mod1 = Module('Opšti')
+    mod2 = Module('Računarstvo i informatika')
+    mod3 = Module('Upravljanje sistemima')
+    mod4 = Module('Elektronika')
 
     db.session.add(mod1)  
     db.session.add(mod2) 
@@ -60,11 +61,11 @@ def create_modules(commit=False):
         db.session.commit()
 
 def create_subjects(commit=False):
-    subj1 = Subject(1, 'Softversko inženjerstvo', 'Blablabla', STUDENT_YEAR3, 2)
-    subj2 = Subject(2, 'Mikroračunarski sistemi', 'Blablabla', STUDENT_YEAR3, 2)
-    subj3 = Subject(3, 'Sistemi baza podataka', 'Blablabla', STUDENT_YEAR3, 2)
-    subj4 = Subject(4, 'Baze podataka', 'Blablabla', STUDENT_YEAR2, 2)
-    subj5 = Subject(5, 'Elektronika', 'Blablabla', STUDENT_YEAR3, 3)
+    subj1 = Subject( 'Softversko inženjerstvo', 'Blablabla', STUDENT_YEAR3, 2)
+    subj2 = Subject( 'Mikroračunarski sistemi', 'Blablabla', STUDENT_YEAR3, 2)
+    subj3 = Subject( 'Sistemi baza podataka', 'Blablabla', STUDENT_YEAR3, 2)
+    subj4 = Subject( 'Baze podataka', 'Blablabla', STUDENT_YEAR2, 2)
+    subj5 = Subject( 'Elektronika', 'Blablabla', STUDENT_YEAR3, 3)
 
     db.session.add(subj1)  
     db.session.add(subj2) 
@@ -76,24 +77,24 @@ def create_subjects(commit=False):
         db.session.commit()
 
 def create_topics(commit=False):
-    top1 = Topic(1, 'Oblast 1', 'Ovo je jako vazna oblast', 1)
-    top2 = Topic(2, 'Oblast 2', 'Ovo je jako vazna oblast', 1)
-    top3 = Topic(3, 'Oblast 3', 'Ovo je jako vazna oblast', 1)
-    top4 = Topic(4, 'Oblast 4', 'Ovo je jako vazna oblast', 1)
+    top1 = Topic( 'Oblast 1 SI', 'Ovo je jako vazna oblast 1', 1)
+    top2 = Topic( 'Oblast 2 SI', 'Ovo je jako vazna oblast 2', 1)
+    top3 = Topic( 'Oblast 3 SI', 'Ovo je jako vazna oblast 3', 1)
+    top4 = Topic( 'Oblast 4 SI', 'Ovo je jako vazna oblast 4', 1)
 
-    top5 = Topic(5, 'Oblast 1', 'Ovo je jako vazna oblast', 2)
-    top6 = Topic(6, 'Oblast 2', 'Ovo je jako vazna oblast', 2)
-    top7 = Topic(7, 'Oblast 3', 'Ovo je jako vazna oblast', 2)
-    top8 = Topic(8, 'Oblast 4', 'Ovo je jako vazna oblast', 2)
+    top5 = Topic( 'Oblast 1 MIKS', 'Ovo je jako vazna oblast 1', 2)
+    top6 = Topic( 'Oblast 2 MIKS', 'Ovo je jako vazna oblast 2', 2)
+    top7 = Topic( 'Oblast 3 MIKS', 'Ovo je jako vazna oblast 3', 2)
+    top8 = Topic( 'Oblast 4 MIKS', 'Ovo je jako vazna oblast 4', 2)
 
-    top9 = Topic(9, 'Oblast 1', 'Ovo je jako vazna oblast', 3)
-    top10 = Topic(10, 'Oblast 2', 'Ovo je jako vazna oblast', 3)
-    top11 = Topic(11, 'Oblast 3', 'Ovo je jako vazna oblast', 3)
-    top12 = Topic(12, 'Oblast 4', 'Ovo je jako vazna oblast', 3)
+    top9 = Topic( 'Oblast 1 SBP', 'Ovo je jako vazna oblast', 3)
+    top10 = Topic( 'Oblast 2 SBP', 'Ovo je jako vazna oblast', 3)
+    top11 = Topic( 'Oblast 3 SBP', 'Ovo je jako vazna oblast', 3)
+    top12 = Topic( 'Oblast 4 SBP', 'Ovo je jako vazna oblast', 3)
 
-    top13 = Topic(13, 'Ovo je jedina oblast', 'I nije nesto vazn', 4)
+    top13 = Topic( 'Ovo je jedina oblast BP', 'I nije nesto vazna', 4)
 
-    top14 = Topic(14, 'Jeste', 'Oblastoblastoblast', 5)
+    top14 = Topic( 'Jeste', 'Oblastoblastoblast', 5)
 
     db.session.add(top1)  
     db.session.add(top2) 
@@ -114,33 +115,64 @@ def create_topics(commit=False):
         db.session.commit()
 
 def create_questions(commit=False):
-    user = User()
-    user.name = 'Milica'
-    user.lastname = 'Nikolic'
-    user.student_year_id = STUDENT_YEAR3
-    user.student_id = '16785'
-    user.user_status_id = USER_STATUS_EMAIL_UNCONFIRMED
-    user.role_id = ROLE_STUDENT
-    user.email = 'milica@elfak.rs'
-    user.hashed_password = sha256_crypt.hash('123456')
-    user.id = 1
-    user.module_id = 2
+    user_student = User()
+    user_student.name = 'Milica'
+    user_student.lastname = 'Nikolic'
+    user_student.student_year_id = STUDENT_YEAR3
+    user_student.student_id = '16785'
+    user_student.user_status_id = USER_STATUS_EMAIL_UNCONFIRMED
+    user_student.role_id = ROLE_STUDENT
+    user_student.email = 'milica@elfak.rs'
+    user_student.hashed_password = sha256_crypt.hash('123456')
+    user_student.module_id = 2
 
-    q1 = Question(1, 'Ovo je naslov prvog pitanja', 'Ovde je objasnjenje sta je pitanje i tako to')
-    q2 = Question(2, 'Ovo je naslov drugog pitanja', 'Ovde je objasnjenje sta je pitanje i tako to')
+    user_prof = User()
+    user_prof.name = 'Aleksandar'
+    user_prof.lastname = 'Stanimirovic'
+    user_prof.user_status_id = USER_STATUS_EMAIL_UNCONFIRMED
+    user_prof.role_id = ROLE_PROFESSOR
+    user_prof.email = 'aleksandar@elfak.rs'
+    user_prof.hashed_password = sha256_crypt.hash('123456')
+
+
+    q1 = Question('Ovo je naslov prvog pitanja', 'Ovde je objasnjenje sta je pitanje i tako to')
+    q2 = Question('Ovo je naslov drugog pitanja', 'Ovde je objasnjenje sta je pitanje i tako to')
 
     q1.topic_id = 1
     q2.topic_id = 5
 
     q1.user_id = q2.user_id = 1
 
-    db.session.add(user) 
+    db.session.add(user_student) 
+    db.session.add(user_prof)
     db.session.add(q1) 
     db.session.add(q2) 
 
     if commit:
         db.session.commit()
 
+def test_answers(commit=False):
+    db.session.add(Answer('Ovo je milicin odgovor', 1, 1, False, 0, datetime.now()))
+    db.session.add(Answer('Ovo je jos jedan milicin odgovor', 1, 1, False, 0, datetime.now()))
+
+    if commit:
+        db.session.commit()
+
+def test_comments(commit=False):
+    db.session.add(Comment('Milica komentarise svoj odgovor', 1, 1, datetime.now()))
+    db.session.add(Comment('Profesor komentarise odgovor.', 1, 2, datetime.now()))
+
+    if commit:
+        db.session.commit()
+
+def test_consultations(commit=False):
+    db.session.add(Consultation('Ponedeljak', '14:00', 2))
+    db.session.add(Consultation('Utorak', '10:00', 2))
+
+    db.session.add(ConsultationStudent(1, 1))
+
+    if commit:
+        db.session.commit()
 
 def create_data():
     create_student_years()
@@ -150,5 +182,11 @@ def create_data():
     create_subjects()
     create_topics()
     create_questions()
+    
+    
+    test_answers()
+    test_comments()
+
+    test_consultations()
 
     db.session.commit()

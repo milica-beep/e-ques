@@ -26,7 +26,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatGridListModule } from '@angular/material/grid-list';
-
+import { MatExpansionModule } from '@angular/material/expansion';
 
 import { TokenInterceptor } from './services/token.interceptor';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarModule } from '@angular/material/snack-bar';
@@ -36,6 +36,8 @@ import { SidebarComponent } from './shared/components/sidebar/sidebar.component'
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { SubjectComponent } from './components/subject/subject.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
+import { DiscusionComponent } from './components/discusion/discusion.component';
+import { AddQuestionComponent } from './layouts/add-question/add-question.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +51,9 @@ import { FooterComponent } from './shared/components/footer/footer.component';
     SidebarComponent,
     UserProfileComponent,
     SubjectComponent,
-    FooterComponent
+    FooterComponent,
+    DiscusionComponent,
+    AddQuestionComponent
   ],
   imports: [
     BrowserModule,
@@ -72,7 +76,8 @@ import { FooterComponent } from './shared/components/footer/footer.component';
     MatListModule,
     MatSidenavModule,
     FlexLayoutModule,
-    MatGridListModule
+    MatGridListModule,
+    MatExpansionModule,
   ],
   providers: [
     {

@@ -22,10 +22,13 @@ export class UserService {
   }
 
   getSubjects(userId:number) {
-    let params = new HttpParams().set("id", userId.toString());
-    return this.http.get<any>(this.serverUrl + '/users/get-subjects', {params: params});
+    let params = new HttpParams().set('id', userId.toString());
+    return this.http.get<any>(this.serverUrl + 'users/get-subjects', {params: params});
   }
 
-
+  getUserData(userId:number) {
+    let params = new HttpParams().set('id', userId.toString());
+    return this.http.get<any>(this.serverUrl + 'users/get-user', {params: params});
+  }
 
 }

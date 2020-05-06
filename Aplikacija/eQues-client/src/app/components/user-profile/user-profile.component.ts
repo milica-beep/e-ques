@@ -11,8 +11,9 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 // TODO viewing other users' profile
 export class UserProfileComponent implements OnInit {
-  userId: string;
+  userId: number;
   currentUser: User;
+  user: User;
 
   constructor(private activatedRoute: ActivatedRoute,
               private userService: UserService,
@@ -21,24 +22,24 @@ export class UserProfileComponent implements OnInit {
   ngOnInit(): void {
     this.authService.emitChange('');
 
+    this.activatedRoute.paramMap.subscribe(params => {
+      this.userId = parseInt(params.get('id'));
+    })
+
     this.userService.userLogged.subscribe(user => {
       this.currentUser = user;
-      console.log(this.currentUser.name)
+
+      if(this.userId != this.currentUser?.id) {
+        this.getUserData();
+      }
     })
-
-    this.activatedRoute.paramMap.subscribe(params => {
-      this.userId = params.get('id');
-    })
-
-    // this.authService.currentUser().subscribe(user => {
-    //   this.currentUser = user;
-    //   this.userService.emitUserData(this.currentUser); // header ne dobija informacije bez ovoga/;>?
-    // })
-
   }
 
-  getUserData(id:number) {
-
+  getUserData() {
+    this.userService.getUserData(this.userId).subscribe(user => {
+      this.user = user;
+      console.log(user.name);
+    })
   }
 
 }

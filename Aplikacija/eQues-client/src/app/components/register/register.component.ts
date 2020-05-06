@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ValidationErrors } from '@angular/forms';
 import { User } from '../../models/User';
 import { AuthService } from 'src/app/services/auth.service';
 import { StudentYear } from 'src/app/models/studentYear';
@@ -56,7 +56,7 @@ export class RegisterComponent implements OnInit {
     this.getRegistrationData();
 
     this.registerForm = this.formBuilder.group({
-      role: ['', Validators.required],
+      role: [''],
       name: ['', Validators.required],
       lastname: ['', Validators.required],
       studentId: [''],
@@ -66,6 +66,8 @@ export class RegisterComponent implements OnInit {
       module: [''],
       year: ['']
     })
+    this.registerForm.controls['role'].setValue(1); // studentRole.id :(
+
     this.setUserCategoryValidators();
   }
 
@@ -74,9 +76,12 @@ export class RegisterComponent implements OnInit {
   onSubmit() {
     this.user = new User();
 
+    console.log('rola ' + this.registerForm.get('role').value)
+
     this.submitted = true;
 
     if(this.registerForm.invalid) {
+      this.getFormValidationErrors();
       return;
     }
 
@@ -117,24 +122,24 @@ export class RegisterComponent implements OnInit {
     const module = this.registerForm.get('module');
     const year = this.registerForm.get('year');
 
-    if(!this.isProffessor) {
-      studentId.setValidators([Validators.required]);
-      module.setValidators([Validators.required]);
-      year.setValidators([Validators.required]);
-    }
+    studentId.setValidators([Validators.required]);
+    module.setValidators([Validators.required]);
+    year.setValidators([Validators.required]);
 
     studentId.updateValueAndValidity();
     module.updateValueAndValidity();
     year.updateValueAndValidity();
 
     this.registerForm.get('role').valueChanges.subscribe(role => {
-      console.log(role);
+      console.log('value changed baki');
       if (role == this.proffessorRole.id) {
+        console.log('u prof')
         studentId.setValidators(null);
         module.setValidators(null);
         year.setValidators(null);
       }
       else if(role == this.studentRole.id) {
+        console.log('u studdddd');
         studentId.setValidators([Validators.required]);
         module.setValidators([Validators.required]);
         year.setValidators([Validators.required]);
@@ -148,4 +153,15 @@ export class RegisterComponent implements OnInit {
 
   }
 
+  getFormValidationErrors() {
+  Object.keys(this.registerForm.controls).forEach(key => {
+
+  const controlErrors: ValidationErrors = this.registerForm.get(key).errors;
+  if (controlErrors != null) {
+        Object.keys(controlErrors).forEach(keyError => {
+          console.log('Key control: ' + key + ', keyError: ' + keyError + ', err value: ', controlErrors[keyError]);
+        });
+      }
+    });
+  }
 }
