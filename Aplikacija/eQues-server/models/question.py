@@ -1,5 +1,6 @@
 from models.shared import db
 from sqlalchemy.sql import func
+from .answer import Answer
 
 class Question(db.Model):
     __tablename__ = 'questions'
@@ -17,9 +18,9 @@ class Question(db.Model):
     topic = db.relationship('Topic', uselist=False, back_populates='question')
     
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    user = db.relationship('User', uselist=False, back_populates='question')
+    user = db.relationship('User', back_populates='questions')
 
-    answer = db.relationship('Answer', back_populates='question', uselist=False)
+    answers = db.relationship('Answer', back_populates='question', order_by=Answer.id)
 
     def serialize(self):
         return {'id': self.id, 'title': self.title, 'text': self.text, \

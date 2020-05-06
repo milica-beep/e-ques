@@ -19,12 +19,13 @@ class Answer(db.Model):
     timestamp = db.Column(db.DateTime(), nullable=False, server_default=func.now())
 
     question_id = db.Column(db.Integer, db.ForeignKey('questions.id'), nullable=False)
-    question = db.relationship('Question', uselist=False, back_populates='answer')
+    question = db.relationship('Question', back_populates='answers')
     
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     user = db.relationship('User',  back_populates='answers')
 
-    comment = db.relationship('Comment', back_populates='answer', uselist=False)
+    comments = db.relationship('Comment', back_populates='answer')
+    images = db.relationship('Image', back_populates='answer')
 
     def serialize(self):
         return {'id': self.id, 'text': self.text, 'is_pinned': self.is_pinned, 'grade': self.grade, \

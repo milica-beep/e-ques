@@ -15,10 +15,10 @@ class Comment(db.Model):
     timestamp = db.Column(db.DateTime(), nullable=False, server_default=func.now())
 
     answer_id = db.Column(db.Integer, db.ForeignKey('answers.id'), nullable=False)
-    answer = db.relationship('Answer', uselist=False, back_populates='comment')
+    answer = db.relationship('Answer', back_populates='comments')
     
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    user = db.relationship('User', uselist=False, back_populates='comment')
+    user = db.relationship('User', back_populates='comments')
 
     def serialize(self):
         return {'id': self.id, 'text': self.text, 'timestamp': self.timestamp, \

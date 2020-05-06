@@ -134,7 +134,6 @@ def create_questions(commit=False):
     user_prof.email = 'aleksandar@elfak.rs'
     user_prof.hashed_password = sha256_crypt.hash('123456')
 
-
     q1 = Question('Ovo je naslov prvog pitanja', 'Ovde je objasnjenje sta je pitanje i tako to')
     q2 = Question('Ovo je naslov drugog pitanja', 'Ovde je objasnjenje sta je pitanje i tako to')
 
@@ -143,10 +142,19 @@ def create_questions(commit=False):
 
     q1.user_id = q2.user_id = 1
 
+    consultation1 = Consultation('Ponedeljak', '14:00', 2)
+    consultation2 = Consultation('Utorak', '10:00', 2)
+
+    consultation1.students.append(user_student)
+    consultation2.students.append(user_student)
+
     db.session.add(user_student) 
     db.session.add(user_prof)
     db.session.add(q1) 
     db.session.add(q2) 
+
+    db.session.add(consultation1)
+    db.session.add(consultation2)
 
     if commit:
         db.session.commit()
@@ -166,10 +174,6 @@ def test_comments(commit=False):
         db.session.commit()
 
 def test_consultations(commit=False):
-    db.session.add(Consultation('Ponedeljak', '14:00', 2))
-    db.session.add(Consultation('Utorak', '10:00', 2))
-
-    db.session.add(ConsultationStudent(1, 1))
 
     if commit:
         db.session.commit()
@@ -186,7 +190,5 @@ def create_data():
     
     test_answers()
     test_comments()
-
-    test_consultations()
-
+    
     db.session.commit()

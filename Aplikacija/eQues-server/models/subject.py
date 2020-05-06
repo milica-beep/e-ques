@@ -1,4 +1,5 @@
 from models.shared import db
+from .proffessor_subject import *
 
 class Subject(db.Model):
     __tablename__ = 'subjects'
@@ -21,6 +22,7 @@ class Subject(db.Model):
     module = db.relationship('Module', uselist=False, back_populates='subject')
 
     topic = db.relationship('Topic', back_populates='subject', uselist=False)
+    proffessors = db.relationship('User', secondary=ProffessorSubject, back_populates='subjects')
 
     def serialize(self):
         return {'id': self.id, 'name': self.name, 'description': self.description, \

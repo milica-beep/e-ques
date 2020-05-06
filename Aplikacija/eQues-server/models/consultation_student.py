@@ -1,19 +1,17 @@
 from models.shared import db
+#from sqlalchemy import Table
 
-class ConsultationStudent(db.Model):
-    __tablename__='consultations_students'
+ConsultationsStudents = db.Table('consultations_students', db.Model.metadata,
+    # __tablename__='consultations_students'
 
-    def __init__(self, consultation_id, student_id):
-        self.consultation_id = consultation_id
-        self.student_id = student_id
+    # def __init__(self, consultation_id, student_id):
+    #     self.consultation_id = consultation_id
+    #     self.student_id = student_id
        
-    id = db.Column(db.Integer, primary_key=True)
+    db.Column('id', db.Integer, primary_key=True),
+    db.Column('consultation_id', db.Integer, db.ForeignKey('consultations.id'), nullable=False),
+    db.Column('student_id', db.Integer, db.ForeignKey('users.id'))
+)
 
-    consultation_id = db.Column(db.Integer, db.ForeignKey('consultations.id'), nullable=False)
-    consultation = db.relationship('Consultation', uselist=False, back_populates='consultation_student')
-    
-    student_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    student = db.relationship('User', uselist=False, back_populates='consultation_stud')
-
-    def serialize(self):
-        return {'id': self.id, 'consultation_id': self.consultation_id, 'student_id': self.student_id}
+    # def serialize(self):
+    #     return {'id': self.id, 'consultation_id': self.consultation_id, 'student_id': self.student_id}

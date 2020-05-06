@@ -1,5 +1,6 @@
 from models.shared import db
 from sqlalchemy.sql import func
+from .consultation_student import *
 
 class Consultation(db.Model):
     __tablename__='consultations'
@@ -14,9 +15,10 @@ class Consultation(db.Model):
     time = db.Column(db.String(10), nullable=False)
 
     proffessor_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    proffessor = db.relationship('User', uselist=False, back_populates='consultation_prof')
+    proffessor = db.relationship('User', back_populates='consultations')
     
-    consultation_student = db.relationship('ConsultationStudent', uselist=False, back_populates='consultation')
+    students = db.relationship('User', secondary=ConsultationsStudents,\
+                                         back_populates='consultations_stud')
 
     def serialize(self):
         return {'id': self.id, 'day': self.day, 'time': self.time, 'proffessor_id': self.proffessor_id}

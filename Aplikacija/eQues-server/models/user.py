@@ -1,5 +1,9 @@
 from models.shared import db
 from .answer import Answer
+from .comment import Comment
+from .question import Question
+from .consultation_student import *
+from .proffessor_subject import *
 
 class User(db.Model):
     __tablename__ = 'users'
@@ -24,11 +28,15 @@ class User(db.Model):
     module_id = db.Column(db.Integer, db.ForeignKey('modules.id'))
     module = db.relationship('Module', uselist=False, back_populates='user')
 
-    question = db.relationship('Question', back_populates='user', uselist=False)
-    answers = db.relationship('Answer', order_by=Answer.id)
-    comment = db.relationship('Comment', back_populates='user', uselist=False)
-    consultation_prof = db.relationship('Consultation', back_populates='proffessor', uselist=False)
-    consultation_stud = db.relationship('ConsultationStudent', back_populates='student', uselist=False)
+    questions = db.relationship('Question', back_populates='user', order_by=Question.id)
+    answers = db.relationship('Answer', back_populates='user', order_by=Answer.id)
+    comments = db.relationship('Comment', back_populates='user', order_by=Comment.id )
+    consultations = db.relationship('Consultation', back_populates='proffessor')
+    image = db.relationship('Image', back_populates='user', uselist=False)
+    subjects = db.relationship('Subject', secondary=ProffessorSubject, back_populates='proffessors')
+
+    consultations_stud = db.relationship('Consultation', secondary=ConsultationsStudents,\
+                                         back_populates='students')
 
     def serialize(self):
         return {'id': self.id, 'name': self.name, 'lastname': self.lastname, 'email': self.email,\
