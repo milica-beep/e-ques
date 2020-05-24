@@ -1,1 +1,27 @@
-<p>add-question works!</p>
+<form [formGroup]="questionForm" (ngSubmit)="onSubmit()" class="example-form">
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Naslov pitanja</mat-label>
+    <input matInput placeholder="Ovo je naslov..." formControlName="title">
+
+    <mat-error *ngIf="f.title.errors?.required">Naslov pitanja je obavezan!</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Tekst pitanja</mat-label>
+    <textarea matInput placeholder="Ovo je tekst pitanja..." formControlName="text"></textarea>
+
+    <mat-error *ngIf="f.text.errors?.required">Tekst pitanja je obavezan!</mat-error>
+  </mat-form-field>
+
+  <div>
+    Ovo je topic id
+    {{ topicId }}
+  </div>
+
+  <button type="submit" mat-raised-button color="accent">Postavi pitanje</button>
+  <br />
+  <button type="button" (click)="testClick()">Test</button>
+
+</form>
+

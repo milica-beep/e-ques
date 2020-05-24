@@ -2,6 +2,7 @@ from models.shared import db
 from sqlalchemy.sql import func
 from .answer import Answer
 
+# TODO popravi serialize funkciju, dodaj topic id i user id
 class Question(db.Model):
     __tablename__ = 'questions'
 
@@ -15,7 +16,7 @@ class Question(db.Model):
     timestamp = db.Column(db.DateTime(), nullable=False, server_default=func.now())
 
     topic_id = db.Column(db.Integer, db.ForeignKey('topics.id'), nullable=False)
-    topic = db.relationship('Topic', uselist=False, back_populates='question')
+    topic = db.relationship('Topic', uselist=False, back_populates='questions')
     
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     user = db.relationship('User', back_populates='questions')

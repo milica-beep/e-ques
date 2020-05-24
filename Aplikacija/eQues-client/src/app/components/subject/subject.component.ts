@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { User } from 'src/app/models/User';
 import { Subject } from 'src/app/models/subject';
 import { UserService } from 'src/app/services/user.service';
@@ -7,12 +7,15 @@ import { SubjectService } from 'src/app/services/subject.service';
 import { Topic } from 'src/app/models/topic';
 import { AuthService } from 'src/app/services/auth.service';
 import { Question } from 'src/app/models/question';
+import { QuestionService } from 'src/app/services/question.service';
 
 @Component({
   selector: 'app-subject',
   templateUrl: './subject.component.html',
   styleUrls: ['./subject.component.css']
+
 })
+
 export class SubjectComponent implements OnInit {
   currentUser: User;
   subjectId: number;
@@ -24,6 +27,7 @@ export class SubjectComponent implements OnInit {
               private authService: AuthService,
               private activatedRoute: ActivatedRoute,
               private subjectService: SubjectService,
+              private questionService: QuestionService,
               private router: Router) { }
 
   ngOnInit(): void {
@@ -61,5 +65,20 @@ export class SubjectComponent implements OnInit {
     err => {
       this.questions = null;
     })
+  }
+
+  emitQuestionData(topicId: number) {
+    // let data = {
+    //   'userId': this.currentUser?.id,
+    //   'topicId': topicId
+    // };
+
+    let question = new Question()
+    question.topicId = topicId;
+    question.userId = this.currentUser.id;
+
+    console.log(question);
+
+    this.questionService.emitQuestionData(question);
   }
 }

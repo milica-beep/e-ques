@@ -15,7 +15,7 @@ class Topic(db.Model):
     subject_id = db.Column(db.Integer, db.ForeignKey('subjects.id'))
     subject = db.relationship('Subject', uselist=False, back_populates='topic')
 
-    question = db.relationship('Question', back_populates='topic', uselist=False)
+    questions = db.relationship('Question', back_populates='topic', uselist=False)
 
     def serialize(self):
         return {'id': self.id, 'name': self.name, 'description': self.description, \

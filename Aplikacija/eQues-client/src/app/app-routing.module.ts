@@ -6,6 +6,7 @@ import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './layouts/home/home.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { SubjectComponent } from './components/subject/subject.component';
+import { AddQuestionComponent } from './layouts/add-question/add-question.component';
 
 
 const routes: Routes = [{
@@ -20,7 +21,10 @@ const routes: Routes = [{
  }, {
    path: 'subject/:id',
    component: SubjectComponent
- }
+ }, {
+   path: 'add-question',
+   component: AddQuestionComponent
+ },
 
 
 ];

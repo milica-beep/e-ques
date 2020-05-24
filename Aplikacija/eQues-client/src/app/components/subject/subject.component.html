@@ -26,7 +26,7 @@
         <div *ngFor="let question of questions">
           {{ question?.title }}
         </div>
-        <button mat-button>Dodaj novo pitanje</button>
+        <button mat-button (click)="emitQuestionData(topic?.id)" [routerLink]="['/add-question']">Dodaj novo pitanje</button>
       </mat-expansion-panel>
     </mat-accordion>
 </div>
