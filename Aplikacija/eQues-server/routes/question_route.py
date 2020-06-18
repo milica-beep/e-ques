@@ -19,10 +19,10 @@ def post_question():
 
     errors = { }
 
-    if topic_id == null:
+    if topic_id is None:
         errors['topicId'] = 'Topic id nedostaje'
     
-    if user_id == null:
+    if user_id is None:
         errors['userId'] = 'User id nedostaje'
 
     existing_user_by_id = User.query.filter(User.id == user_id).first()
@@ -38,17 +38,17 @@ def post_question():
     if len(errors) != 0:
         return jsonify(errors), 422
 
-    question = Question()
+    question = Question(title, text)
 
-    question.title = title
-    question.text = text
-    #question.topic_id = topic_id
-    #question.user_id = user_id
+    # question.title = title
+    # question.text = text
+    question.topic_id = topic_id
+    question.user_id = user_id
 
-    question.timestamp = timestamp
+    # question.timestamp = timestamp
 
-    existing_topic_by_id.questions.append(question)
-    existing_user_by_id.questions.append(question)
+    # existing_topic_by_id.questions.append(question)
+    # existing_user_by_id.questions.append(question)
 
     db.session.add(question)
     db.session.commit()

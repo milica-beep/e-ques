@@ -20,9 +20,10 @@ const routes: Routes = [{
   component: UserProfileComponent
  }, {
    path: 'subject/:id',
-   component: SubjectComponent
- }, {
-   path: 'add-question',
+   component: SubjectComponent,
+ },
+ {
+   path: 'add-question/:id',
    component: AddQuestionComponent
  },
 

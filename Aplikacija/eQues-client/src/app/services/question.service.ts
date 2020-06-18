@@ -7,7 +7,9 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class QuestionService {
-  serverUrl:string = ' http://127.0.0.1:5000/';
+  serverUrl: string = ' http://127.0.0.1:5000/';
+  topicId: number;
+
   constructor(private http: HttpClient) { }
 
   private addQuestion = new Subject<any>();

@@ -22,6 +22,7 @@ export class SubjectComponent implements OnInit {
   subject: Subject;
   topics: Topic[];
   questions: Question[];
+  clicked: boolean = false;
 
   constructor(private userService: UserService,
               private authService: AuthService,
@@ -73,12 +74,18 @@ export class SubjectComponent implements OnInit {
     //   'topicId': topicId
     // };
 
-    let question = new Question()
-    question.topicId = topicId;
-    question.userId = this.currentUser.id;
+    // let question = new Question()
+    // question.topicId = topicId;
+    // question.userId = this.currentUser.id;
 
-    console.log(question);
+    // console.log(question);
 
-    this.questionService.emitQuestionData(question);
+    // this.questionService.emitQuestionData(question);
+
+    this.questionService.topicId = topicId;
+  }
+
+  test(topicId) {
+    this.router.navigate(['AddQuestionComponent', {id: topicId, id2: this.subjectId}]);
   }
 }
