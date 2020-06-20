@@ -60,7 +60,8 @@ export class SubjectComponent implements OnInit {
   }
 
   getQuestions(topicId) {
-    this.subjectService.getQuestions(topicId).subscribe(resp => {
+    this.subjectService.getQuestions(topicId).subscribe(
+    resp => {
       this.questions = resp.questions;
     },
     err => {

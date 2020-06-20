@@ -28,5 +28,5 @@ class Answer(db.Model):
     images = db.relationship('Image', back_populates='answer')
 
     def serialize(self):
-        return {'id': self.id, 'text': self.text, 'is_pinned': self.is_pinned, 'grade': self.grade, \
-                'timestamp': self.timestamp, 'question_id': self.question_id, 'user_id': self.user_id }
+        return {'id': self.id, 'text': self.text, 'isPinned': self.is_pinned, 'grade': self.grade, \
+                'timestamp': self.timestamp, 'questionId': self.question_id, 'userId': self.user_id }

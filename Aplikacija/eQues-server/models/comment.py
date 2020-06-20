@@ -22,4 +22,4 @@ class Comment(db.Model):
 
     def serialize(self):
         return {'id': self.id, 'text': self.text, 'timestamp': self.timestamp, \
-                'answer_id': self.answer_id, 'user_id': self.user_id }
+                'answerId': self.answer_id, 'userId': self.user_id }

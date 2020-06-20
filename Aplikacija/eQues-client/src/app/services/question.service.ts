@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Question } from '../models/question';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -22,5 +22,10 @@ export class QuestionService {
 
   postQuestion(question: Question) {
     return this.http.post(this.serverUrl + 'questions/add-question', question);
+  }
+
+  getDiscussion(questionId: number) {
+    let params = new HttpParams().set("id", questionId.toString());
+    return this.http.get<any>(this.serverUrl + 'discussion/get-discussion', {params:params});
   }
 }

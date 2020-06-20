@@ -23,9 +23,11 @@
             {{ topic?.description }}
           </mat-panel-description>
         </mat-expansion-panel-header>
-        <div *ngFor="let question of questions">
-          {{ question?.title }}
-        </div>
+          <div *ngFor="let question of questions" >
+            <button mat-button color="primary" [routerLink]="['/discussion', question?.id]">
+              {{ question?.title }}
+            </button>
+          </div>
         <button mat-raised-button color="accent" [routerLink]="['/add-question', topic.id]">Dodaj novo pitanje</button>
         <!-- <div *ngIf="clicked">
           <router-outlet></router-outlet>

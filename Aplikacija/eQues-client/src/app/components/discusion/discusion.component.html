@@ -1,1 +1,17 @@
-<p>discusion works!</p>
+<div>{{ question?.title }}</div>
+<br />
+<div *ngFor="let answer of answers">
+  {{ answer?.text }}
+  <div *ngFor="let user of users">
+    <div *ngIf="user.id == answer.userId">
+      {{ user.name }} {{ user.lastname }}
+    </div>
+  </div>
+
+  <div *ngFor="let comment of comments">
+    <div *ngIf="comment.answerId == answer.id">
+      {{ comment.text }}
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+</div>

@@ -7,6 +7,7 @@ import { HomeComponent } from './layouts/home/home.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { SubjectComponent } from './components/subject/subject.component';
 import { AddQuestionComponent } from './layouts/add-question/add-question.component';
+import { DiscusionComponent } from './components/discusion/discusion.component';
 
 
 const routes: Routes = [{
@@ -25,8 +26,10 @@ const routes: Routes = [{
  {
    path: 'add-question/:id',
    component: AddQuestionComponent
+ }, {
+   path: 'discussion/:id',
+   component: DiscusionComponent
  },
-
 
 ];
 

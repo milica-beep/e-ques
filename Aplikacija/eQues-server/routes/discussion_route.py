@@ -9,6 +9,8 @@ discussion_route = Blueprint("discussion", __name__)
 def get_discussion():
     question_id = request.args.get('id')
 
+    question = Question.query.filter(Question.id == question_id).first()
+
     answers = Answer.query.filter(Answer.question_id == question_id).all()
 
     usersList = []
@@ -26,7 +28,8 @@ def get_discussion():
 
         users = set(usersList)
 
-        return jsonify({'answers': [x.serialize() for x in answers], \
+        return jsonify({'question': question.serialize(),
+                        'answers': [x.serialize() for x in answers], \
                         'comments': [x.serialize() for x in comments],\
                         'users': [x.serialize() for x in users]})
 
