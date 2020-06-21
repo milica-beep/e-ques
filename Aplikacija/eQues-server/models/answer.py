@@ -4,13 +4,12 @@ from sqlalchemy.sql import func
 class Answer(db.Model):
     __tablename__='answers'
 
-    def __init__(self, text, question_id, user_id, is_pinned, grade, timestamp):
+    def __init__(self, text, question_id, user_id, is_pinned, grade):
         self.text = text
         self.question_id = question_id
         self.user_id = user_id
         self.is_pinned = is_pinned
         self.grade = grade
-        self.timestamp = timestamp
 
     id = db.Column(db.Integer, primary_key=True)
     text = db.Column(db.String(500), nullable=False)
@@ -29,4 +28,4 @@ class Answer(db.Model):
 
     def serialize(self):
         return {'id': self.id, 'text': self.text, 'isPinned': self.is_pinned, 'grade': self.grade, \
-                'timestamp': self.timestamp, 'questionId': self.question_id, 'userId': self.user_id }
+                'timestampStr': self.timestamp, 'questionId': self.question_id, 'userId': self.user_id }

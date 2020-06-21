@@ -1,0 +1,15 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="example-form">
+  <div>
+    Re:
+    {{ showOnPage }}
+  </div>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Odgovor</mat-label>
+    <textarea matInput placeholder="Ovo je odgovor..." formControlName="text"></textarea>
+
+    <mat-error *ngIf="f.text.errors?.required">Ovo polje je obavezno!</mat-error>
+  </mat-form-field>
+
+  <button type="submit" mat-raised-button color="accent">Odgovori</button>
+</form>

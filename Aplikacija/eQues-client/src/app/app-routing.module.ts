@@ -8,11 +8,13 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
 import { SubjectComponent } from './components/subject/subject.component';
 import { AddQuestionComponent } from './layouts/add-question/add-question.component';
 import { DiscusionComponent } from './components/discusion/discusion.component';
-
+import { AnswerComponent } from './components/answer/answer.component';
+import { DiscussionViewComponent } from './layouts/discussion-view/discussion-view.component';
 
 const routes: Routes = [{
   path: '',
-  component: DefaultComponent
+  component: DefaultComponent,
+  pathMatch: 'full'
  }, {
   path: 'home',
   component: HomeComponent
@@ -22,15 +24,27 @@ const routes: Routes = [{
  }, {
    path: 'subject/:id',
    component: SubjectComponent,
- },
- {
+ },{
    path: 'add-question/:id',
    component: AddQuestionComponent
  }, {
-   path: 'discussion/:id',
-   component: DiscusionComponent
+   path: 'discussion/:questionId',
+   component: DiscussionViewComponent,
+   children: [
+     {
+       path: '',
+       component: DiscusionComponent
+     },
+     {
+       path: 'answer',
+       component: AnswerComponent
+     }
+   ]
  },
-
+ {
+   path: 'add-comment/:answerId',
+   component: AnswerComponent
+ }
 ];
 
 @NgModule({

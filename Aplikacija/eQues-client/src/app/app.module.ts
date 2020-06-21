@@ -38,6 +38,8 @@ import { SubjectComponent } from './components/subject/subject.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { DiscusionComponent } from './components/discusion/discusion.component';
 import { AddQuestionComponent } from './layouts/add-question/add-question.component';
+import { AnswerComponent } from './components/answer/answer.component';
+import { DiscussionViewComponent } from './layouts/discussion-view/discussion-view.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +55,9 @@ import { AddQuestionComponent } from './layouts/add-question/add-question.compon
     SubjectComponent,
     FooterComponent,
     DiscusionComponent,
-    AddQuestionComponent
+    AddQuestionComponent,
+    AnswerComponent,
+    DiscussionViewComponent
   ],
   imports: [
     BrowserModule,

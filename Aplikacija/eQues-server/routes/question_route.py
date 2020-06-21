@@ -6,6 +6,20 @@ import datetime
 # routes
 question_route = Blueprint("questions", __name__)
 
+@question_route.route('/questions/get-question', methods=['GET'])
+def get_question():
+    question_id = request.args.get('id')
+
+    if question_id:
+        question = Question.query.filter(Question.id == question_id).first()
+        user_asking = question.user
+
+        if question:
+            return jsonify({'question': question.serialize(), \
+                            'userAsking': user_asking.serialize()}), 200
+        else: 
+            return {'error': 'Pitanje ne postoji u bazi.'}, 400
+
 @question_route.route('/questions/add-question', methods=['POST'])
 def post_question():
     req = request.get_json()

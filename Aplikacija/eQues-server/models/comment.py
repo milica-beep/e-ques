@@ -4,9 +4,8 @@ from sqlalchemy.sql import func
 class Comment(db.Model):
     __tablename__='comments'
 
-    def __init__(self, text, answer_id, user_id, timestamp):
+    def __init__(self, text, answer_id, user_id):
         self.text = text
-        self.timestamp = timestamp
         self.answer_id = answer_id
         self.user_id = user_id
        
@@ -21,5 +20,5 @@ class Comment(db.Model):
     user = db.relationship('User', back_populates='comments')
 
     def serialize(self):
-        return {'id': self.id, 'text': self.text, 'timestamp': self.timestamp, \
+        return {'id': self.id, 'text': self.text, 'timestampStr': self.timestamp, \
                 'answerId': self.answer_id, 'userId': self.user_id }

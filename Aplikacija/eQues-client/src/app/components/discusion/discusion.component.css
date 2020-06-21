@@ -1,0 +1,40 @@
+.main {
+  font-size: 16px;
+}
+
+.question {
+  text-align: center;
+}
+
+.userAsking {
+  margin-bottom: 10%;
+  font-size: 13px;
+}
+
+.answer {
+  border: 1px solid gray;
+  margin-bottom: 1px;
+  background: #d3d3d3;
+}
+
+.user {
+  margin-left: 10%;
+  margin-bottom: 5%;
+  font-size: 12px;
+}
+
+.comment {
+  margin-left: 5%;
+  margin-bottom: 1%;
+  border: 1px solid gray;
+  background: #ccc6c4;
+}
+
+.btn {
+  margin-bottom: 2%;
+  margin-top: 2%;
+}
+
+.commentButton {
+  text-align: right;
+}

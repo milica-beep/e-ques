@@ -1,17 +1,72 @@
-<div>{{ question?.title }}</div>
-<br />
-<div *ngFor="let answer of answers">
-  {{ answer?.text }}
-  <div *ngFor="let user of users">
-    <div *ngIf="user.id == answer.userId">
-      {{ user.name }} {{ user.lastname }}
+<router-outlet></router-outlet>
+<div class="main">
+  <h3 class="question">{{ question?.title }}</h3>
+  <h2 class="question">{{ question?.text }}</h2>
+  <div class="question">
+    <span class="userAsking"> pitao/la: <a *ngIf="userAsking"
+      [routerLink]="['/user/', userAsking.id]">
+      {{ userAsking?.name }} {{ userAsking?.lastname }} </a> -
+      {{ question?.timestampStr }}
+    </span>
+
+
+      <div class="btn">
+        <button mat-raised-button color="primary" [routerLink]="['answer']">Odgovori</button>
+      </div>
+  </div>
+  <!-- <br />
+  <div *ngFor="let answer of answers" class="answer">
+    {{ answer?.text }}
+    <div *ngFor="let user of users" class="user">
+      <div *ngIf="user.id == answer.userId">
+        {{ user.name }} {{ user.lastname }}
+      </div>
     </div>
+
+    <div *ngFor="let comment of comments" >
+      <div *ngIf="comment.answerId == answer.id" class="comment">
+        {{ comment.text }}
+        <div *ngFor="let user of users" class="user">
+          <div *ngIf="user.id == comment.userId">
+            {{ user.name }} {{ user.lastname }}
+          </div>
+        </div>
+      </div>
+      <br />
+    </div>
+    <br />
   </div>
 
-  <div *ngFor="let comment of comments">
-    <div *ngIf="comment.answerId == answer.id">
-      {{ comment.text }}
-    </div>
-  </div>
+  <br />
+  <br /> -->
   <mat-divider></mat-divider>
+
+  <div *ngFor="let d of discussion" class="answer">
+    {{ d.answer?.text }}
+    <div>
+      <span class="user"> napisao/la: <a *ngIf="d.answerUser"
+        [routerLink]="['/user/', d.answerUser?.id]">
+        {{ d.answerUser?.name }} {{ d.answerUser?.lastname }} </a> -
+        {{ d.answer?.timestampStr }}
+      </span>
+
+
+    </div>
+
+
+    <div *ngFor="let c of d.comments" class="comment">
+      {{ c.comment?.text }}
+      <div>
+        <span class="user"> napisao/la: <a *ngIf="c.user"
+          [routerLink]="['/user/', c.user.id]">
+          {{ c.user?.name }} {{ c.user?.lastname }} </a> -
+          {{ c.comment?.timestampStr }}
+        </span>
+
+      </div>
+    </div>
+    <div class="commentButton">
+      <button mat-button color="primary" [routerLink]="['/add-comment/', d.answer?.id]">Ostavi komentar</button>
+    </div>
+    </div>
 </div>
