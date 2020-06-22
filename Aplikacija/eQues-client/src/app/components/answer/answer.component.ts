@@ -110,6 +110,7 @@ export class AnswerComponent implements OnInit {
       this.newAnswer.questionId = this.question.id;
       this.newAnswer.userId = this.currentUser.id;
       this.newAnswer.text = this.form.get('text').value;
+      this.newAnswer.isPinned = true;
 
       this.questionService.postAnswer(this.newAnswer).subscribe(
         message => {

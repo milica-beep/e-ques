@@ -23,6 +23,7 @@ export class DiscusionComponent implements OnInit {
   comments: Comment[]; // brisi
   users: User[]; // brisi
   discussion: DiscussionField[];
+  pinButtonClass: String = "";
 
   // da li je odgovor pinovan!
   // za profesora treba da se vidi brisanje i pinovanje
@@ -64,6 +65,7 @@ export class DiscusionComponent implements OnInit {
             discField.comments = new Array();
             discField.answer = answer;
 
+            console.log('Odgovor je pinovan: ' + answer.isPinned);
 
             resp['users'].forEach(user => {
               if(user.id == answer.userId) {
@@ -91,6 +93,7 @@ export class DiscusionComponent implements OnInit {
             this.discussion.push(discField);
           });
         };
+        this.sortAnswers();
       },
       err => {
         console.log(err);
@@ -176,5 +179,35 @@ export class DiscusionComponent implements OnInit {
         console.log(err);
       }
     );
+  }
+
+  sortAnswers() {
+    console.log('u sorting funkciji');
+    for(let i = 0; i < this.discussion.length; i++) {
+      let answer: DiscussionField;
+      if(this.discussion[i].answer.isPinned) {
+        answer = this.discussion[i];
+        this.discussion.splice(i, 1);
+        this.discussion.unshift(answer);
+      }
+    }
+
+
+    // a.sort(function(x, y) {
+    //   // true values first
+    //   return (x === y)? 0 : x? -1 : 1;
+  }
+
+  pinAnswer(answer: Answer) {
+    this.questionService.pinAnswer(answer).subscribe(
+      resp => {
+        console.log(resp);
+        this.sortAnswers();
+        window.location.reload();
+      },
+      err => {
+        console.log(err);
+      }
+    )
   }
 }

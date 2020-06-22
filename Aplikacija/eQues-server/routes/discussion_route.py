@@ -161,6 +161,20 @@ def delete_comment():
 
     return jsonify({'message': 'Komentar je uspešno obrisan.'}), 200
 
+@discussion_route.route('/discussion/pin-answer', methods=['POST'])
+def pin_answer():
+    req = request.get_json()
+
+    answer_id = int(req['id'])
+
+    answer_to_pin = Answer.query.filter(Answer.id == answer_id).first()
+
+    answer_to_pin.is_pinned = not answer_to_pin.is_pinned
+
+    db.session.commit()
+
+    return jsonify({'message': 'Odgovor je uspešno pinovan.'}), 200
+
 @discussion_route.route('/discussion/test', methods=['GET'])
 def test():
     user = User.query.filter(User.id == 1).first()

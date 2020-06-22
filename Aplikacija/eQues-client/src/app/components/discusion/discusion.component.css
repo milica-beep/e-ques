@@ -43,6 +43,10 @@
   display: none !important;
 }
 
-.deleteButton {
+.deleteButton, .pinButton {
   text-align: right;
+}
+
+.pinIcon {
+  transform: rotate(45deg);
 }

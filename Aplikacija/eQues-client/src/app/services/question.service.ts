@@ -50,6 +50,10 @@ export class QuestionService {
     return this.http.delete<any>(this.serverUrl + 'discussion/delete-answer', {params:params});
   }
 
+  pinAnswer(answer: Answer) {
+    return this.http.post(this.serverUrl + 'discussion/pin-answer', answer);
+  }
+
   postComment(comment: Comment) {
     return this.http.post(this.serverUrl + 'discussion/add-comment', comment);
   }

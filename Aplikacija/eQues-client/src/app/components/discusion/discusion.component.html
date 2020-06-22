@@ -42,6 +42,17 @@
 
   <div *ngFor="let d of discussion" class="answer">
     {{ d.answer?.text }}
+    <div class="pinButton">
+      <button mat-button
+              matTooltip="Pinuj odgovor"
+              matTooltipPosition="above"
+              (click)="pinAnswer(d.answer)"
+              >
+        <mat-icon *ngIf="d.answer.isPinned" class="pinIcon">push_pin</mat-icon>
+        <mat-icon *ngIf="!d.answer.isPinned">push_pin</mat-icon>
+      </button>
+    </div>
+
     <div>
       <span class="user"> napisao/la: <a *ngIf="d.answerUser"
         [routerLink]="['/user/', d.answerUser?.id]">
