@@ -160,4 +160,21 @@ export class DiscusionComponent implements OnInit {
       }
     );
   }
+
+  deleteAnswer(answerId: number) {
+    for(let i = 0; i < this.discussion.length; i++) {
+      if(this.discussion[i].answer.id == answerId) {
+        this.discussion.splice(i, 1);
+      }
+    }
+
+    this.questionService.deleteAnswer(answerId).subscribe(
+      resp => {
+        console.log(resp);
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
 }

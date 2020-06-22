@@ -45,6 +45,11 @@ export class QuestionService {
     return this.http.post(this.serverUrl + 'discussion/add-answer', answer);
   }
 
+  deleteAnswer(answerId: number) {
+    let params = new HttpParams().set("id", answerId.toString());
+    return this.http.delete<any>(this.serverUrl + 'discussion/delete-answer', {params:params});
+  }
+
   postComment(comment: Comment) {
     return this.http.post(this.serverUrl + 'discussion/add-comment', comment);
   }

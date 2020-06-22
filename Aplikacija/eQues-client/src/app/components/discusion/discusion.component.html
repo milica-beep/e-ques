@@ -81,6 +81,7 @@
               matTooltip="Obrisi odgovor"
               matTooltipPosition="above"
               [hidden]="!(currentUser.id == d.answerUser.id || currentUser.roleId == 2 || currentUser.roleId == 3)"
+              (click)="deleteAnswer(d.answer?.id)"
               >
         <mat-icon >delete</mat-icon>
       </button>

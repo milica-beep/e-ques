@@ -98,6 +98,22 @@ def add_answer():
 
     return jsonify({'message': 'Odgovor je uspešno postavljen.'}), 200
 
+@discussion_route.route('/discussion/delete-answer', methods=['DELETE'])
+def delete_answer():
+    answer_id = request.args.get('id')
+
+    answer_to_delete = Answer.query.filter(Answer.id == answer_id).first()
+
+    comments_to_delete = answer_to_delete.comments
+
+    for comment in comments_to_delete:
+        db.session.delete(comment)
+
+    db.session.delete(answer_to_delete)
+    db.session.commit()
+
+    return jsonify({'message': 'Odgovor je uspešno obrisan.'}), 200
+
 @discussion_route.route('/discussion/add-comment', methods=['POST'])
 def add_comment():
     req = request.get_json()
@@ -143,7 +159,7 @@ def delete_comment():
     db.session.delete(comment_to_delete)
     db.session.commit()
 
-    return jsonify('OK'), 200
+    return jsonify({'message': 'Komentar je uspešno obrisan.'}), 200
 
 @discussion_route.route('/discussion/test', methods=['GET'])
 def test():
