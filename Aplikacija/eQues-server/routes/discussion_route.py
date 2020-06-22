@@ -60,9 +60,6 @@ def get_answer():
             return {'error': 'Odgovor ne postoji u bazi.'}, 400
 
 
-    
-
-
 @discussion_route.route('/discussion/add-answer', methods=['POST'])
 def add_answer():
     req = request.get_json()
@@ -137,6 +134,16 @@ def add_comment():
 
     return jsonify({'message': 'Komentar je uspešno postavljen.'}), 200
 
+@discussion_route.route('/discussion/delete-comment', methods=['DELETE'])
+def delete_comment():
+    comment_id = request.args.get('id')
+
+    comment_to_delete = Comment.query.filter(Comment.id == comment_id).first()
+
+    db.session.delete(comment_to_delete)
+    db.session.commit()
+
+    return jsonify('OK'), 200
 
 @discussion_route.route('/discussion/test', methods=['GET'])
 def test():

@@ -27,6 +27,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { TokenInterceptor } from './services/token.interceptor';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarModule } from '@angular/material/snack-bar';
@@ -40,6 +41,7 @@ import { DiscusionComponent } from './components/discusion/discusion.component';
 import { AddQuestionComponent } from './layouts/add-question/add-question.component';
 import { AnswerComponent } from './components/answer/answer.component';
 import { DiscussionViewComponent } from './layouts/discussion-view/discussion-view.component';
+
 
 @NgModule({
   declarations: [
@@ -82,6 +84,7 @@ import { DiscussionViewComponent } from './layouts/discussion-view/discussion-vi
     FlexLayoutModule,
     MatGridListModule,
     MatExpansionModule,
+    MatTooltipModule,
   ],
   providers: [
     {

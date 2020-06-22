@@ -38,3 +38,11 @@
 .commentButton {
   text-align: right;
 }
+
+[hidden] {
+  display: none !important;
+}
+
+.deleteButton {
+  text-align: right;
+}

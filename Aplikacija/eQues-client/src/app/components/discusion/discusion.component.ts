@@ -142,4 +142,22 @@ export class DiscusionComponent implements OnInit {
     })
   }
 
+  deleteComment(commentId: number) {
+    this.discussion.forEach(discField => {
+      for(let i = 0; i < discField.comments.length; i++) {
+        if(discField.comments[i].comment.id == commentId) {
+          discField.comments.splice(i, 1);
+        }
+      }
+    })
+
+    this.questionService.deleteComment(commentId).subscribe(
+      resp => {
+        console.log(resp);
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
 }

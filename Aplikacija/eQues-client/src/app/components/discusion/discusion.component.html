@@ -1,4 +1,3 @@
-<router-outlet></router-outlet>
 <div class="main">
   <h3 class="question">{{ question?.title }}</h3>
   <h2 class="question">{{ question?.text }}</h2>
@@ -62,11 +61,29 @@
           {{ c.user?.name }} {{ c.user?.lastname }} </a> -
           {{ c.comment?.timestampStr }}
         </span>
-
       </div>
+
+      <div class="deleteButton">
+        <button mat-button
+              matTooltip="Obrisi komentar"
+              matTooltipPosition="above"
+              [hidden]="!(currentUser.id == c.user.id || currentUser.roleId == 2 || currentUser.roleId == 3)"
+              (click)="deleteComment(c.comment.id)"
+              >
+        <mat-icon >delete</mat-icon>
+      </button>
+      </div>
+
     </div>
     <div class="commentButton">
       <button mat-button color="primary" [routerLink]="['/add-comment/', d.answer?.id]">Ostavi komentar</button>
-    </div>
+      <button mat-button
+              matTooltip="Obrisi odgovor"
+              matTooltipPosition="above"
+              [hidden]="!(currentUser.id == d.answerUser.id || currentUser.roleId == 2 || currentUser.roleId == 3)"
+              >
+        <mat-icon >delete</mat-icon>
+      </button>
+      </div>
     </div>
 </div>
