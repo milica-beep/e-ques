@@ -8,6 +8,10 @@
         <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
             <ul fxLayout="row" fxLayoutGap="20px">
                 <li>
+                  <button *ngIf="currentUser?.roleId == 3" mat-button [routerLink]="['/admin']">
+                    <mat-icon>assignment</mat-icon>
+                  </button>
+
                   <button mat-button [routerLink]="['/home']">
                     <mat-icon>home</mat-icon>
                   </button>
@@ -17,7 +21,7 @@
                   </button>
 
                   <mat-menu #menu="matMenu">
-                      <button mat-menu-item *ngIf="user" [routerLink]="['/user', user.id]">
+                      <button mat-menu-item *ngIf="currentUser" [routerLink]="['/user', currentUser?.id]">
                         Profile
                       </button>
 

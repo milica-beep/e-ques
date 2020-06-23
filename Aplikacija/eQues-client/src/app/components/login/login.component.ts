@@ -43,10 +43,10 @@ export class LoginComponent implements OnInit {
   this.authService.login(this.f.email.value, this.f.password.value)
     .subscribe(
         data => {
-         this.openSnackBar(data['message'], 'OK');
+        // this.openSnackBar(data['message'], 'OK');
          // window.location.reload();
          this.authService.emitChange('Logged in');
-         this.router.navigate(['/home']);
+         //this.router.navigate(['/home']);
 
         },
         err => {

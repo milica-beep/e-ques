@@ -134,6 +134,12 @@ def create_questions(commit=False):
     user_prof.email = 'aleksandar@elfak.rs'
     user_prof.hashed_password = sha256_crypt.hash('123456')
 
+    user_admin = User()
+    user_admin.email = 'admin'
+    user_admin.hashed_password = sha256_crypt.hash('admin')
+    user_admin.role_id = ROLE_ADMIN
+    user_admin.user_status_id = USER_STATUS_APPROVED
+
     q1 = Question('Ovo je naslov prvog pitanja', 'Ovde je objasnjenje sta je pitanje i tako to')
     q2 = Question('Ovo je naslov drugog pitanja', 'Ovde je objasnjenje sta je pitanje i tako to')
 
@@ -150,6 +156,7 @@ def create_questions(commit=False):
 
     db.session.add(user_student) 
     db.session.add(user_prof)
+    db.session.add(user_admin)
     db.session.add(q1) 
     db.session.add(q2) 
 
@@ -160,15 +167,15 @@ def create_questions(commit=False):
         db.session.commit()
 
 def test_answers(commit=False):
-    db.session.add(Answer('Ovo je milicin odgovor', 1, 1, False, 0, datetime.now()))
-    db.session.add(Answer('Ovo je jos jedan milicin odgovor', 1, 1, False, 0, datetime.now()))
+    db.session.add(Answer('Ovo je milicin odgovor', 1, 1, False, 0))
+    db.session.add(Answer('Ovo je jos jedan milicin odgovor', 1, 1, False, 0))
 
     if commit:
         db.session.commit()
 
 def test_comments(commit=False):
-    db.session.add(Comment('Milica komentarise svoj odgovor', 1, 1, datetime.now()))
-    db.session.add(Comment('Profesor komentarise odgovor.', 1, 2, datetime.now()))
+    db.session.add(Comment('Milica komentarise svoj odgovor', 1, 1))
+    db.session.add(Comment('Profesor komentarise odgovor.', 1, 2))
 
     if commit:
         db.session.commit()

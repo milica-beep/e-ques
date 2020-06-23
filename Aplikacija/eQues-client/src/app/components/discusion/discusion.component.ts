@@ -24,10 +24,8 @@ export class DiscusionComponent implements OnInit {
   users: User[]; // brisi
   discussion: DiscussionField[];
   pinButtonClass: String = "";
-
-  // da li je odgovor pinovan!
-  // za profesora treba da se vidi brisanje i pinovanje
-  // za studenta da moze da obrise ako je on postavio odgovor/komentar
+  starColor: String = "accent";
+  currentUserRatings: number[];
 
   constructor(private authService: AuthService,
               private userService: UserService,
@@ -209,5 +207,9 @@ export class DiscusionComponent implements OnInit {
         console.log(err);
       }
     )
+  }
+
+  ratingUpdated() {
+
   }
 }

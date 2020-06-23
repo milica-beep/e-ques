@@ -15,6 +15,7 @@ export class AppComponent {
   isLoggedIn: boolean = false;
   sideBarOpen = false;
   currentUser: User;
+  adminLogged: boolean = false;
 
   constructor(private authService: AuthService,
               private router: Router,
@@ -42,6 +43,11 @@ export class AppComponent {
         if(window.location.pathname == '/') { // ako je user ulogovan a pokusa da se vrati na pocetnu stranu
           this.router.navigate(['/home']);
         }
+        if(response.roleId == 3 && !this.adminLogged) {
+          this.adminLogged = true;
+          this.router.navigate(['/admin']);
+        }
+
         this.isLoggedIn = true;
       },
       error =>{
@@ -52,7 +58,6 @@ export class AppComponent {
   }
 
   checkUser() {
-    console.log('Pozvana je checkUser');
     this.authService.currentUser().subscribe(
       response => {
         this.router.events.subscribe(event => {
@@ -60,6 +65,15 @@ export class AppComponent {
         })
         this.userService.emitUserData(response);
         this.isLoggedIn = true;
+        if(window.location.pathname == '/') { // ako je user ulogovan a pokusa da se vrati na pocetnu stranu
+          if(response.roleId == 3 && !this.adminLogged) {
+            this.adminLogged = true;
+            this.router.navigate(['/admin']);
+          }
+          else {
+            this.router.navigate(['/home']);
+          }
+        }
         // this.snackBar.open('Hi '+ response.name, 'OK', {
         //   duration: 2000,
         // });
@@ -81,6 +95,7 @@ export class AppComponent {
   logUserOut($event) {
     this.isLoggedIn = false;
     this.sideBarOpen = false;
+    this.adminLogged = false;
     this.router.navigate(['']);
     localStorage.clear();
   }

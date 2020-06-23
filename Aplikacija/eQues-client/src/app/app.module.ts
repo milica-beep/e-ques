@@ -41,6 +41,8 @@ import { DiscusionComponent } from './components/discusion/discusion.component';
 import { AddQuestionComponent } from './layouts/add-question/add-question.component';
 import { AnswerComponent } from './components/answer/answer.component';
 import { DiscussionViewComponent } from './layouts/discussion-view/discussion-view.component';
+import { StarRatingComponent } from './components/star-rating/star-rating.component';
+import { AdminComponent } from './layouts/admin/admin.component';
 
 
 @NgModule({
@@ -59,7 +61,9 @@ import { DiscussionViewComponent } from './layouts/discussion-view/discussion-vi
     DiscusionComponent,
     AddQuestionComponent,
     AnswerComponent,
-    DiscussionViewComponent
+    DiscussionViewComponent,
+    StarRatingComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,

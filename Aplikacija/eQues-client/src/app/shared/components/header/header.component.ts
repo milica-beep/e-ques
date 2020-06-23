@@ -12,7 +12,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class HeaderComponent implements OnInit {
   @Output() toggleSideBarForMe: EventEmitter<any> = new EventEmitter()
   @Output() userLoggedOut: EventEmitter<any> = new EventEmitter()
-  user: User;
+  currentUser: User;
   userId: string;
 
   constructor(private userService: UserService,
@@ -23,7 +23,7 @@ export class HeaderComponent implements OnInit {
     this.authService.emitChange('');
 
     this.userService.userLogged.subscribe(user => {
-      this.user = user;
+      this.currentUser = user;
     })
   }
 

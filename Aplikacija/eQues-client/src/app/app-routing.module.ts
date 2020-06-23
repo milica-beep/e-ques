@@ -10,6 +10,7 @@ import { AddQuestionComponent } from './layouts/add-question/add-question.compon
 import { DiscusionComponent } from './components/discusion/discusion.component';
 import { AnswerComponent } from './components/answer/answer.component';
 import { DiscussionViewComponent } from './layouts/discussion-view/discussion-view.component';
+import { AdminComponent } from './layouts/admin/admin.component';
 
 const routes: Routes = [{
   path: '',
@@ -44,7 +45,8 @@ const routes: Routes = [{
  {
    path: 'add-comment/:answerId',
    component: AnswerComponent
- }
+ },
+ { path: 'admin', component: AdminComponent }
 ];
 
 @NgModule({
