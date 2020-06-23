@@ -45,6 +45,8 @@ def register():
     confirm_password = str(req['confirmPassword'])
     role = int(req['role'])
 
+    image = 'default_user.png'
+
     errors = {}
 
     def check_empty(field_names, field_values, display_names, errors, check):

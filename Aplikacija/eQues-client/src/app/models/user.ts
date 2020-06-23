@@ -7,6 +7,7 @@ export class User {
     lastname: string;
     studentId: string;
     email: string;
+    image: string;
     password: string;
     confirmPassword: string;
     studentYearId: number;

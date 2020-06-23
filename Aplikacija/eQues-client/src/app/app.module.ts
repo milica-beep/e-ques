@@ -28,6 +28,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatCardModule } from '@angular/material/card';
 
 import { TokenInterceptor } from './services/token.interceptor';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarModule } from '@angular/material/snack-bar';
@@ -89,6 +90,7 @@ import { AdminComponent } from './layouts/admin/admin.component';
     MatGridListModule,
     MatExpansionModule,
     MatTooltipModule,
+    MatCardModule
   ],
   providers: [
     {

@@ -30,7 +30,7 @@ def get_user():
         user = User.query.filter(User.id == user_id).first()
 
         if user:
-            return jsonify(user.serialize()), 200
+            return jsonify({'user': user.serialize(), 'moduleName': user.module.name}), 200
         else:
             return jsonify({'error': 'Ne postoji korisnik u bazi'})
 

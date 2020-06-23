@@ -11,11 +11,47 @@
     {{ currentUser?.studentYearId }}
   </h1>
 </div> -->
+<div fxFlex fxLayout="row">
+  <mat-card class="example-card">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>
+        {{ user?.name }} {{ user?.lastname }}
+      </mat-card-title>
+      <mat-card-subtitle>
+        <div *ngIf="user?.roleId == 1">
+          Student
+        </div>
+        <div *ngIf="user?.roleId == 2">
+          Profesor
+        </div>
+      </mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image src="http://localhost:5000/static/images/default_user.png" alt="Photo of a Shiba Inu">
+    <mat-card-content>
+      <mat-list>
+        <mat-list-item> Email adresa:
+          {{ user?.email }}
+        </mat-list-item>
+        <mat-list-item *ngIf="user?.roleId == 1 && currentUser?.id == user?.id"> Broj indeksa:
+          {{ user?.studentId }}
+        </mat-list-item>
+        <mat-list-item *ngIf="user?.roleId == 1"> Godina:
+          {{ user?.studentYearId }}
+        </mat-list-item>
+        <mat-list-item *ngIf="user?.roleId == 1"> Modul:
+          {{ moduleName }}
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
 
-<mat-grid-list cols="2" rowHeight="2:2" fxFlex fxLayout="collumn">
-  <mat-grid-tile>User photo</mat-grid-tile>
-  <mat-grid-tile>
-    <div *ngIf="userId == currentUser?.id">
+  <mat-card>
+
+  </mat-card>
+</div>
+
+    <!-- <div *ngIf="userId == currentUser?.id">
       {{ currentUser?.name }}
       {{ currentUser?.lastname }}
       {{ currentUser?.email }}
@@ -30,9 +66,5 @@
       {{ user?.moduleId }}
       {{ user?.studentYearId }}
       <p>ovo nisam ja brrrrrrrrrre</p>
-    </div>
-  </mat-grid-tile>
-  <mat-grid-tile>graphs/consultations</mat-grid-tile>
-  <mat-grid-tile>graphs/consultations</mat-grid-tile>
-</mat-grid-list>
+    </div> -->
 

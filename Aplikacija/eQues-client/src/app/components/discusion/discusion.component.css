@@ -50,3 +50,10 @@
 .pinIcon {
   transform: rotate(45deg);
 }
+
+.example-header-image {
+  background-image: url('http://localhost:5000/static/images/default_user.png');
+  background-size: cover;
+  width: 20px;
+  height: 20px;
+}

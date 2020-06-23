@@ -54,10 +54,11 @@
     </div>
 
     <div>
-      <span class="user"> napisao/la: <a *ngIf="d.answerUser"
-        [routerLink]="['/user/', d.answerUser?.id]">
-        {{ d.answerUser?.name }} {{ d.answerUser?.lastname }} </a> -
-        {{ d.answer?.timestampStr }}
+      <span class="user"> napisao/la: <img class="example-header-image">
+         <a *ngIf="d.answerUser"
+                  [routerLink]="['/user/', d.answerUser?.id]">
+                  {{ d.answerUser?.name }} {{ d.answerUser?.lastname }} </a> -
+                  {{ d.answer?.timestampStr }}
       </span>
 
 
@@ -67,7 +68,7 @@
     <div *ngFor="let c of d.comments" class="comment">
       {{ c.comment?.text }}
       <div>
-        <span class="user"> napisao/la: <a *ngIf="c.user"
+        <span class="user"> napisao/la: <img class="example-header-image"><a *ngIf="c.user"
           [routerLink]="['/user/', c.user.id]">
           {{ c.user?.name }} {{ c.user?.lastname }} </a> -
           {{ c.comment?.timestampStr }}

@@ -2,11 +2,20 @@ mat-grid-tile {
   background: rgba(190, 174, 207, 0.507);
 }
 
-img {
+/* img {
   padding-left: 10px;
   padding-top: 10px;
   width: 100px;
   height: 100px;
   object-fit: cover;
   border-radius: 50%;
+} */
+
+.example-card {
+  max-width: 400px;
+}
+
+.example-header-image {
+  background-image: url('http://localhost:5000/static/images/default_user.png');
+  background-size: cover;
 }
