@@ -34,6 +34,7 @@ class User(db.Model):
     consultations = db.relationship('Consultation', back_populates='proffessor')
     image = db.relationship('Image', back_populates='user', uselist=False)
     subjects = db.relationship('Subject', secondary=ProffessorSubject, back_populates='proffessors')
+    grades = db.relationship('Grade', back_populates='user')
 
     consultations_stud = db.relationship('Consultation', secondary=ConsultationsStudents,\
                                          back_populates='students')

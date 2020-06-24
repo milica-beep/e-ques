@@ -9,6 +9,8 @@ import { QuestionService } from 'src/app/services/question.service';
 import { ActivatedRoute } from '@angular/router';
 import { DiscussionField } from 'src/app/models/discussion';
 import { CommentField } from 'src/app/models/commentField';
+import { Grade } from 'src/app/models/grade';
+import { userRating } from 'src/app/models/userRating';
 
 @Component({
   selector: 'app-discusion',
@@ -25,7 +27,7 @@ export class DiscusionComponent implements OnInit {
   discussion: DiscussionField[];
   pinButtonClass: String = "";
   starColor: String = "accent";
-  currentUserRatings: number[];
+  currentUserRatings: userRating[];
 
   constructor(private authService: AuthService,
               private userService: UserService,
@@ -54,11 +56,31 @@ export class DiscusionComponent implements OnInit {
         this.users = resp['users'];
         this.userAsking = resp['userAsking'];
 
+        this.currentUserRatings = new Array();
+
         this.discussion = new Array();
 
         if(resp['answers'] != undefined) {
 
           resp['answers'].forEach(answer => {
+
+            // user ratings
+            this.currentUserRatings.push(new userRating(new Grade(0, this.currentUser?.id), answer.id));
+
+            console.log(this.currentUserRatings);
+
+            answer.grades.forEach(grade => {
+              console.log(grade);
+              if(grade.userId == this.currentUser?.id) {
+                this.currentUserRatings.forEach(rat => {
+                  if(rat.answerId == answer.id) {
+                    console.log('u if ' + grade.value);
+                    rat.grade.value = grade.value;
+                  }
+                })
+              }
+            });
+
             let discField = new DiscussionField();
             discField.comments = new Array();
             discField.answer = answer;
@@ -209,7 +231,52 @@ export class DiscusionComponent implements OnInit {
     )
   }
 
-  ratingUpdated() {
+  ratingUpdated(rating:any, answerId: number) {
+    let oldGradeValue: number;
+    console.log(' u rat updated');
+    this.discussion.forEach(discField => {
+      if(discField.answer.id == answerId) {
+        let userGraded: boolean = false;
+        discField.answer.grades.forEach(grade => {
+          if(grade.userId == this.currentUser.id) {
+            oldGradeValue = grade.value;
+            grade.value = rating;
+            userGraded = true;
+          }
+        })
+        if(oldGradeValue != rating) {
+          if(!userGraded) {
+            discField.answer.grades.push(new Grade(rating, this.currentUser.id));
+          }
 
+          discField.answer.grades.forEach(grade => {
+            if(grade.userId == this.currentUser.id) {
+              this.currentUserRatings.forEach(rat => {
+                if(rat.answerId == discField.answer.id) {
+                  rat.grade.value = grade.value;
+                }
+              })
+            }
+          })
+
+          console.log(this.currentUserRatings);
+
+          let jsonData = {
+            'answerId': answerId,
+            'userId': this.currentUser.id,
+            'newGrade': rating
+          };
+
+          this.questionService.gradeAnswer(jsonData).subscribe(
+            resp => {
+              console.log(resp);
+            },
+            err => {
+              console.log(err);
+            }
+          );
+      }
+    }
+    })
   }
 }

@@ -54,6 +54,10 @@ export class QuestionService {
     return this.http.post(this.serverUrl + 'discussion/pin-answer', answer);
   }
 
+  gradeAnswer(data: any) {
+    return this.http.post(this.serverUrl + 'discussion/grade-answer', data);
+  }
+
   postComment(comment: Comment) {
     return this.http.post(this.serverUrl + 'discussion/add-comment', comment);
   }

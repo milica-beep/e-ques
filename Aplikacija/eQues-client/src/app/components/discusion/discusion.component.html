@@ -47,6 +47,12 @@
                  {{ d.answer?.timestampStr }}
       </mat-card-subtitle>
 
+      <span *ngFor="let rating of currentUserRatings">
+        <app-star-rating *ngIf="d.answer.id == rating.answerId" [color]="starColor" [starCount]="5"
+                        [rating]="rating.grade.value"
+                        (ratingUpdated)="ratingUpdated($event, d.answer.id)"></app-star-rating>
+      </span>
+
       <div class="commentButton">
         <button mat-button matTooltip="Ostavi komentar" matTooltipPosition="above"
                 [routerLink]="['/add-comment/', d.answer?.id]">
@@ -55,7 +61,7 @@
         <button mat-button
                 matTooltip="Obrisi odgovor"
                 matTooltipPosition="above"
-                [hidden]="!(currentUser.id == d.answerUser.id || currentUser.roleId == 2 || currentUser.roleId == 3)"
+                [hidden]="!(currentUser?.id == d.answerUser.id || currentUser?.roleId == 2 || currentUser?.roleId == 3)"
                 (click)="deleteAnswer(d.answer?.id)"
                 >
           <mat-icon >delete</mat-icon>

@@ -12,3 +12,5 @@ from .consultation import Consultation
 from .consultation_student import *
 from .image import Image
 from .proffessor_subject import *
+from .grade import Grade
+from .answer_grade import *

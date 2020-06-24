@@ -175,6 +175,51 @@ def pin_answer():
 
     return jsonify({'message': 'Odgovor je uspešno pinovan.'}), 200
 
+@discussion_route.route('/discussion/grade-answer', methods=['POST'])
+def grade_answer():
+    req = request.get_json()
+
+    answer_id = int(req['answerId'])
+    grade_value = int(req['newGrade'])
+    user_id = int(req['userId'])
+
+    new_grade = Grade()
+
+    new_grade.user_id = user_id
+    new_grade.value = grade_value
+
+    answer_to_grade = Answer.query.filter(Answer.id == answer_id).first()
+
+    existing_grade = Grade.query.filter(Grade.value == grade_value).filter(Grade.user_id == user_id).first()
+
+    if existing_grade is None:
+        db.session.add(new_grade)
+
+    user_already_graded = False
+    
+    for grade in answer_to_grade.grades:
+        if grade.user_id == user_id:
+            user_already_graded = True
+            grade = new_grade
+
+    if not user_already_graded:
+        answer_to_grade.grades.append(new_grade)
+
+    db.session.commit()
+
+
+
+
+    #answer_id = int(req['id'])
+    #answer_grades = req['grades']
+
+    #new_grade = answer_grades[]
+
+    #answer_to_grade = Answer.query.filter(Answer.id == answer_id).first()
+
+    return jsonify('OK')
+    
+
 @discussion_route.route('/discussion/test', methods=['GET'])
 def test():
     user = User.query.filter(User.id == 1).first()

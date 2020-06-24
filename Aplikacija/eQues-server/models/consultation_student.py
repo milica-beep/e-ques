@@ -8,7 +8,7 @@ ConsultationsStudents = db.Table('consultations_students', db.Model.metadata,
     #     self.consultation_id = consultation_id
     #     self.student_id = student_id
        
-    db.Column('id', db.Integer, primary_key=True),
+   # db.Column('id', db.Integer, primary_key=True),
     db.Column('consultation_id', db.Integer, db.ForeignKey('consultations.id'), nullable=False),
     db.Column('student_id', db.Integer, db.ForeignKey('users.id'))
 )
