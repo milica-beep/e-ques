@@ -1,12 +1,11 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()" class="example-form">
-  <div>
-    Re:
-    {{ showOnPage }}
-  </div>
-
+  <mat-card>
+    <mat-card-title>Re: {{ showOnPage }}</mat-card-title>
+  </mat-card>
   <mat-form-field class="example-full-width">
-    <mat-label>Odgovor</mat-label>
-    <textarea matInput placeholder="Ovo je odgovor..." formControlName="text"></textarea>
+    <div class="textareaDiv">
+      <textarea matInput placeholder="Ovo je odgovor..." formControlName="text"></textarea>
+    </div>
 
     <mat-error *ngIf="f.text.errors?.required">Ovo polje je obavezno!</mat-error>
   </mat-form-field>

@@ -1,103 +1,99 @@
 <div class="main">
-  <h3 class="question">{{ question?.title }}</h3>
+  <!-- <h3 class="question">{{ question?.title }}</h3>
   <h2 class="question">{{ question?.text }}</h2>
   <div class="question">
     <span class="userAsking"> pitao/la: <a *ngIf="userAsking"
       [routerLink]="['/user/', userAsking.id]">
       {{ userAsking?.name }} {{ userAsking?.lastname }} </a> -
       {{ question?.timestampStr }}
-    </span>
+    </span> -->
 
+    <mat-card class="question">
+      <mat-card-title>{{ question?.title }}</mat-card-title>
+      <mat-card-subtitle> <img mat-card-avatar class="example-header-image"> <a *ngIf="userAsking"
+        [routerLink]="['/user/', userAsking.id]">
+        {{ userAsking?.name }} {{ userAsking?.lastname }} </a> -
+        {{ question?.timestampStr }}</mat-card-subtitle>
 
+      <mat-card-content>{{ question?.text }}</mat-card-content>
       <div class="btn">
         <button mat-raised-button color="primary" [routerLink]="['answer']">Odgovori</button>
       </div>
-  </div>
-  <!-- <br />
-  <div *ngFor="let answer of answers" class="answer">
-    {{ answer?.text }}
-    <div *ngFor="let user of users" class="user">
-      <div *ngIf="user.id == answer.userId">
-        {{ user.name }} {{ user.lastname }}
-      </div>
-    </div>
-
-    <div *ngFor="let comment of comments" >
-      <div *ngIf="comment.answerId == answer.id" class="comment">
-        {{ comment.text }}
-        <div *ngFor="let user of users" class="user">
-          <div *ngIf="user.id == comment.userId">
-            {{ user.name }} {{ user.lastname }}
-          </div>
-        </div>
-      </div>
-      <br />
-    </div>
-    <br />
-  </div>
-
-  <br />
-  <br /> -->
-  <mat-divider></mat-divider>
-
-  <div *ngFor="let d of discussion" class="answer">
-    {{ d.answer?.text }}
-    <div class="pinButton">
-      <button mat-button
-              matTooltip="Pinuj odgovor"
-              matTooltipPosition="above"
-              (click)="pinAnswer(d.answer)"
-              >
-        <mat-icon *ngIf="d.answer.isPinned" class="pinIcon">push_pin</mat-icon>
-        <mat-icon *ngIf="!d.answer.isPinned">push_pin</mat-icon>
-      </button>
-    </div>
-
-    <div>
-      <span class="user"> napisao/la: <img class="example-header-image">
-         <a *ngIf="d.answerUser"
-                  [routerLink]="['/user/', d.answerUser?.id]">
-                  {{ d.answerUser?.name }} {{ d.answerUser?.lastname }} </a> -
-                  {{ d.answer?.timestampStr }}
-      </span>
+    </mat-card>
 
 
-    </div>
 
+  <!-- </div> -->
 
-    <div *ngFor="let c of d.comments" class="comment">
-      {{ c.comment?.text }}
-      <div>
-        <span class="user"> napisao/la: <img class="example-header-image"><a *ngIf="c.user"
-          [routerLink]="['/user/', c.user.id]">
-          {{ c.user?.name }} {{ c.user?.lastname }} </a> -
-          {{ c.comment?.timestampStr }}
-        </span>
-      </div>
-
-      <div class="deleteButton">
+  <div *ngFor="let d of discussion">
+    <mat-card class="answer">
+      <div class="pinButton">
         <button mat-button
-              matTooltip="Obrisi komentar"
-              matTooltipPosition="above"
-              [hidden]="!(currentUser.id == c.user.id || currentUser.roleId == 2 || currentUser.roleId == 3)"
-              (click)="deleteComment(c.comment.id)"
-              >
-        <mat-icon >delete</mat-icon>
-      </button>
+                matTooltip="Pinuj odgovor"
+                matTooltipPosition="above"
+                (click)="pinAnswer(d.answer)"
+                >
+          <mat-icon *ngIf="d.answer.isPinned" class="pinIcon">push_pin</mat-icon>
+          <mat-icon *ngIf="!d.answer.isPinned">push_pin</mat-icon>
+        </button>
+      </div>
+      <mat-card-title>
+        {{ d.answer?.text }}
+      </mat-card-title>
+      <mat-card-subtitle class="user"> napisao/la: <img mat-card-avatar class="example-header-image">
+        <a *ngIf="d.answerUser"
+                 [routerLink]="['/user/', d.answerUser?.id]">
+                 {{ d.answerUser?.name }} {{ d.answerUser?.lastname }} </a> -
+                 {{ d.answer?.timestampStr }}
+      </mat-card-subtitle>
+
+      <div class="commentButton">
+        <button mat-button matTooltip="Ostavi komentar" matTooltipPosition="above"
+                [routerLink]="['/add-comment/', d.answer?.id]">
+                <mat-icon>chat</mat-icon>
+        </button>
+        <button mat-button
+                matTooltip="Obrisi odgovor"
+                matTooltipPosition="above"
+                [hidden]="!(currentUser.id == d.answerUser.id || currentUser.roleId == 2 || currentUser.roleId == 3)"
+                (click)="deleteAnswer(d.answer?.id)"
+                >
+          <mat-icon >delete</mat-icon>
+        </button>
+        </div>
+    </mat-card>
+
+      <div *ngFor="let comment of d.comments" class="comment">
+        <mat-card>
+          <mat-card-title>
+            {{ comment.comment?.text }}
+          </mat-card-title>
+
+          <mat-card-subtitle class="user">
+            napisao/la: <img class="example-header-image"><a *ngIf="comment.user"
+                        [routerLink]="['/user/', comment.user.id]">
+                        {{ comment.user?.name }} {{ comment.user?.lastname }} </a> -
+                        {{ comment.comment?.timestampStr }}
+          </mat-card-subtitle>
+
+          <div class="deleteButton">
+            <button mat-button
+                  matTooltip="Obrisi komentar"
+                  matTooltipPosition="above"
+                  [hidden]="!(currentUser.id == comment.user.id || currentUser.roleId == 2 || currentUser.roleId == 3)"
+                  (click)="deleteComment(comment.comment.id)"
+                  >
+            <mat-icon >delete</mat-icon>
+          </button>
+          </div>
+        </mat-card>
       </div>
 
-    </div>
-    <app-star-rating [color]="starColor" [starCount]="5" (ratingUpdated)="ratingUpdated()"></app-star-rating>
-    <div class="commentButton">
-      <button mat-button color="primary" [routerLink]="['/add-comment/', d.answer?.id]">Ostavi komentar</button>
-      <button mat-button
-              matTooltip="Obrisi odgovor"
-              matTooltipPosition="above"
-              [hidden]="!(currentUser.id == d.answerUser.id || currentUser.roleId == 2 || currentUser.roleId == 3)"
-              (click)="deleteAnswer(d.answer?.id)"
-              >
-        <mat-icon >delete</mat-icon>
-      </button>
-      </div>
-    </div>
+
+
+
+
+  </div>
+
+
 </div>

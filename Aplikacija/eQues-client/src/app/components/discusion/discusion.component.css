@@ -4,6 +4,8 @@
 
 .question {
   text-align: center;
+  border: 1px solid lightgray;
+  margin-bottom: 1%;
 }
 
 .userAsking {
@@ -12,22 +14,22 @@
 }
 
 .answer {
-  border: 1px solid gray;
-  margin-bottom: 1px;
-  background: #d3d3d3;
+  border: 1px solid lightgray;
+  margin-bottom: 1%;
+  /*
+  background: #d3d3d3; */
 }
 
 .user {
-  margin-left: 10%;
-  margin-bottom: 5%;
-  font-size: 12px;
+  margin-left: 5%;
+  /* margin-bottom: 5%;
+  font-size: 12px; */
 }
 
 .comment {
   margin-left: 5%;
   margin-bottom: 1%;
-  border: 1px solid gray;
-  background: #ccc6c4;
+  border: 1px solid lightgray;
 }
 
 .btn {

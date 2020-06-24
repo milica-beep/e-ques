@@ -9,3 +9,11 @@
 .example-full-width {
   width: 100%;
 }
+
+.textareaDiv {
+  height: 100px;
+}
+
+textarea {
+  height: inherit;
+}
