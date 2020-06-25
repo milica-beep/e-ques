@@ -8,6 +8,7 @@ from routes.auth_route import auth_route
 from routes.subject_route import subject_route
 from routes.discussion_route import discussion_route
 from routes.question_route import question_route
+from routes.admin_route import admin_route
 
 
 app = Flask(__name__)
@@ -32,5 +33,6 @@ if __name__ == "__main__":
     app.register_blueprint(subject_route)
     app.register_blueprint(discussion_route)
     app.register_blueprint(question_route)
+    app.register_blueprint(admin_route)
 
     app.run()

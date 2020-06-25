@@ -1,0 +1,19 @@
+<form [formGroup]="profSubjForm" (ngSubmit)="onSubmit()">
+  <mat-form-field appearance="outline" class="selectors">
+    <mat-select id="professor" formControlName="professor">
+      <mat-option *ngFor="let professor of professors" [value]="professor.id">
+          {{ professor.name }} {{ professor.lastname }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="selectors">
+    <mat-select id="subject" formControlName="subject">
+      <mat-option *ngFor="let subject of subjects" [value]="subject.id">
+        {{ subject.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button type="submit" mat-raised-button color="primary">Dodeli predmet</button>
+</form>

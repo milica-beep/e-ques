@@ -44,6 +44,7 @@ import { AnswerComponent } from './components/answer/answer.component';
 import { DiscussionViewComponent } from './layouts/discussion-view/discussion-view.component';
 import { StarRatingComponent } from './components/star-rating/star-rating.component';
 import { AdminComponent } from './layouts/admin/admin.component';
+import { ProfessorSubjectComponent } from './components/professor-subject/professor-subject.component';
 
 
 @NgModule({
@@ -64,7 +65,8 @@ import { AdminComponent } from './layouts/admin/admin.component';
     AnswerComponent,
     DiscussionViewComponent,
     StarRatingComponent,
-    AdminComponent
+    AdminComponent,
+    ProfessorSubjectComponent
   ],
   imports: [
     BrowserModule,

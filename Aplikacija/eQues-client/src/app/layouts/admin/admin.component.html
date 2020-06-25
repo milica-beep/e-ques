@@ -1,3 +1,7 @@
 <div *ngIf="currentUser?.roleId == 3">
-  Admin
+  <button mat-raised-button [routerLink]="['professor-subject']">
+    Dodeli predmete
+  </button>
 </div>
+
+<router-outlet></router-outlet>
