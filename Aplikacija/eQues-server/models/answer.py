@@ -15,7 +15,7 @@ class Answer(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     text = db.Column(db.String(500), nullable=False)
     is_pinned = db.Column(db.Boolean)
-    average_grade = db.Column(db.Integer)
+    average_grade = db.Column(db.Float)
     timestamp = db.Column(db.DateTime(), nullable=False, server_default=func.now())
 
     question_id = db.Column(db.Integer, db.ForeignKey('questions.id'), nullable=False)

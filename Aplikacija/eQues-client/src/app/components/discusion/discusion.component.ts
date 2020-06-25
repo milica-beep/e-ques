@@ -269,7 +269,7 @@ export class DiscusionComponent implements OnInit {
 
           this.questionService.gradeAnswer(jsonData).subscribe(
             resp => {
-              console.log(resp);
+              discField.answer = resp['answer'];
             },
             err => {
               console.log(err);

@@ -190,34 +190,29 @@ def grade_answer():
 
     answer_to_grade = Answer.query.filter(Answer.id == answer_id).first()
 
-    existing_grade = Grade.query.filter(Grade.value == grade_value).filter(Grade.user_id == user_id).first()
-
-    if existing_grade is None:
-        db.session.add(new_grade)
-
-    user_already_graded = False
-    
     for grade in answer_to_grade.grades:
         if grade.user_id == user_id:
-            user_already_graded = True
-            grade = new_grade
+            answer_to_grade.grades.remove(grade)
+    
+    existing_grade = Grade.query.filter(Grade.value == new_grade.value).filter(Grade.user_id == user_id).first()
 
-    if not user_already_graded:
+    if existing_grade:
+        answer_to_grade.grades.append(existing_grade)
+    else:
         answer_to_grade.grades.append(new_grade)
+
+
+    
+
+    average_grade = sum(g.value for g in answer_to_grade.grades) / len(answer_to_grade.grades)
+
+    print(average_grade)
+
+    answer_to_grade.average_grade = average_grade
 
     db.session.commit()
 
-
-
-
-    #answer_id = int(req['id'])
-    #answer_grades = req['grades']
-
-    #new_grade = answer_grades[]
-
-    #answer_to_grade = Answer.query.filter(Answer.id == answer_id).first()
-
-    return jsonify('OK')
+    return jsonify({'answer': answer_to_grade.serialize()})
     
 
 @discussion_route.route('/discussion/test', methods=['GET'])
