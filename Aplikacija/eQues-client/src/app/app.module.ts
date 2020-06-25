@@ -29,6 +29,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCardModule } from '@angular/material/card';
+import { MatTableModule } from '@angular/material/table';
 
 import { TokenInterceptor } from './services/token.interceptor';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarModule } from '@angular/material/snack-bar';
@@ -45,6 +46,7 @@ import { DiscussionViewComponent } from './layouts/discussion-view/discussion-vi
 import { StarRatingComponent } from './components/star-rating/star-rating.component';
 import { AdminComponent } from './layouts/admin/admin.component';
 import { ProfessorSubjectComponent } from './components/professor-subject/professor-subject.component';
+import { ApproveProfessorComponent } from './components/approve-professor/approve-professor.component';
 
 
 @NgModule({
@@ -66,7 +68,8 @@ import { ProfessorSubjectComponent } from './components/professor-subject/profes
     DiscussionViewComponent,
     StarRatingComponent,
     AdminComponent,
-    ProfessorSubjectComponent
+    ProfessorSubjectComponent,
+    ApproveProfessorComponent
   ],
   imports: [
     BrowserModule,
@@ -92,7 +95,8 @@ import { ProfessorSubjectComponent } from './components/professor-subject/profes
     MatGridListModule,
     MatExpansionModule,
     MatTooltipModule,
-    MatCardModule
+    MatCardModule,
+    MatTableModule,
   ],
   providers: [
     {

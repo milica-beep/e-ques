@@ -129,7 +129,7 @@ def create_questions(commit=False):
     user_prof = User()
     user_prof.name = 'Aleksandar'
     user_prof.lastname = 'Stanimirovic'
-    user_prof.user_status_id = USER_STATUS_EMAIL_UNCONFIRMED
+    user_prof.user_status_id = USER_STATUS_NOT_APPROVED
     user_prof.role_id = ROLE_PROFESSOR
     user_prof.email = 'aleksandar@elfak.rs'
     user_prof.hashed_password = sha256_crypt.hash('123456')
@@ -139,6 +139,22 @@ def create_questions(commit=False):
     user_admin.hashed_password = sha256_crypt.hash('admin')
     user_admin.role_id = ROLE_ADMIN
     user_admin.user_status_id = USER_STATUS_APPROVED
+
+    user_prof2 = User()
+    user_prof2.name = 'Emina'
+    user_prof2.lastname = 'Milovanovic'
+    user_prof2.user_status_id = USER_STATUS_NOT_APPROVED
+    user_prof2.role_id = ROLE_PROFESSOR
+    user_prof2.email = 'emina@elfak.rs'
+    user_prof2.hashed_password = sha256_crypt.hash('123456')
+
+    user_prof3 = User()
+    user_prof3.name = 'Dragan'
+    user_prof3.lastname = 'Stojanovic'
+    user_prof3.user_status_id = USER_STATUS_NOT_APPROVED
+    user_prof3.role_id = ROLE_PROFESSOR
+    user_prof3.email = 'dragan@elfak.rs'
+    user_prof3.hashed_password = sha256_crypt.hash('123456')
 
     q1 = Question('Ovo je naslov prvog pitanja', 'Ovde je objasnjenje sta je pitanje i tako to')
     q2 = Question('Ovo je naslov drugog pitanja', 'Ovde je objasnjenje sta je pitanje i tako to')
@@ -157,6 +173,8 @@ def create_questions(commit=False):
     db.session.add(user_student) 
     db.session.add(user_prof)
     db.session.add(user_admin)
+    db.session.add(user_prof2)
+    db.session.add(user_prof3)
     db.session.add(q1) 
     db.session.add(q2) 
 

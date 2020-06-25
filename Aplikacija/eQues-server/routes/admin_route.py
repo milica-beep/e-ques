@@ -37,3 +37,26 @@ def post_profs_subj():
         db.session.commit()
 
     return jsonify({'message': 'OK'}), 200
+
+@admin_route.route('/admin/get-unapproved-professors', methods=['GET'])
+def get_unapproved_professors():
+    professors = User.query.filter(User.role_id == ROLE_PROFESSOR)\
+                           .filter(User.user_status_id == USER_STATUS_NOT_APPROVED)\
+                           .all()
+
+    return jsonify({'professors': [x.serialize() for x in professors]})    
+
+@admin_route.route('/admin/approve-professor', methods=['GET'])
+def approve_professor():
+    professor_id = request.args.get('id')
+
+    professor = User.query.filter(User.id == professor_id).first()
+
+    professor.user_status_id = USER_STATUS_APPROVED
+
+    unapproved_professors = User.query.filter(User.role_id == ROLE_PROFESSOR)\
+                           .filter(User.user_status_id == USER_STATUS_NOT_APPROVED)\
+                           .all()
+    db.session.commit()
+
+    return jsonify({'professors': [x.serialize() for x in unapproved_professors]})    

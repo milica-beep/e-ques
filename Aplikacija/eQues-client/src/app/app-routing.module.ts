@@ -12,6 +12,7 @@ import { AnswerComponent } from './components/answer/answer.component';
 import { DiscussionViewComponent } from './layouts/discussion-view/discussion-view.component';
 import { AdminComponent } from './layouts/admin/admin.component';
 import { ProfessorSubjectComponent } from './components/professor-subject/professor-subject.component';
+import { ApproveProfessorComponent } from './components/approve-professor/approve-professor.component';
 
 const routes: Routes = [{
   path: '',
@@ -49,7 +50,8 @@ const routes: Routes = [{
  },
  { path: 'admin', component: AdminComponent,
    children: [
-     { path: 'professor-subject', component: ProfessorSubjectComponent }
+     { path: 'professor-subject', component: ProfessorSubjectComponent },
+     { path: 'professor-approve', component: ApproveProfessorComponent }
    ] }
 ];
 
