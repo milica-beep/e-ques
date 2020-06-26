@@ -32,7 +32,10 @@ export class UpdateSubjectComponent implements OnInit {
     })
   }
 
-  // TODO prikazi sve oblasti za taj predmet sa strane
+  // TODO izmeni ime predmeta
+  //      izmeni opis predmeta
+  //      izmeni naziv neke oblasti
+  //      obrisi oblast - dugme OBRISI u listi oblasti pored predmeta
 
   onSubmit() {
     if (this.updateSubjectForm.invalid) {

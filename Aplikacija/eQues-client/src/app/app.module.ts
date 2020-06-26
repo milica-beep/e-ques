@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -30,6 +30,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 import { TokenInterceptor } from './services/token.interceptor';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarModule } from '@angular/material/snack-bar';
@@ -50,6 +51,7 @@ import { ApproveProfessorComponent } from './components/approve-professor/approv
 import { AddSubjectComponent } from './components/add-subject/add-subject.component';
 import { DeleteSubjectComponent } from './components/delete-subject/delete-subject.component';
 import { UpdateSubjectComponent } from './components/update-subject/update-subject.component';
+import { MatNativeDateModule } from '@angular/material/core';
 
 
 @NgModule({
@@ -103,6 +105,8 @@ import { UpdateSubjectComponent } from './components/update-subject/update-subje
     MatTooltipModule,
     MatCardModule,
     MatTableModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [
     {

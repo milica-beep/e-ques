@@ -11,7 +11,7 @@
     {{ currentUser?.studentYearId }}
   </h1>
 </div> -->
-<div fxFlex fxLayout="row">
+<div fxFlex fxLayout="row" class="main">
   <mat-card class="example-card">
     <mat-card-header>
       <div mat-card-avatar class="example-header-image"></div>
@@ -42,13 +42,103 @@
         <mat-list-item *ngIf="user?.roleId == 1"> Modul:
           {{ moduleName }}
         </mat-list-item>
+
+        <!-- Profesor -->
+        <div *ngIf="user?.roleId == 2"> Predmeti:
+          <mat-list>
+            <mat-list-item *ngFor="let s of professorsSubjects">
+              {{ s.name }}
+            </mat-list-item>
+          </mat-list>
+        </div>
       </mat-list>
     </mat-card-content>
   </mat-card>
 
-  <mat-card>
+  <mat-card *ngIf="currentUser?.roleId == 2 && currentUser?.id == user?.id">
+    <mat-card-header>Dodaj termin za konsultacije</mat-card-header>
 
+    <form [formGroup]="addConsultationForm" (ngSubmit)="submitConsultation(addConsultationForm.value)">
+      <mat-form-field appearance="fill">
+        <mat-label>Izaberi datum</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="date">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <br />
+
+      <mat-form-field appearance="fill">
+        <mat-label>Izaberi sat</mat-label>
+        <mat-select formControlName="hour">
+          <mat-option *ngFor="let hour of hours" [value]="hour">
+            {{ hour }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <br />
+
+      <button type="submit" mat-raised-button color="primary">Dodaj termin</button>
+    </form>
   </mat-card>
+
+  <div>
+    <mat-card *ngIf="user?.roleId == 2">
+      <mat-card-header *ngIf="currentUser?.roleId == 2 && currentUser?.id == user?.id">Vasi termini za konsultacije</mat-card-header>
+      <mat-card-header *ngIf="currentUser?.id != user?.id">Svi dostupni termini za konsultacije</mat-card-header>
+      <mat-card-content>
+        <mat-list>
+          <mat-list-item *ngFor="let cons of professorsConsultations">
+            {{ cons.date }}
+            u
+            {{ cons.time }}
+            <button *ngIf="currentUser?.id == user?.id"
+                    mat-button
+                    matTooltip="Obrisi termin"
+                    matTooltipPosition="above"
+                    (click)="deleteConsultation(cons.id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </mat-list-item>
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card *ngIf="currentUser?.roleId == 1 && currentUser?.id != user?.id">
+      <mat-card-header>Prijavi se na konsultacije</mat-card-header>
+      <form [formGroup]="signForConsultationForm" (ngSubmit)="signForConsultation()">
+
+        <mat-form-field appearance="fill">
+          <mat-label>Izaberi termin</mat-label>
+          <mat-select formControlName="time">
+            <mat-option *ngFor="let c of professorsConsultations" [value]="c.id">
+              {{ c.date }}
+              u
+              {{ c.time }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <br />
+
+        <button type="submit" mat-raised-button color="primary">Prijavi se</button>
+      </form>
+    </mat-card>
+
+    <mat-card *ngIf="currentUser?.roleId == 1 && currentUser?.id == user?.id && studentConsultations">
+      <mat-card-header>Konsultacije na koje ste prijavljeni: </mat-card-header>
+      <mat-card-content>
+        <mat-list>
+          <mat-list-item *ngFor="let c of studentConsultations">
+            {{ c.date }}
+              u
+            {{ c.time }}
+          </mat-list-item>
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>
 
     <!-- <div *ngIf="userId == currentUser?.id">

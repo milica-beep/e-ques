@@ -1,25 +1,46 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injectable, LOCALE_ID } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/models/User';
 import { UserService } from 'src/app/services/user.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+
+import { formatDate, DatePipe } from '@angular/common';
+import { Consultation } from 'src/app/models/consultation';
+import { Subject } from 'src/app/models/subject';
 
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
-  styleUrls: ['./user-profile.component.css']
+  styleUrls: ['./user-profile.component.css'],
 })
-// TODO viewing other users' profile
+
 export class UserProfileComponent implements OnInit {
   userId: number;
   currentUser: User;
   user: User;
   moduleName: String;
+  hours: String[] = [
+    '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00'
+  ];
+
+  professorsConsultations: Consultation[];
+  professorsSubjects: Subject[];
+
+  addConsultationForm: FormGroup;
+  signForConsultationForm: FormGroup;
+
+  studentConsultations: Consultation[];
 
   constructor(private activatedRoute: ActivatedRoute,
               private userService: UserService,
               private authService: AuthService,
+              private formBuilder: FormBuilder,
               private router: Router) { }
+
+  // TODO
+  // dodaj predmet kod biranja konsultacija - veza izmedju subject i cons + dodaj u modelu ovde subject_id
+  //
 
   ngOnInit(): void {
     this.authService.emitChange('');
@@ -37,6 +58,17 @@ export class UserProfileComponent implements OnInit {
 
       this.checkUser();
     })
+
+    this.addConsultationForm = this.formBuilder.group({
+      date: ['', Validators.required],
+      hour: ['', Validators.required]
+    });
+
+    this.signForConsultationForm = this.formBuilder.group({
+      time: ['', Validators.required]
+    })
+
+
 
     // this.router.events.subscribe(event => {
     //   console.log('router event user prof komp');
@@ -59,8 +91,15 @@ export class UserProfileComponent implements OnInit {
   getUserData() {
     this.userService.getUserData(this.userId).subscribe(resp => {
       this.user = resp['user'];
-      if (this.currentUser.roleId == 1) {
+      if (this.user.roleId == 1) {
         this.moduleName = resp['moduleName'];
+        this.studentConsultations = resp['studentConsultations'];
+      }
+      else if (this.user.roleId == 2) {
+        console.log('u prof');
+        console.log(resp);
+        this.professorsConsultations = resp['consultations'];
+        this.professorsSubjects = resp['subjects'];
       }
     })
   }
@@ -76,4 +115,45 @@ export class UserProfileComponent implements OnInit {
     }
   }
 
+  submitConsultation(data: any) {
+    let pipe = new DatePipe('en-GB');
+
+    let consultation: Consultation = new Consultation();
+
+    consultation.date = pipe.transform(data.date, 'dd-MM-yyyy').toString();
+    consultation.time = data.hour;
+    consultation.professorId = this.currentUser.id;
+
+    this.userService.addConsultation(consultation).subscribe(
+      response => {
+        this.professorsConsultations = response['consultations'];
+      },
+      error => {
+        console.log(error);
+      }
+    )
+  }
+
+  deleteConsultation(consultationId: number) {
+    this.userService.deleteConsultation(consultationId).subscribe(
+      response => {
+        this.professorsConsultations = response['consultations'];
+      }
+    )
+  }
+
+  signForConsultation() {
+    let consId: number = this.signForConsultationForm.get('time').value;
+
+    let data = {
+      'consultationId': consId,
+      'userId': this.currentUser.id
+    }
+
+    this.userService.signForConsultation(data).subscribe(
+      response => {
+        console.log(response);
+      }
+    )
+  }
 }

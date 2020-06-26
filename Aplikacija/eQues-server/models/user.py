@@ -31,7 +31,7 @@ class User(db.Model):
     questions = db.relationship('Question', back_populates='user', order_by=Question.id)
     answers = db.relationship('Answer', back_populates='user', order_by=Answer.id)
     comments = db.relationship('Comment', back_populates='user', order_by=Comment.id )
-    consultations = db.relationship('Consultation', back_populates='proffessor')
+    consultations = db.relationship('Consultation', back_populates='professor')
     image = db.relationship('Image', back_populates='user', uselist=False)
     subjects = db.relationship('Subject', secondary=ProffessorSubject, back_populates='proffessors')
     grades = db.relationship('Grade', back_populates='user')

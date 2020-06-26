@@ -39,21 +39,74 @@ def get_user():
 
     if user_id:
         user = User.query.filter(User.id == user_id).first()
+        print('consult')
+        for c in user.consultations:
+            print(c.date)
 
         if user:
             if user.role_id == ROLE_STUDENT:
-                return jsonify({'user': user.serialize(), 'moduleName': user.module.name}), 200
+                return jsonify({'user': user.serialize(), 'moduleName': user.module.name,\
+                                'studentConsultations': [x.serialize() for x in user.consultations_stud]}), 200
+            elif user.role_id == ROLE_PROFESSOR:
+                return jsonify({'user': user.serialize(),\
+                                'consultations': [x.serialize() for x in user.consultations],\
+                                'subjects': [x.serialize() for x in user.subjects]})
             else:
                 return jsonify({'user': user.serialize()})
         else:
             return jsonify({'error': 'Ne postoji korisnik u bazi'})
 
+@user_route.route('/users/add-consultation', methods=['POST'])
+def add_consultation():
+    req = request.get_json()
 
+    consultation_date = str(req['date'])
+    consultation_time = str(req['time'])
+    consultation_prof_id = int(req['professorId'])
 
+    print(consultation_prof_id)
 
+    new_consultation = Consultation(consultation_date, consultation_time, consultation_prof_id)
 
+    professor = User.query.filter(User.id == consultation_prof_id).first()
+    professor.consultations.append(new_consultation)
 
+    all_consultations = professor.consultations
 
+    db.session.add(new_consultation)
+    db.session.commit()
+
+    return jsonify({'consultations': [x.serialize() for x in all_consultations]}), 200
+
+@user_route.route('/users/delete-consultation', methods=['DELETE'])
+def delete_consultations():
+    cons_id = request.args.get('id')
+
+    consultation_to_delete = Consultation.query.filter(Consultation.id == cons_id).first()
+    professor = User.query.filter(User.id == consultation_to_delete.professor_id).first()
+
+    professor.consultations.remove(consultation_to_delete)
+
+    db.session.delete(consultation_to_delete)
+    db.session.commit()
+
+    return jsonify({'consultations': [x.serialize() for x in professor.consultations]})
+
+@user_route.route('/users/sign-for-consultation', methods=['POST'])
+def sign_for_consultation():
+    req = request.get_json()
+
+    cons_id = int(req['consultationId'])
+    user_id = int(req['userId'])
+
+    user = User.query.filter(User.id == user_id).first()
+    cons = Consultation.query.filter(Consultation.id == cons_id).first()
+
+    user.consultations_stud.append(cons)
+
+    db.session.commit()
+
+    return jsonify({'message': 'Prijava uspesna'}), 200
 
 
 
