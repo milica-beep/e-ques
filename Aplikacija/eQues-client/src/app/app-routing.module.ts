@@ -15,6 +15,7 @@ import { ProfessorSubjectComponent } from './components/professor-subject/profes
 import { ApproveProfessorComponent } from './components/approve-professor/approve-professor.component';
 import { AddSubjectComponent } from './components/add-subject/add-subject.component';
 import { DeleteSubjectComponent } from './components/delete-subject/delete-subject.component';
+import { UpdateSubjectComponent } from './components/update-subject/update-subject.component';
 
 const routes: Routes = [{
   path: '',
@@ -55,7 +56,8 @@ const routes: Routes = [{
      { path: 'professor-subject', component: ProfessorSubjectComponent },
      { path: 'professor-approve', component: ApproveProfessorComponent },
      { path: 'add-subject', component: AddSubjectComponent },
-     { path: 'delete-subject', component: DeleteSubjectComponent }
+     { path: 'delete-subject', component: DeleteSubjectComponent },
+     { path: 'update-subject', component: UpdateSubjectComponent }
    ] }
 ];
 

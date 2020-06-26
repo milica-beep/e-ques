@@ -110,3 +110,27 @@ def delete_subject():
     db.session.commit()
 
     return jsonify({'subjects': [x.serialize() for x in all_subjects]})
+
+@admin_route.route('/admin/add-topic', methods=['POST'])
+def add_topic():
+    req = request.get_json()
+
+    subject_id = int(req['subjectId'])
+    topic_name = str(req['name'])
+    topic_description = str(req['description'])
+    
+    topic = Topic(topic_name, topic_description, subject_id)
+
+    subject = Subject.query.filter(Subject.id == subject_id).first()
+
+    topic_already_exists = False
+
+    for x in subject.topics:
+        if x.name == topic_name:
+            topic_already_exists = True
+
+    if not topic_already_exists:
+        db.session.add(topic)
+        db.session.commit()
+
+    return jsonify({'topics': [x.serialize() for x in subject.topics]})

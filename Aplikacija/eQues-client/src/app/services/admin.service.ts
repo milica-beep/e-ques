@@ -43,4 +43,8 @@ export class AdminService {
     let params = new HttpParams().set("id", subjectId.toString());
     return this.http.delete<any>(this.serverUrl + 'admin/delete-subject', {params:params});
   }
+
+  addTopic(data: any) {
+    return this.http.post(this.serverUrl + 'admin/add-topic', data);
+  }
 }

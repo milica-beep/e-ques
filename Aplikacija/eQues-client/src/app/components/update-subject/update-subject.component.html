@@ -1,0 +1,46 @@
+<div fxFlex fxLayout="row">
+  <form [formGroup]="updateSubjectForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="outline">
+      <mat-label>Naziv predmeta</mat-label>
+      <mat-select id="subjectId" formControlName="subjectId">
+        <mat-option *ngFor="let subject of allSubjects" [value]="subject.id">
+          {{ subject.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <br />
+
+    <mat-form-field appearance="outline">
+      <mat-label>Naziv oblasti</mat-label>
+      <input matInput formControlName="name">
+    </mat-form-field>
+
+    <br />
+
+    <mat-form-field appearance="outline">
+      <mat-label>Opis oblasti</mat-label>
+      <input matInput formControlName="description">
+    </mat-form-field>
+
+    <br />
+
+    <button type="submit" mat-raised-button color="primary">Dodaj oblast</button>
+  </form>
+  <!-- <div>
+    <mat-label mat-subheader *ngIf="topics">Lista svih oblasti</mat-label>
+    <mat-list *ngFor="let topic of topics">
+      <mat-list-item> {{ topic?.name }} </mat-list-item>
+    </mat-list>
+  </div> -->
+
+  <mat-card *ngIf="topics">
+    <mat-card-header>
+      Lista svih oblasti:
+    </mat-card-header>
+
+    <mat-card-content *ngFor="let topic of topics">
+      {{ topic?.name }}
+    </mat-card-content>
+  </mat-card>
+</div>
