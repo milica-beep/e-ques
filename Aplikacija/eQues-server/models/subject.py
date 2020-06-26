@@ -21,7 +21,7 @@ class Subject(db.Model):
     module_id = db.Column(db.Integer, db.ForeignKey('modules.id'))
     module = db.relationship('Module', uselist=False, back_populates='subject')
 
-    topic = db.relationship('Topic', back_populates='subject', uselist=False)
+    topics = db.relationship('Topic', back_populates='subject')
     proffessors = db.relationship('User', secondary=ProffessorSubject, back_populates='subjects')
 
     def serialize(self):

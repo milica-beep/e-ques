@@ -25,6 +25,10 @@
                       Dodaj predmet
                     </button>
 
+                    <button mat-menu-item *ngIf="currentUser?.roleId == 3" [routerLink]="['admin/delete-subject']">
+                      Obrisi predmet
+                    </button>
+
                     <button mat-menu-item *ngIf="currentUser?.roleId == 3" [routerLink]="['admin/professor-approve']">
                       Izmeni predmet
                     </button>

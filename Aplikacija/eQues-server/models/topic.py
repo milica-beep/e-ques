@@ -13,7 +13,7 @@ class Topic(db.Model):
     description = db.Column(db.String(200))
 
     subject_id = db.Column(db.Integer, db.ForeignKey('subjects.id'))
-    subject = db.relationship('Subject', uselist=False, back_populates='topic')
+    subject = db.relationship('Subject', back_populates='topics')
 
     questions = db.relationship('Question', back_populates='topic', uselist=False)
 

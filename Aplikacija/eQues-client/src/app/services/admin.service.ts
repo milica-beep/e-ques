@@ -34,4 +34,13 @@ export class AdminService {
   getAddSubjectData() {
     return this.http.get<any>(this.serverUrl + 'admin/get-add-subject-data');
   }
+
+  getSubjects() {
+    return this.http.get(this.serverUrl + 'admin/get-subjects');
+  }
+
+  deleteSubject(subjectId: number) {
+    let params = new HttpParams().set("id", subjectId.toString());
+    return this.http.delete<any>(this.serverUrl + 'admin/delete-subject', {params:params});
+  }
 }

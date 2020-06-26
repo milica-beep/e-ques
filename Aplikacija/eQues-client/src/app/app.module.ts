@@ -48,6 +48,7 @@ import { AdminComponent } from './layouts/admin/admin.component';
 import { ProfessorSubjectComponent } from './components/professor-subject/professor-subject.component';
 import { ApproveProfessorComponent } from './components/approve-professor/approve-professor.component';
 import { AddSubjectComponent } from './components/add-subject/add-subject.component';
+import { DeleteSubjectComponent } from './components/delete-subject/delete-subject.component';
 
 
 @NgModule({
@@ -71,7 +72,8 @@ import { AddSubjectComponent } from './components/add-subject/add-subject.compon
     AdminComponent,
     ProfessorSubjectComponent,
     ApproveProfessorComponent,
-    AddSubjectComponent
+    AddSubjectComponent,
+    DeleteSubjectComponent
   ],
   imports: [
     BrowserModule,

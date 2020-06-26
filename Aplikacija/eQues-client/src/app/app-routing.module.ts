@@ -14,6 +14,7 @@ import { AdminComponent } from './layouts/admin/admin.component';
 import { ProfessorSubjectComponent } from './components/professor-subject/professor-subject.component';
 import { ApproveProfessorComponent } from './components/approve-professor/approve-professor.component';
 import { AddSubjectComponent } from './components/add-subject/add-subject.component';
+import { DeleteSubjectComponent } from './components/delete-subject/delete-subject.component';
 
 const routes: Routes = [{
   path: '',
@@ -53,7 +54,8 @@ const routes: Routes = [{
    children: [
      { path: 'professor-subject', component: ProfessorSubjectComponent },
      { path: 'professor-approve', component: ApproveProfessorComponent },
-     { path: 'add-subject', component: AddSubjectComponent}
+     { path: 'add-subject', component: AddSubjectComponent },
+     { path: 'delete-subject', component: DeleteSubjectComponent }
    ] }
 ];
 

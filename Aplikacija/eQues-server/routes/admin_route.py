@@ -85,3 +85,28 @@ def get_add_subject_data():
 
     return jsonify({'modules': [x.serialize() for x in modules],\
                     'studentYears': [x.serialize() for x in student_years]})
+
+@admin_route.route('/admin/get-subjects', methods=['GET'])
+def get_subjects():
+    all_subjects = Subject.query.all()
+
+    return jsonify({'subjects': [x.serialize() for x in all_subjects]})
+
+@admin_route.route('/admin/delete-subject', methods=['DELETE'])
+def delete_subject():
+    subject_id = request.args.get('id')
+
+    subject_to_delete = Subject.query.filter(Subject.id == subject_id).first()
+
+    topics_to_delete = subject_to_delete.topics
+
+    for topic in topics_to_delete:
+        db.session.delete(topic)
+    
+    db.session.delete(subject_to_delete)
+
+    all_subjects = Subject.query.all()
+
+    db.session.commit()
+
+    return jsonify({'subjects': [x.serialize() for x in all_subjects]})
