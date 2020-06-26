@@ -37,6 +37,9 @@ export class ProfessorSubjectComponent implements OnInit {
   }
 
   onSubmit() {
+    if (this.profSubjForm.invalid) {
+      return;
+    }
     let professor: User = this.profSubjForm.get('professor').value;
     let subject: Subject = this.profSubjForm.get('subject').value;
 

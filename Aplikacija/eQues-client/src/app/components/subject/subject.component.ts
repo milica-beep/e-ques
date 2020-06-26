@@ -49,7 +49,6 @@ export class SubjectComponent implements OnInit {
     this.subjectService.getSubject(this.subjectId).subscribe(resp => {
       this.subject = resp.subject;
       this.topics = resp.topics;
-      console.log('blablabla');
     })
   }
 
@@ -59,7 +58,7 @@ export class SubjectComponent implements OnInit {
     })
   }
 
-  getQuestions(topicId) {
+  getQuestions(topicId: number) {
     this.subjectService.getQuestions(topicId).subscribe(
     resp => {
       this.questions = resp.questions;

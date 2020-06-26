@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify, request
 from models import *
+from models.constants import *
 from models.shared import db
 from passlib.hash import sha256_crypt
 
@@ -18,9 +19,19 @@ def get_subjects():
     if user_id:
         user = User.query.filter(User.id == user_id).first()
 
-        if user:
-            subjects = Subject.query.filter(Subject.module_id == user.module_id and Subject.student_year_id == user.student_year_id).all()
-            return jsonify({'subjects': [x.serialize() for x in subjects]})
+        if user.role_id == ROLE_STUDENT:
+            subjects = Subject.query.filter(Subject.module_id == user.module_id)\
+                                    .filter(Subject.student_year_id == user.student_year_id)\
+                                    .all()
+
+        if user.role_id == ROLE_PROFESSOR:
+            subjects = user.subjects
+
+        if user.role_id == ROLE_ADMIN:
+            subjects = Subject.query.all()
+
+        return jsonify({'subjects': [x.serialize() for x in subjects]})
+        
 
 @user_route.route('/users/get-user', methods=['GET'])
 def get_user():
@@ -30,7 +41,10 @@ def get_user():
         user = User.query.filter(User.id == user_id).first()
 
         if user:
-            return jsonify({'user': user.serialize(), 'moduleName': user.module.name}), 200
+            if user.role_id == ROLE_STUDENT:
+                return jsonify({'user': user.serialize(), 'moduleName': user.module.name}), 200
+            else:
+                return jsonify({'user': user.serialize()})
         else:
             return jsonify({'error': 'Ne postoji korisnik u bazi'})
 

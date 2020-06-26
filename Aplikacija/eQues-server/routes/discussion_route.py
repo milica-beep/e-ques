@@ -201,9 +201,6 @@ def grade_answer():
     else:
         answer_to_grade.grades.append(new_grade)
 
-
-    
-
     average_grade = sum(g.value for g in answer_to_grade.grades) / len(answer_to_grade.grades)
 
     print(average_grade)

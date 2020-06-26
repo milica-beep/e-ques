@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { Subject } from '../models/subject';
 
 @Injectable({
   providedIn: 'root'
@@ -24,5 +25,13 @@ export class AdminService {
   approveProfessor(profId: number) {
     let params = new HttpParams().set("id", profId.toString());
     return this.http.get<any>(this.serverUrl + 'admin/approve-professor', {params:params});
+  }
+
+  addSubject(subject: Subject) {
+    return this.http.post(this.serverUrl + 'admin/add-subject', subject);
+  }
+
+  getAddSubjectData() {
+    return this.http.get<any>(this.serverUrl + 'admin/get-add-subject-data');
   }
 }

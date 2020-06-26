@@ -8,9 +8,36 @@
         <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
             <ul fxLayout="row" fxLayoutGap="20px">
                 <li>
-                  <button *ngIf="currentUser?.roleId == 3" mat-button [routerLink]="['/admin']">
+                  <button *ngIf="currentUser?.roleId == 3" mat-button [matMenuTriggerFor]="adminMenu">
                     <mat-icon>assignment</mat-icon>
                   </button>
+
+                  <mat-menu #adminMenu="matMenu">
+                    <button mat-menu-item *ngIf="currentUser?.roleId == 3" [routerLink]="['admin/professor-subject']">
+                      Dodeli predmet profesoru
+                    </button>
+
+                    <button mat-menu-item *ngIf="currentUser?.roleId == 3" [routerLink]="['admin/professor-approve']">
+                      Odobri profesora
+                    </button>
+
+                    <button mat-menu-item *ngIf="currentUser?.roleId == 3" [routerLink]="['admin/add-subject']">
+                      Dodaj predmet
+                    </button>
+
+                    <button mat-menu-item *ngIf="currentUser?.roleId == 3" [routerLink]="['admin/professor-approve']">
+                      Izmeni predmet
+                    </button>
+
+                    <button mat-menu-item *ngIf="currentUser?.roleId == 3" [routerLink]="['admin/professor-approve']">
+                      Pregledaj neodobrene naloge
+                    </button>
+
+                    <button mat-menu-item *ngIf="currentUser?.roleId == 3" [routerLink]="['admin/professor-approve']">
+                      Pregledaj sve naloge
+                    </button>
+
+                  </mat-menu>
 
                   <button mat-button [routerLink]="['/home']">
                     <mat-icon>home</mat-icon>

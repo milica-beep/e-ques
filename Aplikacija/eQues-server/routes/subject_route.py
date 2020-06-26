@@ -39,4 +39,4 @@ def get_questions():
     if questions:
         return jsonify({'questions': [x.serialize() for x in questions]}), 200
     else:
-        return {'error': 'Oblast nema pitanja u bazi.'}, 400
+        return jsonify({'questions': None})

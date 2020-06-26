@@ -47,6 +47,7 @@ import { StarRatingComponent } from './components/star-rating/star-rating.compon
 import { AdminComponent } from './layouts/admin/admin.component';
 import { ProfessorSubjectComponent } from './components/professor-subject/professor-subject.component';
 import { ApproveProfessorComponent } from './components/approve-professor/approve-professor.component';
+import { AddSubjectComponent } from './components/add-subject/add-subject.component';
 
 
 @NgModule({
@@ -69,7 +70,8 @@ import { ApproveProfessorComponent } from './components/approve-professor/approv
     StarRatingComponent,
     AdminComponent,
     ProfessorSubjectComponent,
-    ApproveProfessorComponent
+    ApproveProfessorComponent,
+    AddSubjectComponent
   ],
   imports: [
     BrowserModule,

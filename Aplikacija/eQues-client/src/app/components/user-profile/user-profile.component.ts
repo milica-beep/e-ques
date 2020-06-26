@@ -59,7 +59,9 @@ export class UserProfileComponent implements OnInit {
   getUserData() {
     this.userService.getUserData(this.userId).subscribe(resp => {
       this.user = resp['user'];
-      this.moduleName = resp['moduleName'];
+      if (this.currentUser.roleId == 1) {
+        this.moduleName = resp['moduleName'];
+      }
     })
   }
 

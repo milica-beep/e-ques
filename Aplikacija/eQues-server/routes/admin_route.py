@@ -59,4 +59,29 @@ def approve_professor():
                            .all()
     db.session.commit()
 
-    return jsonify({'professors': [x.serialize() for x in unapproved_professors]})    
+    return jsonify({'professors': [x.serialize() for x in unapproved_professors]})
+
+@admin_route.route('/admin/add-subject', methods=['POST'])
+def add_subject():
+    req = request.get_json()
+
+    subject_name = str(req['name'])
+    subject_description = str(req['description'])
+    subject_student_year_id = int(req['studentYearId'])
+    subject_module_id = int(req['moduleId'])
+
+    subject_to_add = Subject(subject_name, subject_description,\
+                                 subject_student_year_id, subject_module_id)
+    
+    db.session.add(subject_to_add)
+    db.session.commit()
+
+    return jsonify({'message': 'Predmet je uspesno dodat'})
+
+@admin_route.route('/admin/get-add-subject-data', methods=['GET'])
+def get_add_subject_data():
+    modules = Module.query.all()
+    student_years = StudentYear.query.all()
+
+    return jsonify({'modules': [x.serialize() for x in modules],\
+                    'studentYears': [x.serialize() for x in student_years]})

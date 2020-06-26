@@ -13,6 +13,7 @@ import { DiscussionViewComponent } from './layouts/discussion-view/discussion-vi
 import { AdminComponent } from './layouts/admin/admin.component';
 import { ProfessorSubjectComponent } from './components/professor-subject/professor-subject.component';
 import { ApproveProfessorComponent } from './components/approve-professor/approve-professor.component';
+import { AddSubjectComponent } from './components/add-subject/add-subject.component';
 
 const routes: Routes = [{
   path: '',
@@ -51,7 +52,8 @@ const routes: Routes = [{
  { path: 'admin', component: AdminComponent,
    children: [
      { path: 'professor-subject', component: ProfessorSubjectComponent },
-     { path: 'professor-approve', component: ApproveProfessorComponent }
+     { path: 'professor-approve', component: ApproveProfessorComponent },
+     { path: 'add-subject', component: AddSubjectComponent}
    ] }
 ];
 
