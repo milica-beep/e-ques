@@ -45,8 +45,12 @@ def get_user():
 
         if user:
             if user.role_id == ROLE_STUDENT:
+                grades = []
+                for a in user.answers:
+                    grades.append(a.average_grade)
                 return jsonify({'user': user.serialize(), 'moduleName': user.module.name,\
-                                'studentConsultations': [x.serialize() for x in user.consultations_stud]}), 200
+                                'studentConsultations': [x.serialize() for x in user.consultations_stud],\
+                                'grades': grades, 'questions': [x.serialize() for x in user.questions]}), 200
             elif user.role_id == ROLE_PROFESSOR:
                 return jsonify({'user': user.serialize(),\
                                 'consultations': [x.serialize() for x in user.consultations],\

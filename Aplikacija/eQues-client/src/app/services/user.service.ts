@@ -3,13 +3,14 @@ import { Observable, Subject } from 'rxjs'
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http'
 import { User } from '../models/User'
 import { Consultation } from '../models/consultation';
+import { Constants } from '../constants';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class UserService {
-  serverUrl:string = ' http://127.0.0.1:5000/';
+  serverUrl:string = Constants.serverUrl;
   constructor(private http:HttpClient) { }
 
   //getUsers():Observable<User[]> {

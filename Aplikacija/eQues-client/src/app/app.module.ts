@@ -52,6 +52,9 @@ import { AddSubjectComponent } from './components/add-subject/add-subject.compon
 import { DeleteSubjectComponent } from './components/delete-subject/delete-subject.component';
 import { UpdateSubjectComponent } from './components/update-subject/update-subject.component';
 import { MatNativeDateModule } from '@angular/material/core';
+import { PieComponent } from './shared/widgets/pie/pie.component';
+
+import { ChartModule } from 'angular-highcharts';
 
 
 @NgModule({
@@ -77,7 +80,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     ApproveProfessorComponent,
     AddSubjectComponent,
     DeleteSubjectComponent,
-    UpdateSubjectComponent
+    UpdateSubjectComponent,
+    PieComponent,
   ],
   imports: [
     BrowserModule,
@@ -106,7 +110,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatCardModule,
     MatTableModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    ChartModule,
   ],
   providers: [
     {

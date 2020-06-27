@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Subject } from '../models/subject';
+import { Constants } from '../constants';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdminService {
-  serverUrl:string = ' http://127.0.0.1:5000/';
+  serverUrl:string = Constants.serverUrl;
 
   constructor(private http: HttpClient) { }
 

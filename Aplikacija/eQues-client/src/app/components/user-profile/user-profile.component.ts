@@ -8,6 +8,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { formatDate, DatePipe } from '@angular/common';
 import { Consultation } from 'src/app/models/consultation';
 import { Subject } from 'src/app/models/subject';
+import { Answer } from 'src/app/models/answer';
+import { Question } from 'src/app/models/question';
 
 @Component({
   selector: 'app-user-profile',
@@ -16,6 +18,7 @@ import { Subject } from 'src/app/models/subject';
 })
 
 export class UserProfileComponent implements OnInit {
+
   userId: number;
   currentUser: User;
   user: User;
@@ -31,6 +34,8 @@ export class UserProfileComponent implements OnInit {
   signForConsultationForm: FormGroup;
 
   studentConsultations: Consultation[];
+  studentGrades: number[];
+  studentQuestions: Question[];
 
   constructor(private activatedRoute: ActivatedRoute,
               private userService: UserService,
@@ -40,7 +45,13 @@ export class UserProfileComponent implements OnInit {
 
   // TODO
   // dodaj predmet kod biranja konsultacija - veza izmedju subject i cons + dodaj u modelu ovde subject_id
-  //
+  // postavljena pitanja - link ka diskusiji
+  // pretraga
+  // admin - pregled svih naloga
+  // upload slike
+  // izmena podataka na profilu
+  // tekst editor za dodavanje pitanja/odgovora
+
 
   ngOnInit(): void {
     this.authService.emitChange('');
@@ -67,9 +78,6 @@ export class UserProfileComponent implements OnInit {
     this.signForConsultationForm = this.formBuilder.group({
       time: ['', Validators.required]
     })
-
-
-
     // this.router.events.subscribe(event => {
     //   console.log('router event user prof komp');
     //   this.activatedRoute.paramMap.subscribe(params => {
@@ -94,6 +102,10 @@ export class UserProfileComponent implements OnInit {
       if (this.user.roleId == 1) {
         this.moduleName = resp['moduleName'];
         this.studentConsultations = resp['studentConsultations'];
+        this.studentGrades = resp['grades'];
+        this.studentQuestions = resp['questions'];
+
+        console.log(this.studentGrades);
       }
       else if (this.user.roleId == 2) {
         console.log('u prof');

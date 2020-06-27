@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpParams, HttpClient } from '@angular/common/http';
+import { Constants } from '../constants';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SubjectService {
-  serverUrl:string = ' http://127.0.0.1:5000/';
+  serverUrl:string = Constants.serverUrl;
 
   constructor(private http:HttpClient) { }
 

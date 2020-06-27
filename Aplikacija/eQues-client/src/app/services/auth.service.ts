@@ -4,6 +4,7 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { User } from '../models/User';
 import { RegistrationModel } from '../models/registrationModel';
+import { Constants } from '../constants';
 
 
 
@@ -11,7 +12,7 @@ import { RegistrationModel } from '../models/registrationModel';
   providedIn: 'root'
 })
 export class AuthService {
-  serverUrl:string = ' http://127.0.0.1:5000/';
+  serverUrl:string = Constants.serverUrl;
   constructor(private http: HttpClient) { }
 
   private handleError(error: any) {

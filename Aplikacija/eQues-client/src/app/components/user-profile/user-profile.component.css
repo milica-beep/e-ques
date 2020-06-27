@@ -22,6 +22,10 @@
   flex-wrap: wrap;
 }
 
-mat-card {
+mat-card, .flex-col {
+  flex-grow: 1;
+}
+
+.chart {
   flex-grow: 1;
 }

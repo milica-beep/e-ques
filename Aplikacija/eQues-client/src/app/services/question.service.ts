@@ -4,12 +4,13 @@ import { Question } from '../models/question';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Answer } from '../models/answer';
 import { Comment } from '../models/comment';
+import { Constants } from '../constants';
 
 @Injectable({
   providedIn: 'root'
 })
 export class QuestionService {
-  serverUrl: string = ' http://127.0.0.1:5000/';
+  serverUrl:string = Constants.serverUrl;
   topicId: number;
 
   constructor(private http: HttpClient) { }
