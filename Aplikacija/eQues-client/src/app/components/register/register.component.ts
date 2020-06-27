@@ -76,8 +76,6 @@ export class RegisterComponent implements OnInit {
   onSubmit() {
     this.user = new User();
 
-    console.log('rola ' + this.registerForm.get('role').value)
-
     this.submitted = true;
 
     if(this.registerForm.invalid) {

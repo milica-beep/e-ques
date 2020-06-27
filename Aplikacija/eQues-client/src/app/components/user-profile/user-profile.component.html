@@ -11,10 +11,10 @@
     {{ currentUser?.studentYearId }}
   </h1>
 </div> -->
-<div fxFlex fxLayout="row" class="main">
-  <mat-card class="example-card">
+<div class="main">
+  <mat-card class="main-content">
     <mat-card-header>
-      <div mat-card-avatar class="example-header-image"></div>
+      <img mat-card-avatar src={{imagePath}}>
       <mat-card-title>
         {{ user?.name }} {{ user?.lastname }}
       </mat-card-title>
@@ -27,9 +27,22 @@
         </div>
       </mat-card-subtitle>
     </mat-card-header>
-    <img mat-card-image src="http://localhost:5000/static/images/default_user.png" alt="Photo of a Shiba Inu">
+    <img mat-card-image src={{imagePath}}
+                        alt="Photo of a Shiba Inu">
     <mat-card-content>
+      <input type="file" accept="image/*"(change)="onFileChanged($event)">
+      <button (click)="onUpload()">Upload!</button>
       <mat-list>
+        <div>
+          <button mat-button
+                matTooltip="Izmeni podatke"
+                matTooltipPosition="above"
+                [hidden]="currentUser?.id != user?.id"
+                [routerLink]="['/edit-user-data', currentUser?.id]"
+                >
+          <mat-icon >edit</mat-icon>
+        </button>
+        </div>
         <mat-list-item> Email adresa:
           {{ user?.email }}
         </mat-list-item>
@@ -43,19 +56,6 @@
           {{ moduleName }}
         </mat-list-item>
 
-        <mat-card *ngIf="currentUser?.roleId == 1 && currentUser?.id == user?.id && studentConsultations">
-          <mat-card-title>Konsultacije na koje ste prijavljeni: </mat-card-title>
-          <mat-card-content>
-            <mat-list>
-              <mat-list-item *ngFor="let c of studentConsultations">
-                {{ c.date }}
-                  u
-                {{ c.time }}
-              </mat-list-item>
-            </mat-list>
-          </mat-card-content>
-        </mat-card>
-
         <!-- Profesor -->
         <div *ngIf="user?.roleId == 2"> Predmeti:
           <mat-list>
@@ -68,7 +68,7 @@
     </mat-card-content>
   </mat-card>
 
-  <mat-card *ngIf="currentUser?.roleId == 2 && currentUser?.id == user?.id">
+  <mat-card class="flex-content" *ngIf="currentUser?.roleId == 2 && currentUser?.id == user?.id">
     <mat-card-header>Dodaj termin za konsultacije</mat-card-header>
 
     <form [formGroup]="addConsultationForm" (ngSubmit)="submitConsultation(addConsultationForm.value)">
@@ -97,7 +97,7 @@
   </mat-card>
 
   <div class="flex-col">
-    <mat-card *ngIf="user?.roleId == 2">
+    <mat-card class="flex-content" *ngIf="user?.roleId == 2">
       <mat-card-header *ngIf="currentUser?.roleId == 2 && currentUser?.id == user?.id">Vasi termini za konsultacije</mat-card-header>
       <mat-card-header *ngIf="currentUser?.id != user?.id">Svi dostupni termini za konsultacije</mat-card-header>
       <mat-card-content>
@@ -118,7 +118,7 @@
       </mat-card-content>
     </mat-card>
 
-    <mat-card *ngIf="currentUser?.roleId == 1 && currentUser?.id != user?.id">
+    <mat-card class="flex-content" *ngIf="currentUser?.roleId == 1 && currentUser?.id != user?.id">
       <mat-card-header>Prijavi se na konsultacije</mat-card-header>
       <form [formGroup]="signForConsultationForm" (ngSubmit)="signForConsultation()">
 
@@ -139,7 +139,7 @@
       </form>
     </mat-card>
 
-    <mat-card *ngIf="studentQuestions">
+    <mat-card class="flex-content" *ngIf="studentQuestions">
       <mat-card-title>Postavljena pitanja</mat-card-title>
       <div *ngFor="let q of studentQuestions">
         <a [routerLink]="['/discussion', q?.id]">
@@ -148,10 +148,25 @@
       </div>
     </mat-card>
 
-    <mat-card *ngIf="studentGrades" class="chart">
+    <mat-card class="flex-content" *ngIf="currentUser?.roleId == 1 && currentUser?.id == user?.id && studentConsultations">
+      <mat-card-title>Konsultacije na koje ste prijavljeni: </mat-card-title>
+      <mat-card-content>
+        <mat-list>
+          <mat-list-item *ngFor="let c of studentConsultations">
+            {{ c.date }}
+              u
+            {{ c.time }}
+          </mat-list-item>
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="flex-content" *ngIf="studentGrades" class="chart">
       <app-pie [data]="studentGrades"></app-pie>
     </mat-card>
   </div>
+
+
 </div>
 
     <!-- <div *ngIf="userId == currentUser?.id">

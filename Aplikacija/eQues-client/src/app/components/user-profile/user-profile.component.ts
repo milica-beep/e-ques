@@ -37,6 +37,9 @@ export class UserProfileComponent implements OnInit {
   studentGrades: number[];
   studentQuestions: Question[];
 
+  file: any;
+  imagePath: String;
+
   constructor(private activatedRoute: ActivatedRoute,
               private userService: UserService,
               private authService: AuthService,
@@ -45,11 +48,9 @@ export class UserProfileComponent implements OnInit {
 
   // TODO
   // dodaj predmet kod biranja konsultacija - veza izmedju subject i cons + dodaj u modelu ovde subject_id
-  // postavljena pitanja - link ka diskusiji
   // pretraga
   // admin - pregled svih naloga
   // upload slike
-  // izmena podataka na profilu
   // tekst editor za dodavanje pitanja/odgovora
 
 
@@ -66,6 +67,7 @@ export class UserProfileComponent implements OnInit {
 
     this.userService.userLogged.subscribe(user => {
       this.currentUser = user;
+      this.imagePath = 'http://127.0.0.1:5000/static/images/user_images/' + this.currentUser?.image;
 
       this.checkUser();
     })
@@ -78,6 +80,9 @@ export class UserProfileComponent implements OnInit {
     this.signForConsultationForm = this.formBuilder.group({
       time: ['', Validators.required]
     })
+
+
+
     // this.router.events.subscribe(event => {
     //   console.log('router event user prof komp');
     //   this.activatedRoute.paramMap.subscribe(params => {
@@ -165,6 +170,28 @@ export class UserProfileComponent implements OnInit {
     this.userService.signForConsultation(data).subscribe(
       response => {
         console.log(response);
+      }
+    )
+  }
+
+  editData() {
+
+  }
+
+  onFileChanged(event) {
+    this.file = event.target.files[0];
+    console.log(this.file);
+  }
+
+  onUpload() {
+    // this.http is the injected HttpClient
+    this.userService.uploadFile(this.file, this.currentUser.id).subscribe(
+      response => {
+        this.currentUser.image = response['path'];
+        this.imagePath = 'http://127.0.0.1:5000/static/images/user_images/' + this.currentUser?.image;
+      },
+      error => {
+        console.log(error);
       }
     )
   }

@@ -1,0 +1,98 @@
+<form [formGroup]="editUserDataForm" (ngSubmit)="onSubmit()" class="formRegister">
+
+  <mat-form-field appearance="outline">
+      <mat-label for="name"> Ime </mat-label>
+      <input matInput id="name" type="text" formControlName="name" >
+  </mat-form-field>
+
+  <br>
+
+  <mat-form-field appearance="outline" class="regInput">
+      <mat-label for="lastname"> Prezime </mat-label>
+      <input matInput id="lastname" type="text" formControlName="lastname" >
+  </mat-form-field>
+
+  <br />
+
+  <mat-form-field appearance="outline" class="regInput">
+      <mat-label for="studentId"> Broj indeksa </mat-label>
+      <input matInput id="studentId" type="text" formControlName="studentId" >
+  </mat-form-field>
+
+  <br>
+
+  <mat-form-field appearance="outline" class="regInput">
+      <mat-label for="email"> E-mail </mat-label>
+      <input matInput id="email" type="text" formControlName="email" >
+  </mat-form-field>
+
+  <br>
+
+  <mat-form-field appearance="outline" class="regInput">
+      <mat-label for="password"> Stara Lozinka </mat-label>
+      <input matInput [type]="hideOldPass ? 'password' : 'text'" formControlName="oldPassword">
+
+          <button type="button" mat-icon-button matSuffix (click)="hideOldPass = !hideOldPass"
+                  [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideOldPass">
+              <mat-icon>{{hideOldPass ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+  </mat-form-field>
+
+  <br>
+
+  <mat-form-field appearance="outline" class="regInput">
+    <mat-label for="password"> Nova Lozinka </mat-label>
+    <input matInput [type]="hideNewPass ? 'password' : 'text'" formControlName="newPassword">
+
+        <button type="button" mat-icon-button matSuffix (click)="hideNewPass = !hideNewPass"
+                [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideNewPass">
+            <mat-icon>{{hideNewPass ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+</mat-form-field>
+
+<br>
+
+  <mat-form-field appearance="outline" class="regInput">
+      <mat-label for="confirmPassword"> Potvrdi lozinku </mat-label>
+
+      <input matInput [type]="hideConfirmPass ? 'password' : 'text'" formControlName="confirmPassword">
+
+      <button type="button" mat-icon-button matSuffix (click)="hideConfirmPass = !hideConfirmPass"
+              [attr.aria-label]="'Hide confirmPassword'" [attr.aria-pressed]="hideConfirmPass">
+          <mat-icon>{{hideConfirmPass ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+
+    </mat-form-field>
+
+  <br>
+
+  <mat-form-field appearance="outline">
+      <mat-label for="module">
+        Modul
+      </mat-label>
+
+      <mat-select id="module" formControlName="module" >
+          <mat-option *ngFor="let module of modules" [value]="module.id">
+              {{ module.name }}
+          </mat-option>
+      </mat-select>
+  </mat-form-field>
+
+  <br />
+
+  <mat-form-field appearance="outline" class="regInput">
+      <mat-label for="year">
+        Godina
+      </mat-label>
+
+      <mat-select id="year" formControlName="year" >
+          <mat-option *ngFor="let y of studentYears" [value]="y.id">
+              {{ y.description }}
+          </mat-option>
+      </mat-select>
+  </mat-form-field>
+
+  <br>
+
+  <button type="submit" mat-raised-button color="primary">Izmeni</button>
+</form>

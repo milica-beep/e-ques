@@ -55,6 +55,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { PieComponent } from './shared/widgets/pie/pie.component';
 
 import { ChartModule } from 'angular-highcharts';
+import { EditUserDataComponent } from './components/edit-user-data/edit-user-data.component';
 
 
 @NgModule({
@@ -82,6 +83,7 @@ import { ChartModule } from 'angular-highcharts';
     DeleteSubjectComponent,
     UpdateSubjectComponent,
     PieComponent,
+    EditUserDataComponent,
   ],
   imports: [
     BrowserModule,

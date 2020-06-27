@@ -19,13 +19,36 @@
 
 .main {
   min-width: 100%;
+  display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
+  align-content: flex-start;
 }
 
-mat-card, .flex-col {
+/* mat-card {
   flex-grow: 1;
+} */
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 2;
+  flex-wrap: wrap;
+
+  flex-shrink:1;
 }
 
 .chart {
   flex-grow: 1;
+  flex-shrink: 1;
+}
+
+.flex-content {
+  flex-grow: 1;
+  /* flex-shrink: 1; */
+}
+
+.main-content {
+  flex-grow: 1;
+  flex-shrink: 2;
 }

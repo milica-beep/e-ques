@@ -46,22 +46,21 @@ export class PieComponent implements OnInit {
           name: 'Ocena',
           data: this.data
         }
-      ]
-      // ],
-      // responsive: {
-      //   rules: [{
-      //       condition: {
-      //           maxWidth: 500
-      //       },
-      //       chartOptions: {
-      //           legend: {
-      //               layout: 'horizontal',
-      //               align: 'center',
-      //               verticalAlign: 'bottom'
-      //           }
-      //       }
-   // }]
-   // }
+      ],
+      responsive: {
+        rules: [{
+            condition: {
+                maxWidth: 500
+            },
+            chartOptions: {
+                legend: {
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom'
+                }
+            }
+   }]
+   }
     });
     console.log('u pie');
     console.log(this.data);

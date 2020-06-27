@@ -45,4 +45,26 @@ export class UserService {
   signForConsultation(data) {
     return this.http.post(this.serverUrl + 'users/sign-for-consultation', data);
   }
+
+  getEditUserData(userId:number) {
+    let params = new HttpParams().set('id', userId.toString());
+    return this.http.get<any>(this.serverUrl + 'users/get-edit-user-data', {params: params});
+  }
+
+  changePassword(data: any) {
+    return this.http.post(this.serverUrl + 'users/change-password', data);
+  }
+
+  updateUserData(user: User) {
+    return this.http.post(this.serverUrl + 'users/update-user-data', user);
+  }
+
+  uploadFile(file: File, userId: number) {
+    const formData = new FormData();
+
+    formData.append('file', file);
+    formData.set('userId', userId.toString());
+
+    return this.http.post(this.serverUrl + 'users/file-upload', formData);
+  }
 }

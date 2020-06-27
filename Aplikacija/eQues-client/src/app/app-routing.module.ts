@@ -16,6 +16,7 @@ import { ApproveProfessorComponent } from './components/approve-professor/approv
 import { AddSubjectComponent } from './components/add-subject/add-subject.component';
 import { DeleteSubjectComponent } from './components/delete-subject/delete-subject.component';
 import { UpdateSubjectComponent } from './components/update-subject/update-subject.component';
+import { EditUserDataComponent } from './components/edit-user-data/edit-user-data.component';
 
 const routes: Routes = [{
   path: '',
@@ -58,7 +59,10 @@ const routes: Routes = [{
      { path: 'add-subject', component: AddSubjectComponent },
      { path: 'delete-subject', component: DeleteSubjectComponent },
      { path: 'update-subject', component: UpdateSubjectComponent }
-   ] }
+   ] },
+   {
+     path: 'edit-user-data/:userId', component: EditUserDataComponent
+   }
 ];
 
 @NgModule({

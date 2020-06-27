@@ -2,6 +2,7 @@ from flask import Flask
 from models.shared import db
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
+import os
 
 from routes.user_route import user_route
 from routes.auth_route import auth_route
@@ -10,8 +11,11 @@ from routes.discussion_route import discussion_route
 from routes.question_route import question_route
 from routes.admin_route import admin_route
 
+UPLOAD_FOLDER = 'static/images/user_images'
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
 app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 CORS(app)
 
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
