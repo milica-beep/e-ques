@@ -115,6 +115,21 @@ def create_topics(commit=False):
         db.session.commit()
 
 def create_questions(commit=False):
+    image1 = Image()
+    image1.path = 'default_user.png'
+
+    image2 = Image()
+    image2.path = 'default_user.png'
+
+    image3 = Image()
+    image3.path = 'default_user.png'
+
+    image4 = Image()
+    image4.path = 'default_user.png'
+
+    image5 = Image()
+    image5.path = 'default_user.png'
+
     user_student = User()
     user_student.name = 'Milica'
     user_student.lastname = 'Nikolic'
@@ -125,6 +140,7 @@ def create_questions(commit=False):
     user_student.email = 'milica@elfak.rs'
     user_student.hashed_password = sha256_crypt.hash('123456')
     user_student.module_id = 2
+    user_student.image = image1
 
     user_prof = User()
     user_prof.name = 'Aleksandar'
@@ -133,12 +149,14 @@ def create_questions(commit=False):
     user_prof.role_id = ROLE_PROFESSOR
     user_prof.email = 'aleksandar@elfak.rs'
     user_prof.hashed_password = sha256_crypt.hash('123456')
+    user_prof.image = image2
 
     user_admin = User()
     user_admin.email = 'admin'
     user_admin.hashed_password = sha256_crypt.hash('admin')
     user_admin.role_id = ROLE_ADMIN
     user_admin.user_status_id = USER_STATUS_APPROVED
+    user_admin.image = image3
 
     user_prof2 = User()
     user_prof2.name = 'Emina'
@@ -147,6 +165,7 @@ def create_questions(commit=False):
     user_prof2.role_id = ROLE_PROFESSOR
     user_prof2.email = 'emina@elfak.rs'
     user_prof2.hashed_password = sha256_crypt.hash('123456')
+    user_prof2.image = image4
 
     user_prof3 = User()
     user_prof3.name = 'Dragan'
@@ -155,6 +174,7 @@ def create_questions(commit=False):
     user_prof3.role_id = ROLE_PROFESSOR
     user_prof3.email = 'dragan@elfak.rs'
     user_prof3.hashed_password = sha256_crypt.hash('123456')
+    user_prof3.image = image5
 
     q1 = Question('Ovo je naslov prvog pitanja', 'Ovde je objasnjenje sta je pitanje i tako to')
     q2 = Question('Ovo je naslov drugog pitanja', 'Ovde je objasnjenje sta je pitanje i tako to')
@@ -169,6 +189,12 @@ def create_questions(commit=False):
 
     consultation1.students.append(user_student)
     consultation2.students.append(user_student)
+
+    db.session.add(image1)
+    db.session.add(image2)
+    db.session.add(image3)
+    db.session.add(image4)
+    db.session.add(image5)
 
     db.session.add(user_student) 
     db.session.add(user_prof)

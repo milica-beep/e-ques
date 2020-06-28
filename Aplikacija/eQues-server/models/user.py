@@ -42,5 +42,5 @@ class User(db.Model):
     def serialize(self):
         return {'id': self.id, 'name': self.name, 'lastname': self.lastname, 'email': self.email,\
                 'studentId': self.student_id, 'roleId': self.role_id, 'studentYearId': self.student_year_id,\
-                'userStatusId': self.user_status_id, 'moduleId': self.module_id, 'image': self.image.path}
+                'userStatusId': self.user_status_id, 'moduleId': self.module_id, 'image': self.image.serialize()}
 

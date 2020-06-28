@@ -10,7 +10,7 @@
 
     <mat-card class="question">
       <mat-card-title>{{ question?.title }}</mat-card-title>
-      <mat-card-subtitle> <img mat-card-avatar class="example-header-image"> <a *ngIf="userAsking"
+      <mat-card-subtitle> <img mat-card-avatar src={{imagePath}}{{userAsking?.image.path}}> <a *ngIf="userAsking"
         [routerLink]="['/user/', userAsking.id]">
         {{ userAsking?.name }} {{ userAsking?.lastname }} </a> -
         {{ question?.timestampStr }}</mat-card-subtitle>
@@ -40,18 +40,20 @@
       <mat-card-title>
         {{ d.answer?.text }}
       </mat-card-title>
-      <mat-card-subtitle class="user"> napisao/la: <img mat-card-avatar class="example-header-image">
-        <a *ngIf="d.answerUser"
-                 [routerLink]="['/user/', d.answerUser?.id]">
-                 {{ d.answerUser?.name }} {{ d.answerUser?.lastname }} </a> -
-                 {{ d.answer?.timestampStr }}
-      </mat-card-subtitle>
+        <mat-card-subtitle class="user"> napisao/la: <img mat-card-avatar src={{imagePath}}{{d.answerUser?.image.path}}>
+          <a *ngIf="d.answerUser"
+                  [routerLink]="['/user/', d.answerUser?.id]">
+                  {{ d.answerUser?.name }} {{ d.answerUser?.lastname }} </a> -
+                  {{ d.answer?.timestampStr }}
+        </mat-card-subtitle>
 
-      <span *ngFor="let rating of currentUserRatings">
-        <app-star-rating *ngIf="d.answer.id == rating.answerId" [color]="starColor" [starCount]="5"
-                        [rating]="rating.grade.value"
-                        (ratingUpdated)="ratingUpdated($event, d.answer.id)"></app-star-rating>
-      </span>
+      <div *ngIf="d.answer?.userId != currentUser?.id">
+        <span *ngFor="let rating of currentUserRatings">
+          <app-star-rating *ngIf="d.answer.id == rating.answerId" [color]="starColor" [starCount]="5"
+                          [rating]="rating.grade.value"
+                          (ratingUpdated)="ratingUpdated($event, d.answer.id)"></app-star-rating>
+        </span>
+      </div>
       <br />
       <div>
         Srednja ocena:
@@ -81,7 +83,7 @@
           </mat-card-title>
 
           <mat-card-subtitle class="user">
-            napisao/la: <img class="example-header-image"><a *ngIf="comment.user"
+            napisao/la: <img mat-card-avatar src={{imagePath}}{{comment.user?.image.path}}><a *ngIf="comment.user"
                         [routerLink]="['/user/', comment.user.id]">
                         {{ comment.user?.name }} {{ comment.user?.lastname }} </a> -
                         {{ comment.comment?.timestampStr }}
@@ -99,12 +101,5 @@
           </div>
         </mat-card>
       </div>
-
-
-
-
-
   </div>
-
-
 </div>

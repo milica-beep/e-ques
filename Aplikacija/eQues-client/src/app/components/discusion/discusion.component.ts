@@ -11,6 +11,7 @@ import { DiscussionField } from 'src/app/models/discussion';
 import { CommentField } from 'src/app/models/commentField';
 import { Grade } from 'src/app/models/grade';
 import { userRating } from 'src/app/models/userRating';
+import { Image } from 'src/app/models/image';
 
 @Component({
   selector: 'app-discusion',
@@ -28,6 +29,9 @@ export class DiscusionComponent implements OnInit {
   pinButtonClass: String = "";
   starColor: String = "accent";
   currentUserRatings: userRating[];
+  userImages: Image[];
+
+  imagePath: String;
 
   constructor(private authService: AuthService,
               private userService: UserService,
@@ -40,6 +44,8 @@ export class DiscusionComponent implements OnInit {
 
     this.userService.userLogged.subscribe(user => {
       this.currentUser = user;
+
+      this.imagePath = 'http://127.0.0.1:5000/static/images/user_images/';
     })
 
     this.question = new Question();
@@ -55,6 +61,7 @@ export class DiscusionComponent implements OnInit {
         this.comments = resp['comments'];
         this.users = resp['users'];
         this.userAsking = resp['userAsking'];
+       // this.userImages = resp['images'];
 
         this.currentUserRatings = new Array();
 

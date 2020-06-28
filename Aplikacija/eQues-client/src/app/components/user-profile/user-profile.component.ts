@@ -67,7 +67,9 @@ export class UserProfileComponent implements OnInit {
 
     this.userService.userLogged.subscribe(user => {
       this.currentUser = user;
-      this.imagePath = 'http://127.0.0.1:5000/static/images/user_images/' + this.currentUser?.image;
+      this.imagePath = 'http://127.0.0.1:5000/static/images/user_images/' + this.currentUser?.image.path;
+
+      console.log(user);
 
       this.checkUser();
     })
@@ -109,6 +111,9 @@ export class UserProfileComponent implements OnInit {
         this.studentConsultations = resp['studentConsultations'];
         this.studentGrades = resp['grades'];
         this.studentQuestions = resp['questions'];
+        this.user.image = resp['image'];
+
+        this.imagePath = 'http://127.0.0.1:5000/static/images/user_images/' + this.user?.image.path;
 
         console.log(this.studentGrades);
       }

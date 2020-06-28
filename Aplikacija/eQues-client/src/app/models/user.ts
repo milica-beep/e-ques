@@ -1,4 +1,5 @@
 import { Role } from './role';
+import { Image } from './image';
 
 export class User {
     id: number;
@@ -7,7 +8,7 @@ export class User {
     lastname: string;
     studentId: string;
     email: string;
-    image: string;
+    image: Image;
     password: string;
     confirmPassword: string;
     studentYearId: number;

@@ -89,6 +89,9 @@ def register():
     if len(errors) != 0:
         return jsonify(errors), 422
 
+    image = Image()
+    image.path = 'default_user.png'
+
     user = User()
     user.name = name
     user.lastname = lastname
@@ -96,12 +99,14 @@ def register():
     user.hashed_password = sha256_crypt.hash(password)
     user.role_id = role
     user.user_status_id = USER_STATUS_EMAIL_UNCONFIRMED
+    user.image = image
 
     if role == ROLE_STUDENT:
         user.student_year_id = year
         user.module_id = module
         user.student_id = student_id
 
+    db.session.add(image)
     db.session.add(user)
     db.session.commit()
 

@@ -52,9 +52,12 @@ def get_user():
                 grades = []
                 for a in user.answers:
                     grades.append(a.average_grade)
+
+                image = user.image
                 return jsonify({'user': user.serialize(), 'moduleName': user.module.name,\
                                 'studentConsultations': [x.serialize() for x in user.consultations_stud],\
-                                'grades': grades, 'questions': [x.serialize() for x in user.questions]}), 200
+                                'grades': grades, 'questions': [x.serialize() for x in user.questions],\
+                                'image': image.serialize()}), 200
             elif user.role_id == ROLE_PROFESSOR:
                 return jsonify({'user': user.serialize(),\
                                 'consultations': [x.serialize() for x in user.consultations],\
@@ -206,9 +209,14 @@ def file_upload():
             file.save(os.path.join(UPLOAD_FOLDER, filename))
             image = Image()
             image.path = filename
+            image.user_id = user.id
 
             user.image = image
 
+            print('sledi user id')
+            print(image.user_id)
+
+            print('sledi image path')
             print(user.image.path)
             db.session.add(image)
             db.session.commit()
