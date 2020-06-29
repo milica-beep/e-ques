@@ -1,40 +1,42 @@
-<form [formGroup]="addSubjectForm" (ngSubmit)="onSubmit()">
-  <mat-form-field appearance="outline">
-    <mat-label>Naziv predmeta</mat-label>
-    <input matInput formControlName="name">
-  </mat-form-field>
+<div class="main">
+  <form [formGroup]="addSubjectForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="outline">
+      <mat-label>Naziv predmeta</mat-label>
+      <input matInput formControlName="name">
+    </mat-form-field>
 
-  <br />
+    <br />
 
-  <mat-form-field appearance="outline">
-    <mat-label>Opis predmeta</mat-label>
-    <input matInput formControlName="description">
-  </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Opis predmeta</mat-label>
+      <input matInput formControlName="description">
+    </mat-form-field>
 
-  <br />
+    <br />
 
-  <mat-form-field appearance="outline">
-    <mat-label>Modul</mat-label>
-    <mat-select id="module" formControlName="moduleId">
-      <mat-option *ngFor="let module of modules" [value]="module.id">
-        {{ module.name }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Modul</mat-label>
+      <mat-select id="module" formControlName="moduleId">
+        <mat-option *ngFor="let module of modules" [value]="module.id">
+          {{ module.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
 
-  <br />
+    <br />
 
-  <mat-form-field appearance="outline">
-    <mat-label>Studentska godina</mat-label>
-    <mat-select id="studentYear" formControlName="studentYearId">
-      <mat-option *ngFor="let year of studentYears" [value]="year.id">
-        {{ year.description }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Studentska godina</mat-label>
+      <mat-select id="studentYear" formControlName="studentYearId">
+        <mat-option *ngFor="let year of studentYears" [value]="year.id">
+          {{ year.description }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
 
-  <br />
+    <br />
 
-  <button type="submit" mat-raised-button color="primary">Dodaj predmet</button>
+    <button type="submit" mat-raised-button color="primary">Dodaj predmet</button>
 
-</form>
+  </form>
+</div>

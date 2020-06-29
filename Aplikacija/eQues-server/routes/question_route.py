@@ -2,11 +2,13 @@ from flask import Blueprint, jsonify, request
 from models import *
 from models.shared import db
 import datetime
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 
 # routes
 question_route = Blueprint("questions", __name__)
 
 @question_route.route('/questions/get-question', methods=['GET'])
+@jwt_required
 def get_question():
     question_id = request.args.get('id')
 
@@ -21,6 +23,7 @@ def get_question():
             return {'error': 'Pitanje ne postoji u bazi.'}, 400
 
 @question_route.route('/questions/add-question', methods=['POST'])
+@jwt_required
 def post_question():
     req = request.get_json()
 
@@ -70,6 +73,7 @@ def post_question():
     return jsonify({'question': question.serialize()}), 200
 
 @question_route.route('/questions/search-questions', methods=['GET'])
+@jwt_required
 def search_questions():
     ques_search = request.args.get('search')
 
@@ -78,9 +82,9 @@ def search_questions():
     all_questions = Question.query.all()
 
     for ques in all_questions:
-        if ques.title.find(ques_search):
+        if ques.title.find(ques_search) != -1:
             questions.append(ques)
-        elif ques.text.find(ques_search):
+        elif ques.text.find(ques_search) != -1:
             questions.append(ques)
     
     if len(questions) != 0:

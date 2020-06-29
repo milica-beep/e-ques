@@ -1,11 +1,13 @@
 from flask import Blueprint, jsonify, request
 from models import *
 from models.shared import db
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 
 # routes
 discussion_route = Blueprint("discussion", __name__)
 
 @discussion_route.route('/discussion/get-discussion', methods=['GET'])
+@jwt_required
 def get_discussion():
     question_id = request.args.get('id')
 
@@ -45,6 +47,7 @@ def get_discussion():
                     'userAsking': user_asking.serialize()})
 
 @discussion_route.route('/discussion/get-answer', methods=['GET'])
+@jwt_required
 def get_answer():
     answer_id = request.args.get('id')
 
@@ -61,6 +64,7 @@ def get_answer():
 
 
 @discussion_route.route('/discussion/add-answer', methods=['POST'])
+@jwt_required
 def add_answer():
     req = request.get_json()
 
@@ -99,6 +103,7 @@ def add_answer():
     return jsonify({'message': 'Odgovor je uspešno postavljen.'}), 200
 
 @discussion_route.route('/discussion/delete-answer', methods=['DELETE'])
+@jwt_required
 def delete_answer():
     answer_id = request.args.get('id')
 
@@ -115,6 +120,7 @@ def delete_answer():
     return jsonify({'message': 'Odgovor je uspešno obrisan.'}), 200
 
 @discussion_route.route('/discussion/add-comment', methods=['POST'])
+@jwt_required
 def add_comment():
     req = request.get_json()
 
@@ -151,6 +157,7 @@ def add_comment():
     return jsonify({'message': 'Komentar je uspešno postavljen.'}), 200
 
 @discussion_route.route('/discussion/delete-comment', methods=['DELETE'])
+@jwt_required
 def delete_comment():
     comment_id = request.args.get('id')
 
@@ -162,6 +169,7 @@ def delete_comment():
     return jsonify({'message': 'Komentar je uspešno obrisan.'}), 200
 
 @discussion_route.route('/discussion/pin-answer', methods=['POST'])
+@jwt_required
 def pin_answer():
     req = request.get_json()
 
@@ -176,6 +184,7 @@ def pin_answer():
     return jsonify({'message': 'Odgovor je uspešno pinovan.'}), 200
 
 @discussion_route.route('/discussion/grade-answer', methods=['POST'])
+@jwt_required
 def grade_answer():
     req = request.get_json()
 

@@ -1,4 +1,4 @@
-<mat-toolbar color="primary">
+<mat-toolbar>
     <mat-toolbar-row>
       <button mat-icon-button (click)="toggleSideBar()">
         <mat-icon>menu</mat-icon>
@@ -7,7 +7,7 @@
         <span class="title">eQues</span>
         <form [formGroup]="searchForm" (ngSubmit)="search()">
           <mat-form-field>
-            <mat-label>Pretrazi</mat-label>
+            <mat-label>Pretraži</mat-label>
             <input matInput formControlName="search">
           </mat-form-field>
 
@@ -15,7 +15,13 @@
             <mat-icon>search</mat-icon>
           </button>
 
-          <mat-radio-group formControlName="type">
+          <mat-select formControlName="type" class="type">
+            <mat-option [value]=1>Korisnici</mat-option>
+            <mat-option [value]=2>Predmeti</mat-option>
+            <mat-option [value]=3>Pitanja</mat-option>
+          </mat-select>
+
+          <!-- <mat-radio-group formControlName="type">
             <mat-radio-button [value]=1 checked="True">
               Korisnici
             </mat-radio-button>
@@ -27,7 +33,7 @@
             <mat-radio-button [value]=3>
               Pitanja
             </mat-radio-button>
-          </mat-radio-group>
+          </mat-radio-group> -->
         </form>
         <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
             <ul fxLayout="row" fxLayoutGap="20px">

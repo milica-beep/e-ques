@@ -18,6 +18,7 @@ def test_server():
     return jsonify(t), 200
 
 @user_route.route('/users/get-subjects', methods=['GET'])
+@jwt_required
 def get_subjects():
     user_id = request.args.get('id')
 
@@ -38,6 +39,7 @@ def get_subjects():
         return jsonify({'subjects': [x.serialize() for x in subjects]})
 
 @user_route.route('/users/get-user', methods=['GET'])
+@jwt_required
 def get_user():
     user_id = request.args.get('id')
 
@@ -68,6 +70,7 @@ def get_user():
             return jsonify({'error': 'Ne postoji korisnik u bazi'})
 
 @user_route.route('/users/add-consultation', methods=['POST'])
+@jwt_required
 def add_consultation():
     req = request.get_json()
 
@@ -92,6 +95,7 @@ def add_consultation():
     return jsonify({'consultations': [x.serialize() for x in all_consultations]}), 200
 
 @user_route.route('/users/delete-consultation', methods=['DELETE'])
+@jwt_required
 def delete_consultations():
     cons_id = request.args.get('id')
 
@@ -106,6 +110,7 @@ def delete_consultations():
     return jsonify({'consultations': [x.serialize() for x in professor.consultations]})
 
 @user_route.route('/users/sign-for-consultation', methods=['POST'])
+@jwt_required
 def sign_for_consultation():
     req = request.get_json()
 
@@ -122,6 +127,7 @@ def sign_for_consultation():
     return jsonify({'message': 'Prijava uspesna'}), 200
 
 @user_route.route('/users/get-edit-user-data', methods=['GET'])
+@jwt_required
 def get_edit_user_data():
     user_id = request.args.get('id')
 
@@ -138,6 +144,7 @@ def get_edit_user_data():
         return jsonify({'user': user.serialize()})
 
 @user_route.route('/users/change-password', methods=['POST'])
+@jwt_required
 def change_password():
     req = request.get_json()
 
@@ -160,6 +167,7 @@ def change_password():
         return jsonify({'error': 'Neispravna lozinka'}), 401
  
 @user_route.route('/users/update-user-data', methods=['POST'])
+@jwt_required
 def update_user_data():
     req = request.get_json()
 
@@ -229,6 +237,7 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 @user_route.route('/users/search-users', methods=['GET'])
+@jwt_required
 def search_users():
     user_search = request.args.get('search')
 
@@ -267,3 +276,39 @@ def search_users():
 
 # drugi nacin [bez dekoratora na funkcijama]
 #memr.route("/member-report", methods=["GET"])(report_on_members)
+
+@user_route.route('/users/get-home-page-data', methods=['GET'])
+@jwt_required
+def get_home_page_data():
+    user_id = get_jwt_identity()
+
+    print('user id')
+    print(user_id)
+
+    user = User.query.filter(User.id == user_id).first()
+
+    subjects = []
+
+    if user.role_id == ROLE_STUDENT:
+        subjects = Subject.query.filter(Subject.module_id == user.module_id)\
+                                .filter(Subject.student_year_id == user.student_year_id)\
+                                .all()
+
+    if user.role_id == ROLE_PROFESSOR:
+        subjects = user.subjects
+
+    if user.role_id == ROLE_ADMIN:
+        subjects = Subject.query.all()
+
+
+    questions = []
+
+    for subject in subjects:
+        for topic in subject.topics:
+            ques = Question.query.filter(Question.topic_id == topic.id).all()
+            questions.extend(ques)
+
+    questions.sort(key=lambda x: x.timestamp, reverse=True)
+    print(questions)
+    
+    return jsonify({'questions': [x.serialize() for x in questions]})

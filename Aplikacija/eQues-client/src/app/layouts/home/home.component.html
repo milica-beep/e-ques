@@ -1,26 +1,20 @@
-<div>
-  <h1>Welcome {{ currentUser?.name }}</h1>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
+<div class="main">
+  <h1>Dobrodošli {{ currentUser?.name }}</h1>
+  <div *ngIf="questions">
+    <h2>Najnovije diskusije na predmetima koje pratite</h2>
+    <mat-card *ngFor="let question of questions">
+      <mat-card-header >
+        <mat-card-title>
+          <a [routerLink]="['/discussion/', question?.id]">
+            {{ question?.title }}
+          </a>
+        </mat-card-title>
+
+        <mat-card-subtitle>
+          <quill-editor [(ngModel)]="question.text" [readOnly]="true" [modules]="{toolbar: false}">
+          </quill-editor>
+        </mat-card-subtitle>
+      </mat-card-header>
+    </mat-card>
+  </div>
 </div>

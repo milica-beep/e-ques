@@ -24,6 +24,8 @@ export class SubjectComponent implements OnInit {
   questions: Question[];
   clicked: boolean = false;
 
+  professors: User[];
+
   constructor(private userService: UserService,
               private authService: AuthService,
               private activatedRoute: ActivatedRoute,
@@ -49,6 +51,7 @@ export class SubjectComponent implements OnInit {
     this.subjectService.getSubject(this.subjectId).subscribe(resp => {
       this.subject = resp.subject;
       this.topics = resp.topics;
+      this.professors = resp.professors;
     })
   }
 

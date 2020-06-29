@@ -68,7 +68,7 @@ const routes: Routes = [{
      path: 'edit-user-data/:userId', component: EditUserDataComponent
    },
    {
-    path: 'search-results', component: SearchResultComponent
+    path: 'search-results/:searchBy/:searchFor', component: SearchResultComponent
    },
    {
      path: 'verify-email/:token', component: VerifyEmailComponent

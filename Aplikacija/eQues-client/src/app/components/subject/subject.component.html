@@ -3,9 +3,9 @@
     <h1> {{ subject.name }} </h1>
     <h2> {{ subject.description }}</h2>
 
-    <h4>Profesor 1 email1</h4>
-    <h4>Profesor 2 email2</h4>
-
+    <div *ngFor="let p of professors">
+      <h4>Email profesora: {{ p?.email }}</h4>
+    </div>
   </div>
 
   <!-- <div *ngFor="let topic of topics">

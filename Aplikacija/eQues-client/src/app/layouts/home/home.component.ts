@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/models/User';
 import { UserService } from 'src/app/services/user.service';
+import { Question } from 'src/app/models/question';
 
 @Component({
   selector: 'app-home',
@@ -10,6 +11,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class HomeComponent implements OnInit {
   currentUser: User;
+  questions: Question[];
 
   constructor(private authService: AuthService,
               private userService: UserService) { }
@@ -19,6 +21,12 @@ export class HomeComponent implements OnInit {
     this.userService.userLogged.subscribe(user => {
       this.currentUser = user;
     })
+
+    this.userService.getHomePageData().subscribe(
+      response => {
+        this.questions = response['questions'];
+      }
+    )
 
   }
 

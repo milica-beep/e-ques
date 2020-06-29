@@ -88,4 +88,8 @@ export class UserService {
     let params = new HttpParams().set('search', search);
     return this.http.get<any>(this.serverUrl + 'questions/search-questions', {params: params});
   }
+
+  getHomePageData() {
+    return this.http.get<any>(this.serverUrl + 'users/get-home-page-data');
+  }
 }

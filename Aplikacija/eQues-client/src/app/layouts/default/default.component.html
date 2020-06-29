@@ -1,9 +1,27 @@
-<mat-tab-group *ngIf="!isLoggedIn" class="main">
-    <mat-tab label="Login">
-      <app-login></app-login>
-    </mat-tab>
+<div class="main">
+  <div class="tab">
+    <mat-tab-group *ngIf="!isLoggedIn">
+        <mat-tab label="Login">
+          <app-login></app-login>
+        </mat-tab>
 
-    <mat-tab label="Register">
-        <app-register></app-register>
-    </mat-tab>
-</mat-tab-group>
+        <mat-tab label="Register">
+            <app-register></app-register>
+        </mat-tab>
+    </mat-tab-group>
+  </div>
+
+  <div class="welcome">
+    <mat-card>
+      <mat-card-header>Dobrodošli na eQues!</mat-card-header>
+      <img src="http://127.0.0.1:5000/static/images/elektronac.gif">
+      <mat-card-content>
+        <mat-icon>done</mat-icon> Registrujte se
+        <br />
+        <mat-icon>question_answer</mat-icon> Postavite pitanje
+        <br />
+        <mat-icon>star_rate</mat-icon> Ocenite odgovore
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

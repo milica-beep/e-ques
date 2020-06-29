@@ -1,9 +1,45 @@
-html, body {
+ body {
   min-height: 100vh;
   height: auto;
   margin: 0;
+  /* background-image: url(http://127.0.0.1:5000/static/images/background2.png);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-color: #464646; */
 }
 
 .main {
   min-height: 100vh;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  /* background-image: url(http://127.0.0.1:5000/static/images/background.png); */
+  /* background-size: cover; */
 }
+/*
+mat-tab-group {
+  background-color:whitesmoke;
+} */
+
+/* .photo {
+  background-image: url(http://127.0.0.1:5000/static/images/background.png);
+} */
+
+.welcome {
+  margin-left: 25%;
+  margin-top: 10%;
+  text-align: center;
+}
+
+mat-card {
+  height: 300px;
+  width: 600px;
+  font-size: large;
+}
+
+mat-header {
+  text-align: center;
+}
+

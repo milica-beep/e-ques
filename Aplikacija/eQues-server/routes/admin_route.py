@@ -2,10 +2,12 @@ from flask import Blueprint, jsonify, request
 from models import *
 from models.constants import *
 from models.shared import db
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 
 admin_route = Blueprint("admin", __name__)
 
 @admin_route.route('/admin/get-profs-subj', methods=['GET'])
+@jwt_required
 def get_profs_subj():
     professors = User.query.filter(User.role_id == ROLE_PROFESSOR).all()
 
@@ -15,6 +17,7 @@ def get_profs_subj():
                     'subjects': [x.serialize() for x in subjects]})
 
 @admin_route.route('/admin/post-profs-subj', methods=['POST'])
+@jwt_required
 def post_profs_subj():
     req = request.get_json()
 
@@ -39,6 +42,7 @@ def post_profs_subj():
     return jsonify({'message': 'OK'}), 200
 
 @admin_route.route('/admin/get-unapproved-professors', methods=['GET'])
+@jwt_required
 def get_unapproved_professors():
     professors = User.query.filter(User.role_id == ROLE_PROFESSOR)\
                            .filter(User.user_status_id == USER_STATUS_NOT_APPROVED)\
@@ -47,6 +51,7 @@ def get_unapproved_professors():
     return jsonify({'professors': [x.serialize() for x in professors]})    
 
 @admin_route.route('/admin/approve-professor', methods=['GET'])
+@jwt_required
 def approve_professor():
     professor_id = request.args.get('id')
 
@@ -64,6 +69,7 @@ def approve_professor():
     return jsonify({'professors': [x.serialize() for x in unapproved_professors]})
 
 @admin_route.route('/admin/add-subject', methods=['POST'])
+@jwt_required
 def add_subject():
     req = request.get_json()
 
@@ -81,6 +87,7 @@ def add_subject():
     return jsonify({'message': 'Predmet je uspesno dodat'})
 
 @admin_route.route('/admin/get-add-subject-data', methods=['GET'])
+@jwt_required
 def get_add_subject_data():
     modules = Module.query.all()
     student_years = StudentYear.query.all()
@@ -89,12 +96,14 @@ def get_add_subject_data():
                     'studentYears': [x.serialize() for x in student_years]})
 
 @admin_route.route('/admin/get-subjects', methods=['GET'])
+@jwt_required
 def get_subjects():
     all_subjects = Subject.query.all()
 
     return jsonify({'subjects': [x.serialize() for x in all_subjects]})
 
 @admin_route.route('/admin/delete-subject', methods=['DELETE'])
+@jwt_required
 def delete_subject():
     subject_id = request.args.get('id')
 
@@ -114,6 +123,7 @@ def delete_subject():
     return jsonify({'subjects': [x.serialize() for x in all_subjects]})
 
 @admin_route.route('/admin/add-topic', methods=['POST'])
+@jwt_required
 def add_topic():
     req = request.get_json()
 
@@ -138,6 +148,7 @@ def add_topic():
     return jsonify({'topics': [x.serialize() for x in subject.topics]})
 
 @admin_route.route('/admin/get-all-users', methods=['GET'])
+@jwt_required
 def get_all_users():
     users = User.query.filter(User.role_id != ROLE_ADMIN)\
                       .filter(User.user_status_id == USER_STATUS_APPROVED)\
@@ -145,6 +156,7 @@ def get_all_users():
     return jsonify({'users': [x.serialize() for x in users]})
 
 @admin_route.route('/admin/delete-user', methods=['DELETE'])
+@jwt_required
 def delete_user():
     user_id = request.args.get('id')
 

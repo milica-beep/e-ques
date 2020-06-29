@@ -56,39 +56,9 @@ export class HeaderComponent implements OnInit {
     let searchFor = this.searchForm.get('search').value;
     let searchType = this.searchForm.get('type').value;
 
-    if(searchType == 1) {
-      this.userService.searchUsers(searchFor).subscribe(
-        response => {
-          this.userService.emitSearchData(response);
-          this.router.navigate(['/search-results']);
-        },
-        error => {
-          console.log(error);
-        }
-      )
-    }
-    if(searchType == 2) {
-      this.userService.searchSubjects(searchFor).subscribe(
-        response => {
-          this.userService.emitSearchData(response);
-          this.router.navigate(['/search-results']);
-        },
-        error => {
-          console.log(error);
-        }
-      )
-    }
-    if(searchType == 3) {
-      this.userService.searchQuestions(searchFor).subscribe(
-        response => {
-          this.userService.emitSearchData(response);
-          this.router.navigate(['/search-results']);
-        },
-        error => {
-          console.log(error);
-        }
-      )
-    }
+    console.log('search type ' + searchType);
+
+    this.router.navigate(['/search-results', searchFor, searchType]);
   }
 
 }

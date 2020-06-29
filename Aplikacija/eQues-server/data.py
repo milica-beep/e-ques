@@ -61,11 +61,11 @@ def create_modules(commit=False):
         db.session.commit()
 
 def create_subjects(commit=False):
-    subj1 = Subject( 'Softversko inženjerstvo', 'Blablabla', STUDENT_YEAR3, 2)
-    subj2 = Subject( 'Mikroračunarski sistemi', 'Blablabla', STUDENT_YEAR3, 2)
-    subj3 = Subject( 'Sistemi baza podataka', 'Blablabla', STUDENT_YEAR3, 2)
-    subj4 = Subject( 'Baze podataka', 'Blablabla', STUDENT_YEAR2, 2)
-    subj5 = Subject( 'Elektronika', 'Blablabla', STUDENT_YEAR3, 3)
+    subj1 = Subject( 'Softversko inženjerstvo', 'Obavezni predmet na modulu Računarstvo i informatika', STUDENT_YEAR3, 2)
+    subj2 = Subject( 'Mikroračunarski sistemi', 'Obavezni predmet na modulu Računarstvo i informatika', STUDENT_YEAR3, 2)
+    subj3 = Subject( 'Sistemi baza podataka', 'Izborni predmet na modulu Računarstvo i informatika', STUDENT_YEAR3, 2)
+    subj4 = Subject( 'Baze podataka', 'Obavezni predmet na modulu Računarstvo i informatika', STUDENT_YEAR2, 2)
+    subj5 = Subject( 'Projektovanje digitalnih sistema', 'Izborni predmet na modulu Elektronika', STUDENT_YEAR3, 4)
 
     db.session.add(subj1)  
     db.session.add(subj2) 
@@ -77,24 +77,24 @@ def create_subjects(commit=False):
         db.session.commit()
 
 def create_topics(commit=False):
-    top1 = Topic( 'Oblast 1 SI', 'Ovo je jako vazna oblast 1', 1)
-    top2 = Topic( 'Oblast 2 SI', 'Ovo je jako vazna oblast 2', 1)
-    top3 = Topic( 'Oblast 3 SI', 'Ovo je jako vazna oblast 3', 1)
-    top4 = Topic( 'Oblast 4 SI', 'Ovo je jako vazna oblast 4', 1)
+    top1 = Topic( 'Pojam i potreba za softverskim inženjerstvom', 'Prva oblast na predmetu Softversko inženjerstvo', 1)
+    top2 = Topic( 'Sistemsko inženjerstvo', 'Druga oblast na predmetu Softversko inženjerstvo', 1)
+    top3 = Topic( 'Softversko i sistemsko inženjerstvo', 'Treća oblast na predmetu Softversko inženjerstvo', 1)
+    top4 = Topic( 'Dodatna svojstva sistema', 'Četvrta oblast na predmetu Softversko inženjerstvo', 1)
 
-    top5 = Topic( 'Oblast 1 MIKS', 'Ovo je jako vazna oblast 1', 2)
-    top6 = Topic( 'Oblast 2 MIKS', 'Ovo je jako vazna oblast 2', 2)
-    top7 = Topic( 'Oblast 3 MIKS', 'Ovo je jako vazna oblast 3', 2)
-    top8 = Topic( 'Oblast 4 MIKS', 'Ovo je jako vazna oblast 4', 2)
+    top5 = Topic( 'Struktura i organizacija mikroračunarskih sistema', 'Prva oblast na predmetu Mikroračunarski sistemi', 2)
+    top6 = Topic( 'Povezivanje U/I uređaja', 'Druga oblast na predmetu Mikroračunarski sistemi', 2)
+    top7 = Topic( 'Načini organizacije U/I aktivnosti', 'Treća oblast na predmetu Mikroračunarski sistemi', 2)
+    top8 = Topic( 'Serijski U/I', 'Četvrta oblast na predmetu Mikroračunarski sistemi', 2)
 
-    top9 = Topic( 'Oblast 1 SBP', 'Ovo je jako vazna oblast', 3)
-    top10 = Topic( 'Oblast 2 SBP', 'Ovo je jako vazna oblast', 3)
-    top11 = Topic( 'Oblast 3 SBP', 'Ovo je jako vazna oblast', 3)
-    top12 = Topic( 'Oblast 4 SBP', 'Ovo je jako vazna oblast', 3)
+    top9 = Topic( 'EER model', 'Prva oblast na predmetu Sistemi baza podataka', 3)
+    top10 = Topic( 'Napredni SQL', 'Druga oblast na predmetu Sistemi baza podataka', 3)
+    top11 = Topic( 'Transakcije i zaključavanje', 'Treća oblast na predmetu Sistemi baza podataka', 3)
+    top12 = Topic( 'Optimizacija upita', 'Četvrta oblast na predmetu Sistemi baza podataka', 3)
 
-    top13 = Topic( 'Ovo je jedina oblast BP', 'I nije nesto vazna', 4)
+    top13 = Topic( 'Osnovni pojmovi', 'Prva oblast', 4)
 
-    top14 = Topic( 'Jeste', 'Oblastoblastoblast', 5)
+    top14 = Topic( 'RTL projektovanje', 'Prva oblast', 5)
 
     db.session.add(top1)  
     db.session.add(top2) 
@@ -130,25 +130,55 @@ def create_questions(commit=False):
     image5 = Image()
     image5.path = 'default_user.png'
 
+    image6 = Image()
+    image6.path = 'default_user.png'
+
+    image7 = Image()
+    image7.path = 'default_user.png'
+
     user_student = User()
     user_student.name = 'Milica'
-    user_student.lastname = 'Nikolic'
+    user_student.lastname = 'Nikolić'
     user_student.student_year_id = STUDENT_YEAR3
     user_student.student_id = '16785'
     user_student.user_status_id = USER_STATUS_APPROVED
     user_student.role_id = ROLE_STUDENT
     user_student.email = 'milica@elfak.rs'
-    user_student.hashed_password = sha256_crypt.hash('123456')
+    user_student.hashed_password = sha256_crypt.hash('milica123')
     user_student.module_id = 2
     user_student.image = image1
 
+    user_student2 = User()
+    user_student2.name = 'Mina'
+    user_student2.lastname = 'Nikolić'
+    user_student2.student_year_id = STUDENT_YEAR3
+    user_student2.student_id = '16786'
+    user_student2.user_status_id = USER_STATUS_APPROVED
+    user_student2.role_id = ROLE_STUDENT
+    user_student2.email = 'mina@elfak.rs'
+    user_student2.hashed_password = sha256_crypt.hash('mina123')
+    user_student2.module_id = 2
+    user_student2.image = image6
+
+    user_student3 = User()
+    user_student3.name = 'Tamara'
+    user_student3.lastname = 'Mihajlović'
+    user_student3.student_year_id = STUDENT_YEAR3
+    user_student3.student_id = '16758'
+    user_student3.user_status_id = USER_STATUS_APPROVED
+    user_student3.role_id = ROLE_STUDENT
+    user_student3.email = 'tamara@elfak.rs'
+    user_student3.hashed_password = sha256_crypt.hash('tamara123')
+    user_student3.module_id = 2
+    user_student3.image = image7
+
     user_prof = User()
     user_prof.name = 'Aleksandar'
-    user_prof.lastname = 'Stanimirovic'
+    user_prof.lastname = 'Stanimirović'
     user_prof.user_status_id = USER_STATUS_NOT_APPROVED
     user_prof.role_id = ROLE_PROFESSOR
     user_prof.email = 'aleksandar@elfak.rs'
-    user_prof.hashed_password = sha256_crypt.hash('123456')
+    user_prof.hashed_password = sha256_crypt.hash('aleksandar123')
     user_prof.image = image2
 
     user_admin = User()
@@ -159,58 +189,61 @@ def create_questions(commit=False):
     user_admin.image = image3
 
     user_prof2 = User()
-    user_prof2.name = 'Emina'
-    user_prof2.lastname = 'Milovanovic'
+    user_prof2.name = 'Aleksandar'
+    user_prof2.lastname = 'Dimitrijević'
     user_prof2.user_status_id = USER_STATUS_NOT_APPROVED
     user_prof2.role_id = ROLE_PROFESSOR
     user_prof2.email = 'emina@elfak.rs'
-    user_prof2.hashed_password = sha256_crypt.hash('123456')
+    user_prof2.hashed_password = sha256_crypt.hash('emina123')
     user_prof2.image = image4
 
     user_prof3 = User()
     user_prof3.name = 'Dragan'
-    user_prof3.lastname = 'Stojanovic'
+    user_prof3.lastname = 'Stojanović'
     user_prof3.user_status_id = USER_STATUS_NOT_APPROVED
     user_prof3.role_id = ROLE_PROFESSOR
     user_prof3.email = 'dragan@elfak.rs'
-    user_prof3.hashed_password = sha256_crypt.hash('123456')
+    user_prof3.hashed_password = sha256_crypt.hash('dragan123')
     user_prof3.image = image5
 
-    q1 = Question('Ovo je naslov prvog pitanja', 'Ovde je objasnjenje sta je pitanje i tako to')
-    q2 = Question('Ovo je naslov drugog pitanja', 'Ovde je objasnjenje sta je pitanje i tako to')
+    q1 = Question('"Interna" memorija kod 8086 mikroprocesora', 'Da li mikroprocesor 8086 poseduje internu memoriju?')
 
-    q1.topic_id = 1
-    q2.topic_id = 5
+    q1.topic_id = 5
 
-    q1.user_id = q2.user_id = 1
+    q1.user_id = 1
 
     db.session.add(image1)
     db.session.add(image2)
     db.session.add(image3)
     db.session.add(image4)
     db.session.add(image5)
+    db.session.add(image6)
+    db.session.add(image7)
 
     db.session.add(user_student) 
+    db.session.add(user_student2) 
+    db.session.add(user_student3) 
     db.session.add(user_prof)
     db.session.add(user_admin)
     db.session.add(user_prof2)
     db.session.add(user_prof3)
     db.session.add(q1) 
-    db.session.add(q2) 
 
     if commit:
         db.session.commit()
 
 def test_answers(commit=False):
-    db.session.add(Answer('Ovo je milicin odgovor', 1, 1, False, 0))
-    db.session.add(Answer('Ovo je jos jedan milicin odgovor', 1, 1, False, 0))
+    db.session.add(Answer('Mislim da ne poseduje.', 1, 2, False, 0))
+    db.session.add(Answer('8086 ne poseduje internu memoriju. \
+                         U Proteusu je uvedena da bi se povećala brzina simulacije i izbegla složenija šema.',\
+                         1, 3, False, 0))
 
     if commit:
         db.session.commit()
 
 def test_comments(commit=False):
-    db.session.add(Comment('Milica komentarise svoj odgovor', 1, 1))
-    db.session.add(Comment('Profesor komentarise odgovor.', 1, 2))
+    db.session.add(Comment('Da li možeš da mi pojasniš ovaj odgovor?', 1, 1))
+    db.session.add(Comment('Profesor komentarise odgovor.', 1, 6))
 
     if commit:
         db.session.commit()
@@ -230,7 +263,7 @@ def create_data():
     create_questions()
     
     
-    test_answers()
-    test_comments()
+    #test_answers()
+    #test_comments()
     
     db.session.commit()
