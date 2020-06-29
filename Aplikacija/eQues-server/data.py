@@ -184,12 +184,6 @@ def create_questions(commit=False):
 
     q1.user_id = q2.user_id = 1
 
-    consultation1 = Consultation('Ponedeljak', '14:00', 2)
-    consultation2 = Consultation('Utorak', '10:00', 2)
-
-    consultation1.students.append(user_student)
-    consultation2.students.append(user_student)
-
     db.session.add(image1)
     db.session.add(image2)
     db.session.add(image3)
@@ -203,9 +197,6 @@ def create_questions(commit=False):
     db.session.add(user_prof3)
     db.session.add(q1) 
     db.session.add(q2) 
-
-    db.session.add(consultation1)
-    db.session.add(consultation2)
 
     if commit:
         db.session.commit()

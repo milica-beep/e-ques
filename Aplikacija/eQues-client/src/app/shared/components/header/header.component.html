@@ -4,7 +4,31 @@
         <mat-icon>menu</mat-icon>
       </button>
 
-        <span>eQues</span>
+        <span class="title">eQues</span>
+        <form [formGroup]="searchForm" (ngSubmit)="search()">
+          <mat-form-field>
+            <mat-label>Pretrazi</mat-label>
+            <input matInput formControlName="search">
+          </mat-form-field>
+
+          <button mat-button matSuffix mat-icon-button>
+            <mat-icon>search</mat-icon>
+          </button>
+
+          <mat-radio-group formControlName="type">
+            <mat-radio-button [value]=1 checked="True">
+              Korisnici
+            </mat-radio-button>
+
+            <mat-radio-button [value]=2>
+              Predmeti
+            </mat-radio-button>
+
+            <mat-radio-button [value]=3>
+              Pitanja
+            </mat-radio-button>
+          </mat-radio-group>
+        </form>
         <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
             <ul fxLayout="row" fxLayoutGap="20px">
                 <li>

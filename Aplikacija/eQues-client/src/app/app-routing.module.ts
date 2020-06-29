@@ -17,6 +17,7 @@ import { AddSubjectComponent } from './components/add-subject/add-subject.compon
 import { DeleteSubjectComponent } from './components/delete-subject/delete-subject.component';
 import { UpdateSubjectComponent } from './components/update-subject/update-subject.component';
 import { EditUserDataComponent } from './components/edit-user-data/edit-user-data.component';
+import { SearchResultComponent } from './components/search-result/search-result.component';
 
 const routes: Routes = [{
   path: '',
@@ -62,6 +63,9 @@ const routes: Routes = [{
    ] },
    {
      path: 'edit-user-data/:userId', component: EditUserDataComponent
+   },
+   {
+    path: 'search-results', component: SearchResultComponent
    }
 ];
 

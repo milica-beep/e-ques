@@ -1,6 +1,10 @@
+import { Subject } from './subject';
+import { User } from './User';
+
 export class Consultation {
   id: number;
   date: String;
   time: String;
-  professorId: number;
+  subjectId: number;
+  professor: User;
 }

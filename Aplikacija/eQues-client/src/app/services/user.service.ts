@@ -23,6 +23,12 @@ export class UserService {
     this.userLoggedIn.next(user);
   }
 
+  private search = new Subject<any>();
+  searchFinished = this.search.asObservable();
+  emitSearchData(searchResults: any) {
+    this.search.next(searchResults);
+  }
+
   getSubjects(userId:number) {
     let params = new HttpParams().set('id', userId.toString());
     return this.http.get<any>(this.serverUrl + 'users/get-subjects', {params: params});
@@ -66,5 +72,20 @@ export class UserService {
     formData.set('userId', userId.toString());
 
     return this.http.post(this.serverUrl + 'users/file-upload', formData);
+  }
+
+  searchUsers(search: string) {
+    let params = new HttpParams().set('search', search);
+    return this.http.get<any>(this.serverUrl + 'users/search-users', {params: params});
+  }
+
+  searchSubjects(search: string) {
+    let params = new HttpParams().set('search', search);
+    return this.http.get<any>(this.serverUrl + 'subjects/search-subjects', {params: params});
+  }
+
+  searchQuestions(search: string) {
+    let params = new HttpParams().set('search', search);
+    return this.http.get<any>(this.serverUrl + 'questions/search-questions', {params: params});
   }
 }

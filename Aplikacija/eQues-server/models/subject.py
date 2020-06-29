@@ -23,6 +23,7 @@ class Subject(db.Model):
 
     topics = db.relationship('Topic', back_populates='subject')
     proffessors = db.relationship('User', secondary=ProffessorSubject, back_populates='subjects')
+    consultations = db.relationship('Consultation', back_populates='subject')
 
     def serialize(self):
         return {'id': self.id, 'name': self.name, 'description': self.description, \

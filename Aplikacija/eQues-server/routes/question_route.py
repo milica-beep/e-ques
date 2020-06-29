@@ -68,3 +68,22 @@ def post_question():
     db.session.commit()
 
     return jsonify({'message': 'Pitanje je uspešno postavljeno.'}), 200
+
+@question_route.route('/questions/search-questions', methods=['GET'])
+def search_questions():
+    ques_search = request.args.get('search')
+
+    questions = []
+
+    all_questions = Question.query.all()
+
+    for ques in all_questions:
+        if ques.title.find(ques_search):
+            questions.append(ques)
+        elif ques.text.find(ques_search):
+            questions.append(ques)
+    
+    if len(questions) != 0:
+        return jsonify({'questions': [x.serialize() for x in questions]})
+    else:
+        return jsonify({'message': 'Nije pronadjen nijedan predmet'})

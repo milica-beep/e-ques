@@ -14,6 +14,9 @@ class Consultation(db.Model):
     date = db.Column(db.String(50), nullable=False)
     time = db.Column(db.String(50))
 
+    subject_id = db.Column(db.Integer, db.ForeignKey('subjects.id'))
+    subject = db.relationship('Subject', back_populates='consultations')
+
     professor_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     professor = db.relationship('User', back_populates='consultations')
     
@@ -21,4 +24,5 @@ class Consultation(db.Model):
                                          back_populates='consultations_stud')
 
     def serialize(self):
-        return {'id': self.id, 'date': self.date, 'time': self.time, 'professorId': self.professor_id}
+        return {'id': self.id, 'date': self.date, 'time': self.time, 'professor': self.professor.serialize(),\
+                'subjectId': self.subject_id}

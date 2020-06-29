@@ -71,15 +71,17 @@ def get_user():
 def add_consultation():
     req = request.get_json()
 
+    # TODO ne moze dva ista termina proveri
+
     consultation_date = str(req['date'])
     consultation_time = str(req['time'])
-    consultation_prof_id = int(req['professorId'])
+    consultation_prof = req['professor']
 
-    print(consultation_prof_id)
+    print(consultation_prof['id'])
 
-    new_consultation = Consultation(consultation_date, consultation_time, consultation_prof_id)
+    new_consultation = Consultation(consultation_date, consultation_time, consultation_prof['id'])
 
-    professor = User.query.filter(User.id == consultation_prof_id).first()
+    professor = User.query.filter(User.id == consultation_prof['id']).first()
     professor.consultations.append(new_consultation)
 
     all_consultations = professor.consultations
@@ -225,6 +227,30 @@ def file_upload():
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+@user_route.route('/users/search-users', methods=['GET'])
+def search_users():
+    user_search = request.args.get('search')
+
+    users_list = []
+
+    all_users = User.query.filter(User.role_id != ROLE_ADMIN).all()
+
+    for user in all_users:
+        if user.name.find(user_search) != -1:
+            users_list.append(user)
+        elif user.lastname.find(user_search) != -1:
+             users_list.append(user)
+        elif user.email.find(user_search) != -1:
+            users_list.append(user)
+        elif user.role_id == ROLE_STUDENT:
+            if user.student_id.find(user_search) != -1:
+                users_list.append(user)
+    
+    if len(users_list) != 0:
+        return jsonify({'users': [x.serialize() for x in users_list]})
+    else:
+        return jsonify({'message': 'Nije pronadjen nijedan korisnik'})
 
 
 # @user_route.route('/users/get-subject', methods=['GET'])

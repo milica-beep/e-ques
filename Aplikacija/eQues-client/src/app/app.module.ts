@@ -31,6 +31,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { TokenInterceptor } from './services/token.interceptor';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarModule } from '@angular/material/snack-bar';
@@ -56,6 +57,7 @@ import { PieComponent } from './shared/widgets/pie/pie.component';
 
 import { ChartModule } from 'angular-highcharts';
 import { EditUserDataComponent } from './components/edit-user-data/edit-user-data.component';
+import { SearchResultComponent } from './components/search-result/search-result.component';
 
 
 @NgModule({
@@ -84,6 +86,7 @@ import { EditUserDataComponent } from './components/edit-user-data/edit-user-dat
     UpdateSubjectComponent,
     PieComponent,
     EditUserDataComponent,
+    SearchResultComponent,
   ],
   imports: [
     BrowserModule,
@@ -114,6 +117,7 @@ import { EditUserDataComponent } from './components/edit-user-data/edit-user-dat
     MatDatepickerModule,
     MatNativeDateModule,
     ChartModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     {

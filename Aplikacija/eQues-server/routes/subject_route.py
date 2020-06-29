@@ -40,3 +40,22 @@ def get_questions():
         return jsonify({'questions': [x.serialize() for x in questions]}), 200
     else:
         return jsonify({'questions': None})
+
+@subject_route.route('/subjects/search-subjects', methods=['GET'])
+def search_subjects():
+    subj_search = request.args.get('search')
+
+    subjects = []
+
+    all_subjects = Subject.query.all()
+
+    for subj in all_subjects:
+        if subj.name.find(subj_search):
+            subjects.append(subj)
+        elif subj.description.find(subj_search):
+            subjects.append(subj)
+    
+    if len(subjects) != 0:
+        return jsonify({'subjects': [x.serialize() for x in subjects]})
+    else:
+        return jsonify({'message': 'Nije pronadjen nijedan predmet'})

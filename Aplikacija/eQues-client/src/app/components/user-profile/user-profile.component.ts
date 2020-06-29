@@ -47,10 +47,8 @@ export class UserProfileComponent implements OnInit {
               private router: Router) { }
 
   // TODO
-  // dodaj predmet kod biranja konsultacija - veza izmedju subject i cons + dodaj u modelu ovde subject_id
   // pretraga
   // admin - pregled svih naloga
-  // upload slike
   // tekst editor za dodavanje pitanja/odgovora
 
 
@@ -67,7 +65,7 @@ export class UserProfileComponent implements OnInit {
 
     this.userService.userLogged.subscribe(user => {
       this.currentUser = user;
-      this.imagePath = 'http://127.0.0.1:5000/static/images/user_images/' + this.currentUser?.image.path;
+     // this.imagePath = 'http://127.0.0.1:5000/static/images/user_images/' + this.currentUser?.image.path;
 
       console.log(user);
 
@@ -118,8 +116,7 @@ export class UserProfileComponent implements OnInit {
         console.log(this.studentGrades);
       }
       else if (this.user.roleId == 2) {
-        console.log('u prof');
-        console.log(resp);
+        this.imagePath = 'http://127.0.0.1:5000/static/images/user_images/' + this.user?.image.path;
         this.professorsConsultations = resp['consultations'];
         this.professorsSubjects = resp['subjects'];
       }
@@ -144,7 +141,8 @@ export class UserProfileComponent implements OnInit {
 
     consultation.date = pipe.transform(data.date, 'dd-MM-yyyy').toString();
     consultation.time = data.hour;
-    consultation.professorId = this.currentUser.id;
+    consultation.professor = new User();
+    consultation.professor.id = this.currentUser.id;
 
     this.userService.addConsultation(consultation).subscribe(
       response => {

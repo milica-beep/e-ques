@@ -1,0 +1,53 @@
+<div class="main">
+  <div>
+    <mat-card *ngFor="let user of users">
+      <mat-card-header >
+        <img mat-card-avatar src={{imagePath}}{{user?.image.path}}>
+
+        <mat-card-title>
+          <a [routerLink]="['/user/', user?.id]">
+            {{ user?.name }}
+            {{ user?.lastname }}
+          </a>
+          </mat-card-title>
+
+        <mat-card-subtitle>
+          {{ user?.email }}
+        </mat-card-subtitle>
+      </mat-card-header>
+
+    </mat-card>
+  </div>
+
+  <div>
+    <mat-card *ngFor="let subject of subjects">
+      <mat-card-header >
+        <mat-card-title>
+          <a [routerLink]="['/subject/', subject?.id]">
+            {{ subject?.name }}
+          </a>
+        </mat-card-title>
+
+        <mat-card-subtitle>
+          {{ subject?.description }}
+        </mat-card-subtitle>
+      </mat-card-header>
+    </mat-card>
+  </div>
+
+  <div>
+    <mat-card *ngFor="let question of questions">
+      <mat-card-header >
+        <mat-card-title>
+          <a [routerLink]="['/discussion/', question?.id]">
+            {{ question?.title }}
+          </a>
+        </mat-card-title>
+
+        <mat-card-subtitle>
+          {{ question?.text }}
+        </mat-card-subtitle>
+      </mat-card-header>
+    </mat-card>
+  </div>
+</div>
