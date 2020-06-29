@@ -18,6 +18,7 @@ import { DeleteSubjectComponent } from './components/delete-subject/delete-subje
 import { UpdateSubjectComponent } from './components/update-subject/update-subject.component';
 import { EditUserDataComponent } from './components/edit-user-data/edit-user-data.component';
 import { SearchResultComponent } from './components/search-result/search-result.component';
+import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
 
 const routes: Routes = [{
   path: '',
@@ -66,6 +67,9 @@ const routes: Routes = [{
    },
    {
     path: 'search-results', component: SearchResultComponent
+   },
+   {
+     path: 'verify-email/:token', component: VerifyEmailComponent
    }
 ];
 

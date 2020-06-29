@@ -1,9 +1,9 @@
 from flask import Blueprint, jsonify, request
-from models import User, StudentYear, Module, UserStatus, Role
+from models import User, StudentYear, Module, UserStatus, Role, Image
 from models.constants import *
 from models.shared import db
 from passlib.hash import sha256_crypt
-from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, decode_token
 
 # routes
 auth_route = Blueprint('auth', __name__)
@@ -22,20 +22,24 @@ def login():
     if(existing_user is None):
         errors['email'] = 'Ne postoji korisnik sa navedenom email adresom'
     else:
-        if(not sha256_crypt.verify(password_candidate, existing_user.hashed_password)):
-            errors['message'] = 'Nevalidni podaci!'
-            return jsonify(errors), 401
-        else: 
-            # TODO add expiration
-            access_token = create_access_token(identity=existing_user.id)
-            resp = jsonify({'message': 'Uspešno prijavljivanje', 'access_token' : access_token})
-            return resp, 200
+        if existing_user.user_status_id == USER_STATUS_EMAIL_UNCONFIRMED:
+            return jsonify({'message': 'Email adresa nije potvrdjena.'}), 400
+        else:
+            if(not sha256_crypt.verify(password_candidate, existing_user.hashed_password)):
+                errors['message'] = 'Nevalidni podaci!'
+                return jsonify(errors), 401
+            else: 
+                # TODO add expiration
+                access_token = create_access_token(identity=existing_user.id)
+                resp = jsonify({'message': 'Uspešno prijavljivanje', 'access_token' : access_token})
+                return resp, 200
 
     if len(errors) != 0:
         return jsonify(errors), 422
         
 @auth_route.route('/auth/register', methods=['POST'])
 def register():
+    from mail import send_mail
     req = request.get_json()
 
     name = str(req['name'])
@@ -106,6 +110,19 @@ def register():
         user.module_id = module
         user.student_id = student_id
 
+    # verifikacija emaila
+
+    email_token = create_access_token(identity=user.email)
+
+    link = f'http://localhost:4200/verify-email/{email_token}'
+
+    subject = f'Zdravo {user.name}'
+    recipient = user.email
+    body = f'Hvala Vam što ste se registrovali na portalu eQues. \
+            Klikom na sledeći link završićete registraciju {link}'
+
+    send_mail(subject, recipient, body)
+
     db.session.add(image)
     db.session.add(user)
     db.session.commit()
@@ -130,3 +147,22 @@ def current_user():
     user_id = get_jwt_identity()
     user = User.query.filter(User.id == user_id).first()
     return jsonify(user.serialize()), 200
+
+@auth_route.route('/auth/verify-email', methods=['POST'])
+def verify_email():
+    req = request.get_json()
+
+    user_identity = decode_token(req['token'], allow_expired=True)
+
+    print(user_identity['identity'])
+
+    user = User.query.filter(User.email == user_identity['identity']).first()
+
+    if user.role_id == ROLE_PROFESSOR:
+        user.user_status_id = USER_STATUS_NOT_APPROVED
+    else:
+        user.user_status_id = USER_STATUS_APPROVED
+
+    db.session.commit()
+
+    return jsonify({'message': 'Email adresa je verifikovana. Sada mozete da se prijavite.'}), 200

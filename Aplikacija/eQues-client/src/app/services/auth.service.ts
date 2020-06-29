@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { User } from '../models/User';
 import { RegistrationModel } from '../models/registrationModel';
@@ -69,6 +69,9 @@ export class AuthService {
     this.emitChangeSource.next(change);
   }
 
-
+  verifyEmail(token: any) {
+    console.log(token);
+    return this.http.post(this.serverUrl + 'auth/verify-email', token);
+  }
 
 }

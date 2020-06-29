@@ -58,6 +58,7 @@ import { PieComponent } from './shared/widgets/pie/pie.component';
 import { ChartModule } from 'angular-highcharts';
 import { EditUserDataComponent } from './components/edit-user-data/edit-user-data.component';
 import { SearchResultComponent } from './components/search-result/search-result.component';
+import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
 
 
 @NgModule({
@@ -87,6 +88,7 @@ import { SearchResultComponent } from './components/search-result/search-result.
     PieComponent,
     EditUserDataComponent,
     SearchResultComponent,
+    VerifyEmailComponent,
   ],
   imports: [
     BrowserModule,
