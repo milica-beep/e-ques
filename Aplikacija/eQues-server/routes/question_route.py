@@ -67,7 +67,7 @@ def post_question():
     db.session.add(question)
     db.session.commit()
 
-    return jsonify({'message': 'Pitanje je uspešno postavljeno.'}), 200
+    return jsonify({'question': question.serialize()}), 200
 
 @question_route.route('/questions/search-questions', methods=['GET'])
 def search_questions():

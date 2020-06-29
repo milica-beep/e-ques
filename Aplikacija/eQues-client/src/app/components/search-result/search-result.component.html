@@ -45,7 +45,8 @@
         </mat-card-title>
 
         <mat-card-subtitle>
-          {{ question?.text }}
+          <quill-editor [(ngModel)]="question.text" [readOnly]="true" [modules]="{toolbar: false}">
+          </quill-editor>
         </mat-card-subtitle>
       </mat-card-header>
     </mat-card>

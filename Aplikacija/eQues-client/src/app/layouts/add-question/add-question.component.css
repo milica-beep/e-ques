@@ -10,3 +10,13 @@
   width: 100%;
 }
 
+html, body {
+  min-height: 100vh;
+  height: auto;
+  margin: 0;
+}
+.main {
+  min-height: 100vh;
+  text-align: center;
+}
+

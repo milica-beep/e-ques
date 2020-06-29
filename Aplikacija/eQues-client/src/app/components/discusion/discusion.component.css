@@ -59,3 +59,7 @@
   width: 20px;
   height: 20px;
 }
+
+quill-editor {
+  text-align: center;
+}

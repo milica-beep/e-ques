@@ -19,6 +19,7 @@ import { UpdateSubjectComponent } from './components/update-subject/update-subje
 import { EditUserDataComponent } from './components/edit-user-data/edit-user-data.component';
 import { SearchResultComponent } from './components/search-result/search-result.component';
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
+import { ManageUsersComponent } from './components/manage-users/manage-users.component';
 
 const routes: Routes = [{
   path: '',
@@ -60,7 +61,8 @@ const routes: Routes = [{
      { path: 'professor-approve', component: ApproveProfessorComponent },
      { path: 'add-subject', component: AddSubjectComponent },
      { path: 'delete-subject', component: DeleteSubjectComponent },
-     { path: 'update-subject', component: UpdateSubjectComponent }
+     { path: 'update-subject', component: UpdateSubjectComponent },
+     { path: 'manage-users', component: ManageUsersComponent }
    ] },
    {
      path: 'edit-user-data/:userId', component: EditUserDataComponent

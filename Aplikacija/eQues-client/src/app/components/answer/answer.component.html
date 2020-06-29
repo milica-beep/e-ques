@@ -1,14 +1,25 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()" class="example-form">
+<!-- <form [formGroup]="form" (ngSubmit)="onSubmit()" class="example-form">
   <mat-card>
     <mat-card-title>Re: {{ showOnPage }}</mat-card-title>
   </mat-card>
+
   <mat-form-field class="example-full-width">
-    <div class="textareaDiv">
-      <textarea matInput placeholder="Ovo je odgovor..." formControlName="text"></textarea>
-    </div>
+    <wa-mat-quill theme="snow" formControlName="text"></wa-mat-quill>
 
     <mat-error *ngIf="f.text.errors?.required">Ovo polje je obavezno!</mat-error>
+
   </mat-form-field>
 
+
+
   <button type="submit" mat-raised-button color="accent">Odgovori</button>
-</form>
+</form> -->
+<div class="main">
+  <h2> Re:
+    <quill-editor [(ngModel)]="showOnPage" [readOnly]="true" [modules]="{toolbar: false}">
+    </quill-editor>
+  </h2>
+  <quill-editor [styles]="{height: '200px'}" [(ngModel)]="text" class="editor"></quill-editor>
+
+  <button mat-raised-button color="accent" (click)="onSubmit()">Odgovori</button>
+</div>

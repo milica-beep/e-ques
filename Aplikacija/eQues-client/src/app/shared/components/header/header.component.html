@@ -57,11 +57,7 @@
                       Izmeni predmet
                     </button>
 
-                    <button mat-menu-item *ngIf="currentUser?.roleId == 3" [routerLink]="['admin/professor-approve']">
-                      Pregledaj neodobrene naloge
-                    </button>
-
-                    <button mat-menu-item *ngIf="currentUser?.roleId == 3" [routerLink]="['admin/professor-approve']">
+                    <button mat-menu-item *ngIf="currentUser?.roleId == 3" [routerLink]="['admin/manage-users']">
                       Pregledaj sve naloge
                     </button>
 

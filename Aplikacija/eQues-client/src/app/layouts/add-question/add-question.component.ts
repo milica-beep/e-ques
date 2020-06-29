@@ -5,7 +5,7 @@ import { FormGroup, FormBuilder, Validators, ValidationErrors } from '@angular/f
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/models/User';
 import { UserService } from 'src/app/services/user.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-question',
@@ -22,13 +22,16 @@ export class AddQuestionComponent implements OnInit {
   question: Question;
   currentUser: User;
 
+  text: any;
+
   questionForm: FormGroup;
 
   constructor(private formBuilder: FormBuilder,
               private questionService: QuestionService,
               private activatedRoute: ActivatedRoute,
               private authService: AuthService,
-              private userService: UserService) {
+              private userService: UserService,
+              private router: Router) {
               }
 
   ngOnInit(): void {
@@ -45,8 +48,7 @@ export class AddQuestionComponent implements OnInit {
     })
 
     this.questionForm = this.formBuilder.group({
-      title: ['', Validators.required],
-      text: ['', Validators.required]
+      title: ['', Validators.required]
     });
   }
 
@@ -60,13 +62,15 @@ export class AddQuestionComponent implements OnInit {
 
     this.question.userId = this.currentUser.id;
     this.question.title = this.questionForm.get('title').value;
-    this.question.text = this.questionForm.get('text').value;
+   // this.question.text = this.questionForm.get('text').value;
+    this.question.text = this.text;
 
     console.log(this.currentUser.id);
     console.log(this.question.topicId);
     this.questionService.postQuestion(this.question).subscribe(
       message => {
-        console.log(message);
+        this.question = message['question'];
+        this.router.navigate(['/discussion/', this.question.id]);
       },
       error => {
         console.log(error);

@@ -59,6 +59,9 @@ import { ChartModule } from 'angular-highcharts';
 import { EditUserDataComponent } from './components/edit-user-data/edit-user-data.component';
 import { SearchResultComponent } from './components/search-result/search-result.component';
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
+import { ManageUsersComponent } from './components/manage-users/manage-users.component';
+import { QuillModule } from 'ngx-quill';
+import { MatQuillModule } from '@webacad/ng-mat-quill';
 
 
 @NgModule({
@@ -89,6 +92,7 @@ import { VerifyEmailComponent } from './components/verify-email/verify-email.com
     EditUserDataComponent,
     SearchResultComponent,
     VerifyEmailComponent,
+    ManageUsersComponent,
   ],
   imports: [
     BrowserModule,
@@ -119,7 +123,9 @@ import { VerifyEmailComponent } from './components/verify-email/verify-email.com
     MatDatepickerModule,
     MatNativeDateModule,
     ChartModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    QuillModule.forRoot(),
+    MatQuillModule
   ],
   providers: [
     {

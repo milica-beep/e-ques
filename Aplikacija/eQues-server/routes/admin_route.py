@@ -50,7 +50,9 @@ def get_unapproved_professors():
 def approve_professor():
     professor_id = request.args.get('id')
 
-    professor = User.query.filter(User.id == professor_id).first()
+    professor = User.query.filter(User.id == professor_id)\
+                          .filter(User.user_status_id != USER_STATUS_SUSPENDED)\
+                          .first()
 
     professor.user_status_id = USER_STATUS_APPROVED
 
@@ -134,3 +136,26 @@ def add_topic():
         db.session.commit()
 
     return jsonify({'topics': [x.serialize() for x in subject.topics]})
+
+@admin_route.route('/admin/get-all-users', methods=['GET'])
+def get_all_users():
+    users = User.query.filter(User.role_id != ROLE_ADMIN)\
+                      .filter(User.user_status_id == USER_STATUS_APPROVED)\
+                      .all()
+    return jsonify({'users': [x.serialize() for x in users]})
+
+@admin_route.route('/admin/delete-user', methods=['DELETE'])
+def delete_user():
+    user_id = request.args.get('id')
+
+    delete_user = User.query.filter(User.id == user_id).first()
+
+    delete_user.user_status_id = USER_STATUS_SUSPENDED
+
+    all_users = User.query.filter(User.role_id != ROLE_ADMIN)\
+                          .filter(User.user_status_id == USER_STATUS_APPROVED)\
+                          .all()
+
+    db.session.commit()
+
+    return jsonify({'users': [x.serialize() for x in all_users]}), 200

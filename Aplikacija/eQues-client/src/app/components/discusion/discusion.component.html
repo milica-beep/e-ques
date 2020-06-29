@@ -15,7 +15,10 @@
         {{ userAsking?.name }} {{ userAsking?.lastname }} </a> -
         {{ question?.timestampStr }}</mat-card-subtitle>
 
-      <mat-card-content>{{ question?.text }}</mat-card-content>
+      <mat-card-content>
+        <quill-editor [(ngModel)]="question.text" [readOnly]="true" [modules]="{toolbar: false}">
+        </quill-editor>
+      </mat-card-content>
       <div class="btn">
         <button mat-raised-button color="primary" [routerLink]="['answer']">Odgovori</button>
       </div>
@@ -38,7 +41,9 @@
         </button>
       </div>
       <mat-card-title>
-        {{ d.answer?.text }}
+        <quill-editor [(ngModel)]="d.answer.text" [readOnly]="true" [modules]="{toolbar: false}">
+        </quill-editor>
+
       </mat-card-title>
         <mat-card-subtitle class="user"> napisao/la: <img mat-card-avatar src={{imagePath}}{{d.answerUser?.image.path}}>
           <a *ngIf="d.answerUser"
@@ -79,7 +84,8 @@
       <div *ngFor="let comment of d.comments" class="comment">
         <mat-card>
           <mat-card-title>
-            {{ comment.comment?.text }}
+            <quill-editor [(ngModel)]="comment.comment.text" [readOnly]="true" [modules]="{toolbar: false}">
+            </quill-editor>
           </mat-card-title>
 
           <mat-card-subtitle class="user">

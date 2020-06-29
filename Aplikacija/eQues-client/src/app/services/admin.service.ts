@@ -48,4 +48,13 @@ export class AdminService {
   addTopic(data: any) {
     return this.http.post(this.serverUrl + 'admin/add-topic', data);
   }
+
+  getAllUsers() {
+    return this.http.get(this.serverUrl + 'admin/get-all-users');
+  }
+
+  deleteUser(userId: number) {
+    let params = new HttpParams().set("id", userId.toString());
+    return this.http.delete<any>(this.serverUrl + 'admin/delete-user', {params:params});
+  }
 }

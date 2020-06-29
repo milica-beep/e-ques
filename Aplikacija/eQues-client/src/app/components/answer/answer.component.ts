@@ -27,6 +27,7 @@ export class AnswerComponent implements OnInit {
 
   form: FormGroup;
 
+  text: any;
   constructor(private activatedRoute: ActivatedRoute,
               private formBuilder: FormBuilder,
               private authService: AuthService,
@@ -101,15 +102,17 @@ export class AnswerComponent implements OnInit {
   get f() { return this.form.controls; }
 
   onSubmit() {
-    if(this.form.invalid) {
-      this.getFormValidationErrors();
-      return;
-    }
+    // if(this.form.invalid) {
+    //   this.getFormValidationErrors();
+    //   return;
+    // }
 
     if(this.activatedRoute.toString().includes("Route(url:'answer', path:'answer')")) {
       this.newAnswer.questionId = this.question.id;
       this.newAnswer.userId = this.currentUser.id;
-      this.newAnswer.text = this.form.get('text').value;
+     // this.newAnswer.text = this.form.get('text').value;
+
+     this.newAnswer.text = this.text;
 
       this.questionService.postAnswer(this.newAnswer).subscribe(
         message => {
