@@ -74,8 +74,6 @@ def get_user():
 def add_consultation():
     req = request.get_json()
 
-    # TODO ne moze dva ista termina proveri
-
     consultation_date = str(req['date'])
     consultation_time = str(req['time'])
     consultation_prof = req['professor']

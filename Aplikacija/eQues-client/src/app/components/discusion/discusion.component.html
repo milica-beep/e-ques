@@ -1,43 +1,34 @@
 <div class="main">
-  <!-- <h3 class="question">{{ question?.title }}</h3>
-  <h2 class="question">{{ question?.text }}</h2>
-  <div class="question">
-    <span class="userAsking"> pitao/la: <a *ngIf="userAsking"
+  <mat-card class="question">
+    <mat-card-title>{{ question?.title }}</mat-card-title>
+    <mat-card-subtitle> <img mat-card-avatar src={{imagePath}}{{userAsking?.image.path}}> <a *ngIf="userAsking"
       [routerLink]="['/user/', userAsking.id]">
       {{ userAsking?.name }} {{ userAsking?.lastname }} </a> -
-      {{ question?.timestampStr }}
-    </span> -->
+      {{ question?.timestampStr }}</mat-card-subtitle>
 
-    <mat-card class="question">
-      <mat-card-title>{{ question?.title }}</mat-card-title>
-      <mat-card-subtitle> <img mat-card-avatar src={{imagePath}}{{userAsking?.image.path}}> <a *ngIf="userAsking"
-        [routerLink]="['/user/', userAsking.id]">
-        {{ userAsking?.name }} {{ userAsking?.lastname }} </a> -
-        {{ question?.timestampStr }}</mat-card-subtitle>
+    <mat-card-content>
+      <quill-editor [(ngModel)]="question.text" [readOnly]="true" [modules]="{toolbar: false}">
+      </quill-editor>
+    </mat-card-content>
+    <div class="btn">
+      <button mat-raised-button color="primary" [routerLink]="['answer']">Odgovori</button>
+    </div>
+  </mat-card>
 
-      <mat-card-content>
-        <quill-editor [(ngModel)]="question.text" [readOnly]="true" [modules]="{toolbar: false}">
-        </quill-editor>
-      </mat-card-content>
-      <div class="btn">
-        <button mat-raised-button color="primary" [routerLink]="['answer']">Odgovori</button>
-      </div>
-    </mat-card>
-
-
-
-  <!-- </div> -->
 
   <div *ngFor="let d of discussion">
     <mat-card class="answer">
       <div class="pinButton">
-        <button mat-button
+        <button *ngIf="currentUser?.roleId == 2" mat-button
                 matTooltip="Pinuj odgovor"
                 matTooltipPosition="above"
                 (click)="pinAnswer(d.answer)"
                 >
           <mat-icon *ngIf="d.answer.isPinned" class="pinIcon">push_pin</mat-icon>
           <mat-icon *ngIf="!d.answer.isPinned">push_pin</mat-icon>
+        </button>
+        <button mat-button *ngIf="currentUser?.roleId != 2 && d.answer.isPinned">
+          <mat-icon class="pinIcon">push_pin</mat-icon>
         </button>
       </div>
       <mat-card-title>

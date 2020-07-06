@@ -127,7 +127,7 @@ export class AnswerComponent implements OnInit {
     else {
       this.newComment.answerId = this.answer.id;
       this.newComment.userId = this.currentUser.id;
-      this.newComment.text = this.form.get('text').value;
+      this.newComment.text = this.text;
 
       this.questionService.postComment(this.newComment).subscribe(
         message => {
