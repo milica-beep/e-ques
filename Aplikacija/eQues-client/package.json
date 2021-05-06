@@ -26,7 +26,7 @@
     "@webacad/ng-quill": "^0.2.0",
     "angular-highcharts": "^9.0.11",
     "c": "^0.1.0",
-    "highcharts": "^8.1.2",
+    "highcharts": "^9.0.0",
     "ngx-quill": "^12.0.1",
     "quill": "^1.3.7",
     "rxjs": "~6.5.4",
